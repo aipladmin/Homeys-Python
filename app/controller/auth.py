@@ -1,11 +1,10 @@
 from bson.objectid import ObjectId
 from flask import Flask, render_template, Blueprint, request, g, session, redirect, url_for
-# from passlib.hash import sha256_crypt
+from werkzeug.exceptions import HTTPException
 from datetime import datetime, timedelta
 from functools import wraps
 from flask_pymongo import PyMongo
 from bson.json_util import dumps,loads
-import sqlite3
 import random
 import string
 from .controller import *
@@ -21,6 +20,18 @@ def password_generator(length):
     letters = string.ascii_lowercase
     rpassword = ''.join(random.choice(letters) for i in range(length))
     return rpassword
+
+@auth.app_errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 @auth.route('/pymongo')
 def pymongo_testrun():
