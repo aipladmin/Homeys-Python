@@ -7,6 +7,10 @@ from flaskext.mysql import MySQL
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 
+import sentry_sdk
+from sentry_sdk import capture_exception
+from sentry_sdk.integrations.flask import FlaskIntegration
+
 from .config import Config
 
 
@@ -43,15 +47,9 @@ def create_app():
     app.config['MYSQL_DATABASE_HOST'] =  'aipldb.cttdwedcfzhs.ap-south-1.rds.amazonaws.com'
     mysql.init_app(app)
 
-    # mail = Mail()
-    # app.config['MAIL_SERVER']='smtp.gmail.com'
-    # app.config['MAIL_PORT']=465
-    # app.config['MAIL_USE_SSL']=True
-    # app.config['MAIL_USERNAME'] = 'developer.websupp@gmail.com'
-    # app.config['MAIL_PASSWORD'] = 'jvlfatxjxjigmryg'
-    # app.config['MAIL_DEFAULT_SENDER'] = 'developer.websupp@gmail.com'
-    # app.config['MAIL_USE_TLS'] = False 
-    # mail.init_app(app)
+    sentry_sdk.init(
+    dsn="https://3cbd60be648047aeaaa21a66b5be645d@o416140.ingest.sentry.io/5552589",
+    integrations=[FlaskIntegration()])
 
 
 
