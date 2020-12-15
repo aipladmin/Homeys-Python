@@ -20,25 +20,25 @@ def create_app():
         instance_relative_config=True,
         static_url_path=''
     )
-    
-  
-    app.config.from_object(Config)
-    
-    
 
-    
-    
+
+    app.config.from_object(Config)
+
+
+
+
+
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
     app.config['SESSION_TYPE'] = 'sqlalchemy'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # quiet warning message
 
     db = SQLAlchemy(app)
-    
+
     app.config['SESSION_SQLALCHEMY']=db
     sess = Session(app)
     db.init_app(app)
     # db.create_all()
-    
+
 
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'admin'

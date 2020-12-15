@@ -10,7 +10,7 @@ import random
 import string
 from .controller import *
 
-auth = Blueprint('auth', 
+auth = Blueprint('auth',
                 __name__,
                 template_folder='templates/auth',
                 static_folder='static/auth',
@@ -62,7 +62,7 @@ def loginscr():
         
         # return redirect(url_for('admin.admintest'))
     return 'loginotp'
-    
+
 
 # LOGOUT CODE
 @auth.route('/logout')
@@ -70,6 +70,11 @@ def loginscr():
 def logout():
     session.pop('email', None)
     return redirect(url_for('auth.login'))
+
+@auth.route('/register')
+def register():
+
+    return render_template('register.html')
 
 
 @auth.route('/register',methods=["POST","GET"])
