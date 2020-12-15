@@ -21,9 +21,10 @@ mysql = MySQL()
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb+srv://MadhavParikh:MJfuRI1MJWEKXkBK@cluster0.8p8et.mongodb.net/sample_restaurants?retryWrites=true&ssl=true&ssl_cert_reqs=CERT_NONE&w=majority")
+client = pymongo.MongoClient("mongodb+srv://MadhavParikh:MJfuRI1MJWEKXkBK@cluster0.8p8et.mongodb.net/mittrisem2?retryWrites=true&ssl=true&ssl_cert_reqs=CERT_NONE&w=majority")
 # print(client.server_info())
-db = client.sample_restaurants
+db = client.mittrisem2
+db_operations = db.homies
 
 app.config['MYSQL_DATABASE_USER'] = 'Sadministrator'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'tk1TF3GjpEc56soEjRR6'

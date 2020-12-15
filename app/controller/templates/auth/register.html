@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Register</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='/auth/css/montserrat-font.css')  }}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/auth/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{{url_for('static',filename='/auth/css/style.css')  }}" />
+</head>
+<body class="form-v10">
+	<div class="page-content">
+		<div class="form-v10-content">
+			<form class="form-detail" action="#" method="POST" id="myform">
+				<div class="form-left">
+					<h2>General Infomation</h2>
+					
+					<div class="form-row">
+						
+						
+							<select name="entity">
+								<option >Select entity</option>
+							    <option value="PG Owner">PG Owner</option>
+							    <option value="User">User</option>
+							</select>
+							<span class="select-btn">
+							  	<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+					</div>
+					<div class="form-row">
+							<input type="text" name="first_name" class="" id="first_name" placeholder="First name" required>
+					</div>
+					<div class="form-row">
+							<input type="text" name="middle_name" class="" id="middle_name" placeholder="Middle name" required>
+					</div>
+					<div class="form-row">
+							<input type="text" name="last_name" class="" id="last_name" placeholder="Last name" required>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="dob" class="dob" id="dob" placeholder="Birth Date" required>
+						</div>
+						<div class="form-row form-row-4">
+							<select name="gender">
+							    <option value="male">Male</option>
+							    <option value="Female">Female</option>
+							</select>
+							<span class="select-btn">
+							  	<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+					</div>
+					<div class="form-row">
+						<input type="email" name="email" class="email" id="email" placeholder="Email ID" required>
+					</div>
+					<div class="form-row">
+						<input type="password" name="password" class="password" id="password" placeholder="Password" required>
+					</div>
+
+				</div>
+				<div class="form-right">
+					<h2>Contact Details</h2>
+					<div class="form-row">
+						<input type="text" name="address_line1" class="addr1" id="addr1" placeholder="Address line 1" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="address_line2" class=addr2 id="addr2" placeholder="Address line 2" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="address_line3" class=addr3 id="addr3" placeholder="Address line 3" required>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row form-row-1">
+								<input type="text" name="area" class="area" id="area" placeholder="Area" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="city" class="city" id="city" placeholder="City" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+							<input type="text" name="state" class="state" id="state" placeholder="State" required>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row form-row-1">
+								<input type="text" name="pincode" class="pincode" id="pincode" placeholder="Pincode" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="country" class="country" id="country" placeholder="Country" required>
+						</div>
+					</div>
+
+					<div class="form-checkbox">
+						<label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
+						  	<input type="checkbox" name="checkbox">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="form-row-last">
+						<input type="submit" class="register">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
