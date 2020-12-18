@@ -44,11 +44,11 @@ def pymongo_testrun():
     print("data:  "+str(json_data))
     return str(json_data)
 
-@auth.route('/')
+@auth.route('/login')
 def login():
     return render_template('index.html')
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/loginscr', methods=['POST'])
 def loginscr():
     if request.method == 'POST':
         email = request.form['email']
@@ -73,12 +73,11 @@ def logout():
 
 @auth.route('/register')
 def register():
-
     return render_template('register.html')
 
 
 @auth.route('/register',methods=["POST","GET"])
-def register():
+def registration():
     if request.method =="POST":
         imdict = request.form
         imdict = imdict.to_dict(flat=False)
@@ -105,6 +104,11 @@ def register():
 @login_required
 def index_template():
     return render_template('index.html')
+
+
+@auth.route('/main')
+def mainpage():
+    return render_template('mainpage.html')
 
 
 @auth.route('/prac')
