@@ -44,11 +44,11 @@ def pymongo_testrun():
     print("data:  "+str(json_data))
     return str(json_data)
 
-@auth.route('/')
+@auth.route('/login')
 def login():
     return render_template('index.html')
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/loginscr', methods=['POST'])
 def loginscr():
     if request.method == 'POST':
         email = request.form['email']
@@ -73,38 +73,17 @@ def logout():
 
 @auth.route('/register')
 def register():
-
-    return render_template('register.html')
-
-
-# @auth.route('/register',methods=["POST","GET"])
-# def register():
-#     if request.method =="POST":
-#         imdict = request.form
-#         imdict = imdict.to_dict(flat=False)
-#         limdict = list(imdict.keys())
-#         # length = len(limdict)
-#         # for i in range(length):
-#         #     limdict[i] = "personalinfo."+str(limdict[i])
-#         # print(limdict)
-#         imdict = {k: str(v[0]) for k,v in imdict.items()}
-        
-#         final_dict = dict(zip(limdict, list(imdict.values()))) 
-#         # print(imdict.values())
-#         try :
-#             db_operations.insert_one({"personal_info":final_dict})
-#         except Exception as e:
-#             return str(e)
-            
-#         return str(final_dict)
-#     return render_template('register.html')
-
-
+  return render_template('register.html')
 
 @auth.route('/index')
 @login_required
 def index_template():
     return render_template('index.html')
+
+
+@auth.route('/main')
+def mainpage():
+    return render_template('mainpage.html')
 
 
 @auth.route('/prac')
