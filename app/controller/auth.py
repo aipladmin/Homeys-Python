@@ -1,4 +1,3 @@
-from types import MethodDescriptorType
 from bson.objectid import ObjectId
 from flask import Flask, render_template, Blueprint, request, g, session, redirect, url_for
 from werkzeug.exceptions import HTTPException
@@ -6,8 +5,9 @@ from datetime import datetime, timedelta
 from functools import wraps
 from flask_pymongo import PyMongo
 from bson.json_util import dumps,loads
-import random
-import string
+import random,string,os
+
+from werkzeug.utils import secure_filename
 from .controller import *
 
 auth = Blueprint('auth',
@@ -33,6 +33,11 @@ def handle_exception(e):
     })
     response.content_type = "application/json"
     return response
+
+@auth.route('/')
+@auth.route('/main')
+def mainpage():
+    return render_template('mainpage.html')
 
 @auth.route('/pymongo')
 def pymongo_testrun():
@@ -71,22 +76,52 @@ def logout():
     session.pop('email', None)
     return redirect(url_for('auth.login'))
 
-@auth.route('/register')
+@auth.route('/register',methods=['GET','POST'])
 def register():
-  return render_template('register.html')
+
+    if request.method == "POST":
+        file = request.files['file_idproof']
+        if file.filename == '':
+           print('No file selected')
+           return 'No file selected'
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filename = str(request.form['email']+'_'+filename)
+            print("filename:   "+str(filename))
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            idproofPath = os.path.join(dir_path,"uploads",filename)
+            file.save(idproofPath)
+            # print(dir_path,idproofPath)
+            
+            file_name=idproofPath 
+            print(file_name)
+            bucket="mittrisem"
+            object_name="id_proofs/"+filename
+            upload_file(file_name=file_name, bucket=bucket, object_name=object_name)
+
+            data = request.form
+            data = data.to_dict(flat=False)
+            ins_value=[]
+            key_value=[]
+            # print(data.keys())
+            for key,value in data.items():
+                ins_value.append(value[0])
+            ins_value = tuple(ins_value)
+            
+            for keyes in data.keys():
+                key_value +=[keyes]
+            
+            key_value =  tuple(key_value)
+            
+            simplified_key_value =  ','.join(key_value) 
+            
+            mysql_query('insert into user_mst({}) values{}'.format(simplified_key_value,ins_value))
+            
+        return "Registered"
+    return render_template('register.html')
+
 
 @auth.route('/index')
 @login_required
 def index_template():
     return render_template('index.html')
-
-
-@auth.route('/main')
-def mainpage():
-    return render_template('mainpage.html')
-
-
-@auth.route('/prac')
-@login_required
-def prac():
-    return render_template('prac.htm.j2')
