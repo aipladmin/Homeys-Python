@@ -15,42 +15,40 @@
 	<div class="page-content">
 		<div class="form-v10-content">
 
-			<form class="form-detail" action="#" method="POST" id="myform">
+			<form class="form-detail" action="{{ url_for('auth.register') }}" enctype=multipart/form-data method="POST" id="myform">
 				<div class="form-left">
-					<h2>General Infomation</h2>
+					<h2>Registration</h2>
 					
 					<div class="form-row">
-						
-						
-							<select name="entity">
+							<select name="UTMID">
 								<option >Select entity</option>
-							    <option value="PG Owner">PG Owner</option>
-							    <option value="User">User</option>
+							    <option value="2">Owner</option>
+							    <option value="3">User</option>
 							</select>
 							<span class="select-btn">
 							  	<i class="zmdi zmdi-chevron-down"></i>
 							</span>
 					</div>
 					<div class="form-row">
-							<input type="text" name="first_name" class="" id="first_name" placeholder="First name" required>
+							<input type="text" name="fname" class="" id="first_name" placeholder="First name" | >
 					</div>
 					<div class="form-row">
-							<input type="text" name="middle_name" class="" id="middle_name" placeholder="Middle name" required>
+							<input type="text" name="mname" class="" id="middle_name" placeholder="Middle name" | >
 					</div>
 					<div class="form-row">
-							<input type="text" name="last_name" class="" id="last_name" placeholder="Last name" required>
+							<input type="text" name="lname" class="" id="last_name" placeholder="Last name" | >
 
 					</div>
 
 					<div class="form-group">
 						<div class="form-row form-row-1">
-							<input type="text" name="dob" class="dob" id="dob" placeholder="Birth Date" required>
+							<input type="text" name="dob" class="dob" id="dob" placeholder="Birth Date" | >
 						</div>
 						<div class="form-row form-row-4">
 
 							<select name="gender">
 							    <option value="male">Male</option>
-							    <option value="Female">Female</option>
+							    <option value="female">Female</option>
 							</select>
 							<span class="select-btn">
 							  	<i class="zmdi zmdi-chevron-down"></i>
@@ -59,53 +57,65 @@
 					</div>
 
 					<div class="form-row">
-						<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" required>
+						<input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number" | >
 					</div>
 					<div class="form-row">
-						<input type="email" name="email" class="email" id="email" placeholder="Email ID" required>
+						<input type="email" name="email" class="email" id="email" placeholder="Email ID" | >
 					</div>
 					<div class="form-row">
-						<input type="password" name="password" class="password" id="password" placeholder="Password" required>
+						<input type="password" name="password" class="password" id="password" placeholder="Password" | >
 					</div>
 
 				</div>
 				<div class="form-right">
-					<h2>Contact Details</h2>
+					<h2>&nbsp;</h2>
 					<div class="form-row">
 
-						<input type="text" name="address_line1" class="addr1" id="addr1" placeholder="Address line 1" required>
+						<input type="text" name="addr1" class="addr1" id="addr1" placeholder="Address line 1" | >
 					</div>
 					<div class="form-row">
-						<input type="text" name="address_line2" class=addr2 id="addr2" placeholder="Address line 2" required>
+						<input type="text" name="addr2" class=addr2 id="addr2" placeholder="Address line 2" | >
 					</div>
-					<div class="form-row">
-						<input type="text" name="address_line3" class=addr3 id="addr3" placeholder="Address line 3" required>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+								<input type="text" name="area" class="area" id="area" placeholder="Area" | >
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="city" class="city" id="city" placeholder="City" | >
+						</div>
+					</div>
 
+					<div class="form-row">
+							<input type="text" name="state" class="state" id="state" placeholder="State" | >
 					</div>
 
 					<div class="form-group">
 						<div class="form-row form-row-1">
-								<input type="text" name="area" class="area" id="area" placeholder="Area" required>
+								<input type="text" name="pincode" class="pincode" id="pincode" placeholder="Pincode" | >
 						</div>
 						<div class="form-row form-row-2">
-							<input type="text" name="city" class="city" id="city" placeholder="City" required>
+
+							<input type="text" name="country" class="country" id="country" placeholder="Country" | >
+
 						</div>
 					</div>
 
 					<div class="form-row">
-							<input type="text" name="state" class="state" id="state" placeholder="State" required>
+							<select name="id_method">
+								<option >Select Proof</option>
+							    <option value="AAD">Aadhar Card</option>
+								<option value="PAN">PAN Card</option>
+								<option value="DRI">Driving Licence</option>
+							</select>
+							<span class="select-btn">
+							  	<i class="zmdi zmdi-chevron-down"></i>
+							</span>
+					</div>
+					<div class="form-row">
+							<input type="file" name='file_idproof'>
+							
 					</div>
 
-					<div class="form-group">
-						<div class="form-row form-row-1">
-								<input type="text" name="pincode" class="pincode" id="pincode" placeholder="Pincode" required>
-						</div>
-						<div class="form-row form-row-2">
-
-							<input type="text" name="country" class="country" id="country" placeholder="Country" required>
-
-						</div>
-					</div>
 
 					<div class="form-checkbox">
 						<label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
@@ -113,10 +123,10 @@
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
+					
+			
 					<div class="form-row-last">
-
 						<input type="submit" class="register">
-
 					</div>
 				</div>
 			</form>
