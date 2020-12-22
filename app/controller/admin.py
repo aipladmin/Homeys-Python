@@ -10,7 +10,7 @@ from .controller import *
 admin = Blueprint('admin',
                  __name__,
                  template_folder='templates',
-                 static_folder='static/dash',
+                 static_folder='static/auth',
                  url_prefix='/admin')
 
 @admin.app_errorhandler(HTTPException)
@@ -25,6 +25,6 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
-@admin.route('/')
-def admintest():
-    return render_template('admin/admin_test.html')
+@admin.route('/adminTest')
+def adminTest():
+    return render_template('admin/adminDashboard_Test.html')
