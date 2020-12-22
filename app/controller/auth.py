@@ -7,6 +7,8 @@ from flask_pymongo import PyMongo
 from bson.json_util import dumps,loads
 import random,string,os
 
+
+
 from werkzeug.utils import secure_filename
 from .controller import *
 
@@ -34,6 +36,7 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
+
 @auth.route('/')
 @auth.route('/main')
 def mainpage():
@@ -58,12 +61,17 @@ def loginscr():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-
-        data = db_operations.find({'personal_info.password':str(password),'personal_info.email':str(email)},{'personal_info.entity':1,'_id':0})
-        ls_data = list(data)
-        json_data = dumps(ls_data)
-        print("data:  "+json_data[0])
-        return json_data[0]
+        data = mysql_query("select user_type_mst.role,user_mst.fname,user_mst.mname,user_mst.lname from user_mst inner join  user_type_mst ON user_mst.UTMID=user_type_mst.UTMID where user_mst.email='{}' and user_mst.password='{}'".format(email,password))
+        print(len(data))
+        if len(data) == 1:
+            session['email'] = email
+            session['role'] = data[0]['role']
+            full_name = data[0]['fname']+" "+data[0]['lname']
+            return redirect(url_for('auth.Dashboard',full_name=full_name))
+        else:
+            flash('Unauthorized','danger')
+            return render_template('flash.html')
+        
         
         # return redirect(url_for('admin.admintest'))
     return 'loginotp'
@@ -74,6 +82,7 @@ def loginscr():
 @login_required
 def logout():
     session.pop('email', None)
+    session.pop('role', None)
     return redirect(url_for('auth.login'))
 
 @auth.route('/register',methods=['GET','POST'])
@@ -125,3 +134,15 @@ def register():
 @login_required
 def index_template():
     return render_template('index.html')
+
+@auth.route('/Dashboard',methods=['GET'])
+def Dashboard():
+    full_name=request.args.get('full_name')
+    print("ADMIN:      "+str(full_name))
+    return render_template('adminDashboard.html',full_name=full_name)
+
+@auth.route('/updateprofile',methods=['GET','POST'])
+def updateProfile():
+    personalinfo = mysql_query("select * from user_mst where email='{}'".format(session['email']))
+    print(personalinfo)
+    return render_template('updateProfile.html',data=personalinfo)
