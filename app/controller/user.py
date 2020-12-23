@@ -8,8 +8,23 @@ from bson.json_util import dumps,loads
 import string
 from .controller import *
  
-user = Blueprint('user', __name__,url_prefix='/user',template_folder='templates',
-                 static_folder='static/dash')
+user = Blueprint('user',
+                __name__,
+                url_prefix='/user',
+                template_folder='templates',
+               static_folder='static/auth')
+
+@user.app_errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 @user.app_errorhandler(HTTPException)
 def handle_exception(e):
@@ -25,4 +40,6 @@ def handle_exception(e):
 
 @user.route('/')
 def usertest():
-    return render_template('user/user_test.html')
+    return render_template('user/userTest.html')
+
+# @user.route('/usernd')

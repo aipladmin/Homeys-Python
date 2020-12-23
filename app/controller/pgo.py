@@ -8,8 +8,23 @@ from bson.json_util import dumps,loads
 import string
 from .controller import *
  
-pgo = Blueprint('pgo', __name__,url_prefix='/pgo',template_folder='templates',
-                 static_folder='static/dash')
+pgo = Blueprint('pgo', 
+                __name__,
+                url_prefix='/pgo',
+                template_folder='templates',
+                static_folder='static/auth')
+
+@pgo.app_errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 @pgo.app_errorhandler(HTTPException)
 def handle_exception(e):
@@ -25,4 +40,5 @@ def handle_exception(e):
 
 @pgo.route('/')
 def pgotest():
-    return render_template('pgo/pgo_test.html')
+    return render_template('pgo/pgotest.html')
+
