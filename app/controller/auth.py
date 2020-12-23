@@ -6,10 +6,8 @@ from functools import wraps
 from flask_pymongo import PyMongo
 from bson.json_util import dumps,loads
 import random,string,os
-
-
-
 from werkzeug.utils import secure_filename
+
 from .controller import *
 
 auth = Blueprint('auth',
@@ -35,7 +33,6 @@ def handle_exception(e):
     })
     response.content_type = "application/json"
     return response
-
 
 @auth.route('/')
 @auth.route('/main')
