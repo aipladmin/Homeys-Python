@@ -42,3 +42,7 @@ def handle_exception(e):
 def pgotest():
     return render_template('pgo/pgotest.html')
 
+@pgo.route('/addpg')
+def addpg():
+    return render_template('pgo/addpg.html')
+

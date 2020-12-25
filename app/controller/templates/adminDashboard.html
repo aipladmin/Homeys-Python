@@ -136,7 +136,7 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-        {% if session[role]== "Admin" %}
+        {% if session['role']== "Admin" %}
 
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
@@ -165,7 +165,7 @@
 
         {% endif %}
 
-        {% if session[role]== "Owner" %}
+        {% if session['role']== "Owner" %}
 
            <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
@@ -183,7 +183,7 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                     class="hide-menu">View Paying Accomodation</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('pgo.addpg')}}"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                     class="hide-menu">Add Paying Accomodation</span></a></li> 
 
@@ -204,7 +204,7 @@
         {% endif %}
 
 
-        {% if session[role]== "User" %}
+        {% if session['role']== "User" %}
 
            <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
