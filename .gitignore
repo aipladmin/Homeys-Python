@@ -105,3 +105,15 @@ venv.bak/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+<<<<<<< Updated upstream
+
+*.xml
+*.iml
+=======
+.idea/misc.xml
+.idea/MIT-TriSem2.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/inspectionProfiles/profiles_settings.xml
+>>>>>>> Stashed changes

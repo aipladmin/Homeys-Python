@@ -106,7 +106,7 @@
                                 <img src="{{ url_for('.static',filename='dash/assets/images/users/profile-pic.jpg') }}" alt="user" class="rounded-circle"
                                     width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                        class="text-dark">{{ full_name }}</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{ session['user_master']['fname'] ~" "~session['user_master']['lname'] }}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -136,6 +136,8 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
+        {% if session['role']== "Admin" %}
+
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar" data-sidebarbg="skin6">
@@ -151,15 +153,95 @@
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                     class="hide-menu">Documentation</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="authentication-login1.html"
-                                aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                                    class="hide-menu">Logout</span></a></li>
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.adminTest') }}"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">Log Out</span></a></li> 
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
+
+        {% endif %}
+
+        {% if session['role']== "Owner" %}
+
+           <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
+                       
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Addons</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">View Paying Accomodation</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('pgo.addpg')}}"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Add Paying Accomodation</span></a></li> 
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Bookings</span></a></li>
+
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">Log Out</span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        {% endif %}
+
+
+        {% if session['role']== "User" %}
+
+           <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
+                       
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Addons</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Search Paying Accomodation</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Bookings</span></a></li> 
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Payment</span></a></li>
+
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">Log Out</span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+
+        {% endif %}
+
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
