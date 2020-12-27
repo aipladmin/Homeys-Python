@@ -1,0 +1,303 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+<style type="text/css">
+.button
+{
+        background-color: #6576e9; 
+        border-radius: 5px;
+        border-width: 0ch;
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 5px 5px 0 rgba(0,0,0,0.19);
+}
+</style>
+<!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class=" col-12 align-self-center"><center>
+                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-10">Add Accomodation</h3></center>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+              
+                <!-- *************************************************************** -->
+                <!-- Start Top Leader Table -->
+                <!-- *************************************************************** -->
+                <div class="row">
+                    <div class="col-11">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <h4 class="card-title">Add Paying Guest details</h4>
+                                </div>
+                                <div class="page-title text-truncate text-dark font-weight-medium mb-10">   
+                                    <form action="" method="post">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                PG Name
+                                                <input type="text" class="form-control" id="pgname" name="pgname" required>
+                                            </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                               Total Rooms
+                                                <input type="number" class="form-control" id="totalrooms" min="1" max="200"  name="totalrooms" required>
+                                            </div>
+                                            </div>
+                            
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                                PG Type
+                                                <select name="pgtype" id="pgtype" class="form-control" required>
+                                                    <option value="Select" disabled selected hidden>----Select PG Type----</option>
+                                                    <option value="boys" >Boys</option>
+                                                    <option value="gitls" >Girls</option>
+                                                </select>
+                                            </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+
+                                                    <div class="custom-file">
+                                                    Upload PG Image
+                                                    <input type="file" class="form-control" id="image" name="image" required>
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                                               
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                               Address1
+                                               <input type="text" class="form-control" id="address1" name="address1" required>
+                                            </div>
+                                            </div>
+                            
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                                Address2
+                                                 <input type="text" class="form-control" id="address1" name="address2" required>
+                                            </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    Area
+                                                    <input type="text" class="form-control" id="area" placeholder="Enter Area Name" name="area" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                              City
+                                               <input type="text" class="form-control" id="city"  name="city" required>
+                                            </div>
+                                            </div>
+                            
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                                State
+                                                <input type="text" class="form-control" id="state" rows="3"  name="state" required>
+                                            </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    Pincode
+                                                    <input type="text" class="form-control" id="pincode" name="pincode" required>
+                                                </div>
+                                                </div>
+                                        </div>
+                                        
+
+                                         <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    Common Facilities
+                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">
+                                        <tr>
+                                            <td> 
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                         <div class="form-group">
+                                                            <input type="checkbox" name="AC"> AC
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                           <input type="checkbox" name="food"> Food
+                                                       </div>
+                                                   </div>
+
+                                                 
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                           <input type="checkbox" name="parking"> Parking
+                                                       </div>
+                                                   </div>
+
+                                                   <div class="col-md-8">
+                                                         <div class="form-group">
+                                                            <input type="checkbox" name="guestallowed"> Guests Allowed
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                           <input type="checkbox" name="tv"> Television
+                                                       </div>
+                                                   </div>
+
+                                                   <div class="col-md-4">
+                                                    <div class="form-group">
+                                                       <input type="checkbox" name="laundry"> Laundry
+                                                   </div>
+                                               </div>
+
+                                                   <div class="col-md-12">
+                                                    <div class="form-group">
+                                                       <input type="checkbox" name="cookingallowed"> Cooking Allowed
+                                                   </div>
+                                                    </div>  
+                                              </div>
+                                            </td>
+                                         </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                   Special Facilities
+                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">
+                                        <tr>
+                                            <td> 
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                         <div class="form-group">
+                                                            <input type="checkbox" name="gym"> Gym                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                           <input type="checkbox" name="Spool"> Swmming Pool
+                                                       </div>
+                                                   </div>
+
+                                                   <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="checkbox" name="vp"> Vehicle Provided
+                                                     </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                           <input type="checkbox" name="dry"> Dry Cleaning
+                                                       </div>
+                                                   </div>
+                                                   
+                                              </div>
+                                            </td>
+                                         </tr>
+                                    </table>
+                                </div>
+                            </div>
+                         </div>
+
+                        
+                              
+                         <div class="row">
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                Property Description
+                                <textarea class="form-control" id="desc" rows="3" placeholder="Tell us something about your property." name="desc" required></textarea>
+                            </div>
+                            </div>
+            
+                        </div>
+
+
+                        <div class="row">			 	
+                            <div class="col-md-12"> 
+                                <div class="form-group">
+                                    &nbsp
+                                    <input type="button" class="button" onclick="addMoreRows(this.form);" value="Add Rooms" ></a>
+                                    <div id="addedRows"></div>
+                                </div>
+                            </div>
+                        </div>	
+                        <script type="text/javascript">
+                            var rowCount = 1;
+                            function addMoreRows(frm) {
+                                rowCount ++;
+                                var recRow = '<div id="rowCount'+rowCount+'"><div class="row"><div class="col-md-4"><div class="form-group"><br> <input type="button" class="button"  value="Delete" style="background-color: #f92952";  onclick="removeRow('+rowCount+');"> </div> </div></div><div class="row"> <div class="col-md-6"> <div class="form-group"> Number of Beds Available <input type="number" class="form-control" id="noofbeds" placeholder="Select number of Beds Available" name="noofbeds" required> </div> </div> <div class="col-md-6"> <div class="form-group"> Room Number<input type="number" class="form-control" id="Rooomno" placeholder="Enter Rooom no." name="roomno" required> </div> </div>  </div>'; $('#addedRows').append(recRow);
+                            }
+                        
+                            function removeRow(removeNum) {
+                                $('#rowCount'+removeNum).remove();
+                            }
+                        </script>
+                        
+                        <br>
+                        <div class="row">			 	
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <input type="submit" class="button" value="submit" style="float: right; height: 40px; width: 80px;">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2" >
+                                <div class="form-group">
+                                    
+                                    <input type="reset" class="button" value="clear" style="float: left;  height: 40px; width: 80px;">
+                                </div>
+                            </div>
+                        </div>	
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+            
+                <!-- *************************************************************** -->
+                <!-- End Top Leader Table -->
+                <!-- *************************************************************** -->
+            
+{% endblock %}
