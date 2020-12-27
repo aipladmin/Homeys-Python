@@ -6,10 +6,8 @@ from functools import wraps
 from flask_pymongo import PyMongo
 from bson.json_util import dumps,loads
 import random,string,os
-
-
-
 from werkzeug.utils import secure_filename
+
 from .controller import *
 
 auth = Blueprint('auth',
@@ -35,7 +33,6 @@ def handle_exception(e):
     })
     response.content_type = "application/json"
     return response
-
 
 @auth.route('/')
 @auth.route('/main')
@@ -66,8 +63,8 @@ def loginscr():
         if len(data) == 1:
             session['email'] = email
             session['role'] = data[0]['role']
-            full_name = data[0]['fname']+" "+data[0]['lname']
-            return redirect(url_for('auth.Dashboard',full_name=full_name))
+            session['user_master'] = data[0]
+            return redirect(url_for('auth.Dashboard'))
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')
@@ -83,6 +80,7 @@ def loginscr():
 def logout():
     session.pop('email', None)
     session.pop('role', None)
+    session.pop('user_master',None)
     return redirect(url_for('auth.login'))
 
 @auth.route('/register',methods=['GET','POST'])

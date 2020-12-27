@@ -26,6 +26,18 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
+@user.app_errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
+
 @user.route('/')
 def usertest():
     return render_template('user/userTest.html')
