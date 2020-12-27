@@ -136,12 +136,14 @@ def index_template():
     return render_template('index.html')
 
 @auth.route('/Dashboard',methods=['GET'])
+@login_required
 def Dashboard():
     full_name=request.args.get('full_name')
     print("ADMIN:      "+str(full_name))
     return render_template('adminDashboard.html',full_name=full_name)
 
 @auth.route('/updateprofile',methods=['GET','POST'])
+@login_required
 def updateProfile():
     personalinfo = mysql_query("select * from user_mst where email='{}'".format(session['email']))
     print(personalinfo)
