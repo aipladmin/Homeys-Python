@@ -26,25 +26,13 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
-@pgo.app_errorhandler(HTTPException)
-def handle_exception(e):
-    response = e.get_response()
-    # replace the body with JSON
-    response.data = json.dumps({
-        "code": e.code,
-        "name": e.name,
-        "description": e.description,
-    })
-    response.content_type = "application/json"
-    return response
+
 
 @pgo.route('/')
 def pgotest():
     return render_template('pgo/pgotest.html')
 
 @pgo.route('/addpg')
-
-@login_required
 def addpg():
     return render_template('pgo/addpg.html')
 
