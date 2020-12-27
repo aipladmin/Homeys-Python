@@ -80,10 +80,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
 
-                                                    <div class="custom-file">
-                                                    Upload PG Image
-                                                    <input type="file" class="form-control" id="image" name="image" required>
-                                                </div>
+                                                
 
 {#                                                     <div class="custom-file">#}
 {#                                                       <input type="file" class="custom-file-input" id="customFile">#}
@@ -95,7 +92,7 @@
                                                     <input type="file" class="form-control" id="image" name="image" required>
                                                 </div>
 
-                                                </div>
+
                                         </div>
                                             
                                         <div class="row">
@@ -254,15 +251,94 @@
                             </div>
             
                         </div>
-
+                        <hr>
 
                         <div class="row">			 	
-                            <div class="col-md-12"> 
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    &nbsp
-                                    <input type="button" class="button" onclick="addMoreRows(this.form);" value="Add Rooms" ></a>
-                                    <div id="addedRows"></div>
-                                </div>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">
+                                      Add Rooms
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="addroom">Add New Room</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                           <form>
+                                              <div class="form-group row">
+                                                <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
+                                                <div class="col-md-6">
+                                                  <input type="number" class="form-control" id="totalbed" >
+                                                </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
+                                                <div class="col-md-6">
+                                                  <input type="number" class="form-control" id="availbed">
+                                                </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
+                                                <div class="col-md-6">
+                                                  <input type="text" class="form-control" id="rent" >
+                                                </div>
+                                              </div>
+                                               <fieldset disabled>
+                                               <div class="form-group row">
+                                                <label for="token" class="col-md-6 col-form-label">Token Amount</label>
+                                                <div class="col-md-6">
+                                                  <input type="text" class="form-control" id="token" >
+                                                </div>
+                                                </div>
+                                               </fieldset>
+
+                                              <div class="form-group row">
+                                                <div class="col-md-6">Air conditioner</div>
+                                                <div class="col-md-2">
+                                                  <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                               <div class="form-group row">
+                                                <div class="col-md-6">Personal Television</div>
+                                                <div class="col-md-2">
+                                                  <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                               <div class="form-group row">
+                                                <div class="col-md-3">Room Images</div>
+                                                <div class="col-md-9">
+                                                  <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFile">
+                                                    <label class="custom-file-label" for="customFile">Choose files</label>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+
+
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="reset" class="btn btn-secondary" >Clear</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMoreRows(this.form);">Save changes</button>
+                                          </div>
+                                        </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                 <div id="addedRows"></div>
+                                 </div>
                             </div>
                         </div>	
                         <script type="text/javascript">
