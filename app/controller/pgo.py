@@ -43,6 +43,8 @@ def pgotest():
     return render_template('pgo/pgotest.html')
 
 @pgo.route('/addpg')
+
+@login_required
 def addpg():
     return render_template('pgo/addpg.html')
 
