@@ -17,67 +17,178 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="pgname">PG Name</label>
-                                                <input type="text" class="form-control" id="pgname">
+                                                <input type="text" name="pg_name" class="form-control" id="pgname">
                                             </div>
 
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="totroom">Total Rooms</label>
-                                            <input type="number" class="form-control" id="totroom"  >
+                                            <input type="number" name="total_rooms" class="form-control" id="totroom"  >
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="pgtype">PG Type</label>
-                                            <select name="pgtype" id="pgtype" class="form-control" >
+                                            <select name="pgtype" id="pgtype" name="pg_type" class="form-control" >
+                                              
                                                     <option value="boys" >Men's</option>
-                                                    <option value="gitls" >Women's</option>
+                                                    <option value="girls" >Women's</option>
                                             </select>
                                             </div>
                                         </div>
                                          <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="addr1">Address Line 1</label>
-                                                <input type="text" class="form-control" id="addr1">
+                                                <input type="text" name="adressline1" class="form-control" id="addr1">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="addr2">Address Line 2</label>
-                                                <input type="text" class="form-control" id="addr2">
+                                                <input type="text" name="adressline2" class="form-control" id="addr2">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="area">Area</label>
-                                            <input type="text" class="form-control" id="area">
+                                            <input type="text" name="area" class="form-control" id="area">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="inputCity">City</label>
-                                            <input type="text" class="form-control" id="inputCity">
+                                            <input type="text" name="city" class="form-control" id="inputCity">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="state">State</label>
-                                            <input type="text" class="form-control" id="state">
+                                            <input type="text" name="state" class="form-control" id="state">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="zip">Pincode</label>
-                                            <input type="text" class="form-control" id="zip">
+                                            <input type="text" name="pincode" class="form-control" id="zip">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <input type="file" name="pg_files" multiple class="custom-file-input" id="customFile">
                                                 <label class="custom-file-label" for="customFile">Upload PG Images</label>
                                             </div>
                                             </div>
                                         </div>
+                                        
+                                        <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                            <div class="form-row">
+                                              <div class="form-group col-md-12 mb-0">
+                                                <label>Common Facilities</label>
+                                              </div>
+                                            </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="ac" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    AC
+                                                  </label>
+                                                </div>
+                                              </div>
 
-                                        <br>
-
+                                                <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="cooking_allowed" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Cooking Allowed
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="food" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Food
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                               <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="parking" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Parking
+                                                   </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="laundry" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Laundry
+                                                   </label>
+                                                </div>
+                                              </div>
+                                               <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="television" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Television
+                                                   </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="guests_allowed" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Guests Allowed
+                                                   </label>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                            <div class="form-row">
+                                              <div class="form-group col-md-12 mb-0">
+                                                <label>Special Facilities</label>
+                                              </div>
+                                            </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="gym" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    GYM
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="swimming_pool" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Swimming Pool
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="vehicles_provided" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Vehicles Provided
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="dry_cleaning" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Dry Cleaning
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                       
+                                              
+                                     
                                         <div class="form-row">
                                           <div class="form-group col-md-12">
                                             <label for="prop">Property Description</label>
@@ -89,14 +200,14 @@
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">
                                       Add Rooms
                                     </button>
-
+                                    </div>
                                     <!-- Modal -->
                                     <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
                                       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <h5 class="modal-title" id="addroom">Add New Room</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
@@ -105,26 +216,26 @@
                                               <div class="form-group row">
                                                 <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="totalbed" >
+                                                  <input type="number" name="total_beds" class="form-control" id="totalbed" >
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="availbed">
+                                                  <input type="number" name="vacant_beds" class="form-control" id="availbed">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="rent" >
+                                                  <input type="text" name="room_rent" class="form-control" id="rent" >
                                                 </div>
                                               </div>
                                                <fieldset disabled>
                                                <div class="form-group row">
                                                 <label for="token" class="col-md-6 col-form-label">Token Amount</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="token" >
+                                                  <input type="text" name="token_amount" class="form-control" id="token" >
                                                 </div>
                                                 </div>
                                                </fieldset>
@@ -133,7 +244,7 @@
                                                 <div class="col-md-6">Air conditioner</div>
                                                 <div class="col-md-2">
                                                   <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                    <input class="form-check-input" name="room_ac" type="checkbox" id="ac">
                                                   </div>
                                                 </div>
                                               </div>
@@ -141,7 +252,7 @@
                                                 <div class="col-md-6">Personal Television</div>
                                                 <div class="col-md-2">
                                                   <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                    <input class="form-check-input" name="room_tv" type="checkbox" id="ac">
                                                   </div>
                                                 </div>
                                               </div>
@@ -150,8 +261,8 @@
                                                 <div class="col-md-3">Room Images</div>
                                                 <div class="col-md-9">
                                                   <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile">Choose files</label>
+                                                    <input type="file" class="custom-file-input" name=   id="customFile">
+                                                    <label class="custom-file-label"  for="customFile">Choose files</label>
                                                   </div>
                                                 </div>
                                               </div>
