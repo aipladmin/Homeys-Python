@@ -1,274 +1,91 @@
 {% extends 'adminDashboard.html' %}
 
 {% block content %}
-<style type="text/css">
-.button
-{
-        background-color: #6576e9; 
-        border-radius: 5px;
-        border-width: 0ch;
-        color: white;
-        padding: 5px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        cursor: pointer;
-        box-shadow: 0 5px 5px 0 rgba(0,0,0,0.19);
-}
-</style>
-<!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class=" col-12 align-self-center"><center>
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-10">Add Accomodation</h3></center>
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
+
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
-              
-                <!-- *************************************************************** -->
-                <!-- Start Top Leader Table -->
-                <!-- *************************************************************** -->
+             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <h4 class="card-title">Add Paying Guest details</h4>
-                                </div>
-                                <div class="page-title text-truncate text-dark font-weight-medium mb-10">   
-                                    <form action="" method="post">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                PG Name
-                                                <input type="text" class="form-control" id="pgname" placeholder="Enter Paying Guest Name" name="pgname" required>
+                                <h4 class="card-title">Add New PG Details</h4><br/>
+                                <form action="#">
+                                    <div class="form-body">
 
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="pgname">PG Name</label>
+                                                <input type="text" class="form-control" id="pgname">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="totroom">Total Rooms</label>
+                                            <input type="number" class="form-control" id="totroom"  >
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="pgtype">PG Type</label>
+                                            <select name="pgtype" id="pgtype" class="form-control" >
+                                                    <option value="boys" >Men's</option>
+                                                    <option value="gitls" >Women's</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                         <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="addr1">Address Line 1</label>
+                                                <input type="text" class="form-control" id="addr1">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="addr2">Address Line 2</label>
+                                                <input type="text" class="form-control" id="addr2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="area">Area</label>
+                                            <input type="text" class="form-control" id="area">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="inputCity">City</label>
+                                            <input type="text" class="form-control" id="inputCity">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="state">State</label>
+                                            <input type="text" class="form-control" id="state">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="zip">Pincode</label>
+                                            <input type="text" class="form-control" id="zip">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" for="customFile">Upload PG Images</label>
                                             </div>
                                             </div>
                                         </div>
 
+                                        <br>
 
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                               Total Rooms
-
-                                                <input type="number" class="form-control" id="totalrooms" min="1" max="200"  name="totalrooms" required>
-
-                                            </div>
-                                            </div>
-                            
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                                PG Type
-                                                <select name="pgtype" id="pgtype" class="form-control" required>
-                                                    <option value="Select" disabled selected hidden>----Select PG Type----</option>
-                                                    <option value="boys" >Boys</option>
-                                                    <option value="gitls" >Girls</option>
-                                                </select>
-                                            </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-
-
-                                                    <div class="custom-file">
-                                                    Upload PG Image
-                                                    <input type="file" class="form-control" id="image" name="image" required>
-                                                    </div>
-                                                </div>
-                                                </div>
-
-                                               
-
+                                        <div class="form-row">
+                                          <div class="form-group col-md-12">
+                                            <label for="prop">Property Description</label>
+                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property"></textarea>
+                                          </div>
                                         </div>
-                                            
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                               Address1
 
-                                               <input type="text" class="form-control" id="address1" name="address1" required>
-
-                                            </div>
-                                            </div>
-                            
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                                Address2
-
-                                                 <input type="text" class="form-control" id="address1" name="address2" required>
-
-                                            </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    Area
-                                                    <input type="text" class="form-control" id="area" placeholder="Enter Area Name" name="area" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                              City
-
-                                               <input type="text" class="form-control" id="city"  name="city" required>
-
-                                            </div>
-                                            </div>
-                            
-                                            <div class="col-md-4">
-                                            <div class="form-group">
-                                                State
-
-                                                <input type="text" class="form-control" id="state" rows="3"  name="state" required>
-
-                                            </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    Pincode
-
-                                                    <input type="text" class="form-control" id="pincode" name="pincode" required>
-
-                                                </div>
-                                                </div>
-                                        </div>
-                                        
-
-                                         <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    Common Facilities
-                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">
-                                        <tr>
-                                            <td> 
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                         <div class="form-group">
-                                                            <input type="checkbox" name="AC"> AC
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                           <input type="checkbox" name="food"> Food
-                                                       </div>
-                                                   </div>
-
-                                                 
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-
-                                                           <input type="checkbox" name="parking"> Parking
-
-                                                       </div>
-                                                   </div>
-
-                                                   <div class="col-md-8">
-                                                         <div class="form-group">
-                                                            <input type="checkbox" name="guestallowed"> Guests Allowed
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                           <input type="checkbox" name="tv"> Television
-                                                       </div>
-                                                   </div>
-
-                                                   <div class="col-md-4">
-                                                    <div class="form-group">
-                                                       <input type="checkbox" name="laundry"> Laundry
-                                                   </div>
-                                               </div>
-
-                                                   <div class="col-md-12">
-                                                    <div class="form-group">
-                                                       <input type="checkbox" name="cookingallowed"> Cooking Allowed
-                                                   </div>
-                                                    </div>  
-                                              </div>
-                                            </td>
-                                         </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                   Special Facilities
-                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">
-                                        <tr>
-                                            <td> 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                         <div class="form-group">
-                                                            <input type="checkbox" name="gym"> Gym                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                           <input type="checkbox" name="Spool"> Swmming Pool
-                                                       </div>
-                                                   </div>
-
-                                                   <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input type="checkbox" name="vp"> Vehicle Provided
-                                                     </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                           <input type="checkbox" name="dry"> Dry Cleaning
-                                                       </div>
-                                                   </div>
-                                                   
-                                              </div>
-                                            </td>
-                                         </tr>
-                                    </table>
-                                </div>
-                            </div>
-                         </div>
-
-                        
-                              
-                         <div class="row">
-                            <div class="col-md-12">
-                            <div class="form-group">
-                                Property Description
-                                <textarea class="form-control" id="desc" rows="3" placeholder="Tell us something about your property." name="desc" required></textarea>
-                            </div>
-                            </div>
-            
-                        </div>
-
-                        <hr>
-
-                        <div class="row">			 	
-                            <div class="col-md-12">
-                                <div class="form-group">
+                                    <div class="form-group">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">
                                       Add Rooms
                                     </button>
@@ -339,8 +156,6 @@
                                                 </div>
                                               </div>
 
-
-
                                           </div>
                                           <div class="modal-footer">
                                             <button type="reset" class="btn btn-secondary" >Clear</button>
@@ -350,47 +165,265 @@
                                         </div>
                                       </div>
                                     </div>
-                                 <div id="addedRows"></div>
-                                 </div>
 
+
+
+                                    <div class="form-actions">
+                                        <div class="text-left">
+                                            <button type="reset" class="btn btn-dark">Reset</button>
+                                            <button type="submit" class="btn btn-info">Submit</button>
+
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>	
-                        <script type="text/javascript">
-                            var rowCount = 1;
-                            function addMoreRows(frm) {
-                                rowCount ++;
-                                var recRow = '<div id="rowCount'+rowCount+'"><div class="row"><div class="col-md-4"><div class="form-group"><br> <input type="button" class="button"  value="Delete" style="background-color: #f92952";  onclick="removeRow('+rowCount+');"> </div> </div></div><div class="row"> <div class="col-md-6"> <div class="form-group"> Number of Beds Available <input type="number" class="form-control" id="noofbeds" placeholder="Select number of Beds Available" name="noofbeds" required> </div> </div> <div class="col-md-6"> <div class="form-group"> Room Number<input type="number" class="form-control" id="Rooomno" placeholder="Enter Rooom no." name="roomno" required> </div> </div>  </div>'; $('#addedRows').append(recRow);
-                            }
-                        
-                            function removeRow(removeNum) {
-                                $('#rowCount'+removeNum).remove();
-                            }
-                        </script>
-                        
-                        <br>
-                        <div class="row">			 	
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-
-                                    <input type="submit" class="button" value="submit" style="float: right; height: 40px; width: 80px;">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2" >
-                                <div class="form-group">
-                                    
-                                    <input type="reset" class="button" value="clear" style="float: left;  height: 40px; width: 80px;">
-                                </div>
-                            </div>
-                        </div>	
-                    </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+
+
+
+
+
+
+
+
+{#                                <div class="form-group">#}
+{#                                    Common Facilities#}
+{#                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">#}
+{#                                        <tr>#}
+{#                                            <td> #}
+{#                                                <div class="row">#}
+{#                                                    <div class="col-md-4">#}
+{#                                                         <div class="form-group">#}
+{#                                                            <input type="checkbox" name="AC"> AC#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="col-md-6">#}
+{#                                                        <div class="form-group">#}
+{#                                                           <input type="checkbox" name="food"> Food#}
+{#                                                       </div>#}
+{#                                                   </div>#}
+{##}
+{#                                                 #}
+{##}
+{#                                                    <div class="col-md-4">#}
+{#                                                        <div class="form-group">#}
+{##}
+{#                                                           <input type="checkbox" name="parking"> Parking#}
+{##}
+{#                                                       </div>#}
+{#                                                   </div>#}
+{##}
+{#                                                   <div class="col-md-8">#}
+{#                                                         <div class="form-group">#}
+{#                                                            <input type="checkbox" name="guestallowed"> Guests Allowed#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="col-md-4">#}
+{#                                                        <div class="form-group">#}
+{#                                                           <input type="checkbox" name="tv"> Television#}
+{#                                                       </div>#}
+{#                                                   </div>#}
+{##}
+{#                                                   <div class="col-md-4">#}
+{#                                                    <div class="form-group">#}
+{#                                                       <input type="checkbox" name="laundry"> Laundry#}
+{#                                                   </div>#}
+{#                                               </div>#}
+{##}
+{#                                                   <div class="col-md-12">#}
+{#                                                    <div class="form-group">#}
+{#                                                       <input type="checkbox" name="cookingallowed"> Cooking Allowed#}
+{#                                                   </div>#}
+{#                                                    </div>  #}
+{#                                              </div>#}
+{#                                            </td>#}
+{#                                         </tr>#}
+{#                                    </table>#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{##}
+{#                            <div class="col-md-6">#}
+{#                                <div class="form-group">#}
+{#                                   Special Facilities#}
+{#                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">#}
+{#                                        <tr>#}
+{#                                            <td> #}
+{#                                                <div class="row">#}
+{#                                                    <div class="col-md-12">#}
+{#                                                         <div class="form-group">#}
+{#                                                            <input type="checkbox" name="gym"> Gym                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="col-md-12">#}
+{#                                                        <div class="form-group">#}
+{#                                                           <input type="checkbox" name="Spool"> Swmming Pool#}
+{#                                                       </div>#}
+{#                                                   </div>#}
+{##}
+{#                                                   <div class="col-md-12">#}
+{#                                                    <div class="form-group">#}
+{#                                                        <input type="checkbox" name="vp"> Vehicle Provided#}
+{#                                                     </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="col-md-12">#}
+{#                                                        <div class="form-group">#}
+{#                                                           <input type="checkbox" name="dry"> Dry Cleaning#}
+{#                                                       </div>#}
+{#                                                   </div>#}
+{#                                                   #}
+{#                                              </div>#}
+{#                                            </td>#}
+{#                                         </tr>#}
+{#                                    </table>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                         </div>#}
+{##}
+{#                        #}
+{#                              #}
+{#                         <div class="row">#}
+{#                            <div class="col-md-12">#}
+{#                            <div class="form-group">#}
+{#                                Property Description#}
+{#                                <textarea class="form-control" id="desc" rows="3" placeholder="Tell us something about your property." name="desc" required></textarea>#}
+{#                            </div>#}
+{#                            </div>#}
+{#            #}
+{#                        </div>#}
+{##}
+{#                        <hr>#}
+{##}
+{#                        <div class="row">			 	#}
+{#                            <div class="col-md-12">#}
+{#                                <div class="form-group">#}
+{#                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">#}
+{#                                      Add Rooms#}
+{#                                    </button>#}
+{##}
+{#                                    <!-- Modal -->#}
+{#                                    <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">#}
+{#                                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">#}
+{#                                        <div class="modal-content">#}
+{#                                          <div class="modal-header">#}
+{#                                            <h5 class="modal-title" id="addroom">Add New Room</h5>#}
+{#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                                              <span aria-hidden="true">&times;</span>#}
+{#                                            </button>#}
+{#                                          </div>#}
+{#                                          <div class="modal-body">#}
+{#                                           <form>#}
+{#                                              <div class="form-group row">#}
+{#                                                <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>#}
+{#                                                <div class="col-md-6">#}
+{#                                                  <input type="number" class="form-control" id="totalbed" >#}
+{#                                                </div>#}
+{#                                              </div>#}
+{#                                              <div class="form-group row">#}
+{#                                                <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>#}
+{#                                                <div class="col-md-6">#}
+{#                                                  <input type="number" class="form-control" id="availbed">#}
+{#                                                </div>#}
+{#                                              </div>#}
+{#                                              <div class="form-group row">#}
+{#                                                <label for="rent" class="col-md-6 col-form-label">Room Rent</label>#}
+{#                                                <div class="col-md-6">#}
+{#                                                  <input type="text" class="form-control" id="rent" >#}
+{#                                                </div>#}
+{#                                              </div>#}
+{#                                               <fieldset disabled>#}
+{#                                               <div class="form-group row">#}
+{#                                                <label for="token" class="col-md-6 col-form-label">Token Amount</label>#}
+{#                                                <div class="col-md-6">#}
+{#                                                  <input type="text" class="form-control" id="token" >#}
+{#                                                </div>#}
+{#                                                </div>#}
+{#                                               </fieldset>#}
+{##}
+{#                                              <div class="form-group row">#}
+{#                                                <div class="col-md-6">Air conditioner</div>#}
+{#                                                <div class="col-md-2">#}
+{#                                                  <div class="form-check">#}
+{#                                                    <input class="form-check-input" type="checkbox" id="ac">#}
+{#                                                  </div>#}
+{#                                                </div>#}
+{#                                              </div>#}
+{#                                               <div class="form-group row">#}
+{#                                                <div class="col-md-6">Personal Television</div>#}
+{#                                                <div class="col-md-2">#}
+{#                                                  <div class="form-check">#}
+{#                                                    <input class="form-check-input" type="checkbox" id="ac">#}
+{#                                                  </div>#}
+{#                                                </div>#}
+{#                                              </div>#}
+{##}
+{#                                               <div class="form-group row">#}
+{#                                                <div class="col-md-3">Room Images</div>#}
+{#                                                <div class="col-md-9">#}
+{#                                                  <div class="custom-file">#}
+{#                                                    <input type="file" class="custom-file-input" id="customFile">#}
+{#                                                    <label class="custom-file-label" for="customFile">Choose files</label>#}
+{#                                                  </div>#}
+{#                                                </div>#}
+{#                                              </div>#}
+{##}
+{#                                          </div>#}
+{#                                          <div class="modal-footer">#}
+{#                                            <button type="reset" class="btn btn-secondary" >Clear</button>#}
+{#                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMoreRows(this.form);">Save changes</button>#}
+{#                                          </div>#}
+{#                                        </form>#}
+{#                                        </div>#}
+{#                                      </div>#}
+{#                                    </div>#}
+{#                                 <div id="addedRows"></div>#}
+{#                                 </div>#}
+{##}
+{#                            </div>#}
+{#                        </div>	#}
+{#                        <script type="text/javascript">#}
+{#                            var rowCount = 1;#}
+{#                            function addMoreRows(frm) {#}
+{#                                rowCount ++;#}
+{#                                var recRow = '<div id="rowCount'+rowCount+'"><div class="row"><div class="col-md-4"><div class="form-group"><br> <input type="button" class="button"  value="Delete" style="background-color: #f92952";  onclick="removeRow('+rowCount+');"> </div> </div></div><div class="row"> <div class="col-md-6"> <div class="form-group"> Number of Beds Available <input type="number" class="form-control" id="noofbeds" placeholder="Select number of Beds Available" name="noofbeds" required> </div> </div> <div class="col-md-6"> <div class="form-group"> Room Number<input type="number" class="form-control" id="Rooomno" placeholder="Enter Rooom no." name="roomno" required> </div> </div>  </div>'; $('#addedRows').append(recRow);#}
+{#                            }#}
+{#                        #}
+{#                            function removeRow(removeNum) {#}
+{#                                $('#rowCount'+removeNum).remove();#}
+{#                            }#}
+{#                        </script>#}
+{#                        #}
+{#                        <br>#}
+{#                        <div class="row">			 	#}
+{##}
+{#                            <div class="col-md-6">#}
+{#                                <div class="form-group">#}
+{##}
+{#                                    <input type="reset" class="btn btn-dark" value="Clear" style="float: right; height: 40px; width: 80px;">#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                            <div class="col-md-2" >#}
+{#                                <div class="form-group">#}
+{#                                    #}
+{#                                    <input type="submit" class="btn btn-info" value="Submit" style="float: left;  height: 40px; width: 80px;">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>	#}
+{#                    </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 
 
             
