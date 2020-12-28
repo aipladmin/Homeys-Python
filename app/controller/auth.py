@@ -64,7 +64,12 @@ def loginscr():
             session['email'] = email
             session['role'] = data[0]['role']
             session['user_master'] = data[0]
-            return redirect(url_for('auth.Dashboard'))
+            if session['role']=="Owner":
+                return redirect(url_for('pgo.pgotest'))
+            elif session['role']=="Admin":
+                return redirect(url_for('auth.dashbord')) 
+            elif session['user']=="user":
+                return redirect(url_for('user.usertest'))   
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')
