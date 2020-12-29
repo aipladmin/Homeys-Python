@@ -48,3 +48,7 @@ def pgotest():
 def addpg():
     return render_template('pgo/addpg.html')
 
+@pgo.route('/viewpg')
+def viewpg():
+    return render_template('pgo/viewpg.html')
+
