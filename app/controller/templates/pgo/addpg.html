@@ -1,0 +1,262 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+       
+                {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                
+              {% endif %}
+            {% endwith %}
+           
+              <style>
+                #selectedFiles img {
+		max-width: 125px;
+		max-height: 125px;
+		float: left;
+		margin-bottom:10px;
+	}
+              </style>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Add New PG Details</h4><br/>
+                                <form id="myForm" action="{{ url_for('pgo.addpg') }}" method="POST" enctype="multipart/form-data">
+                                    <div class="form-body">
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="pgname">PG Name</label>
+                                                <input type="text" name="pg_name" class="form-control" id="pgname">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="totroom">Total Rooms</label>
+                                            <input type="number" name="total_rooms" class="form-control" id="totroom"  >
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="pgtype">PG Type</label>
+                                            <select name="pgtype" id="pgtype" name="pg_type" class="form-control" >
+                                                  <option value="boys" >Men's</option>
+                                                  <option value="girls" >Women's</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                         <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="addr1">Address Line 1</label>
+                                                <input type="text" name="adressline1" class="form-control" id="addr1">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="addr2">Address Line 2</label>
+                                                <input type="text" name="adressline2" class="form-control" id="addr2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="area">Area</label>
+                                            <input type="text" name="area" class="form-control" id="area">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="inputCity">City</label>
+                                            <input type="text" name="city" class="form-control" id="inputCity">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="state">State</label>
+                                            <input type="text" name="state" class="form-control" id="state">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="zip">Pincode</label>
+                                            <input type="text" name="pincode" class="form-control" id="zip">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                            Files: <input type="file" id="files" name="files" multiple accept="image/*">
+                                            </div>
+                                            <div id="selectedFiles"></div>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                            <div class="form-row">
+                                              <div class="form-group col-md-12 mb-0">
+                                                <label>Common Facilities</label>
+                                              </div>
+                                            </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="AC" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    AC
+                                                  </label>
+                                                </div>
+                                              </div>
+
+                                                <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Cooking Allowed" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Cooking Allowed
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Food" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Food
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                               <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Parking" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Parking
+                                                   </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Laundry" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Laundry
+                                                   </label>
+                                                </div>
+                                              </div>
+                                               <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Television" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Television
+                                                   </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="Guests Allowed" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Guests Allowed
+                                                   </label>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                            <div class="form-row">
+                                              <div class="form-group col-md-12 mb-0">
+                                                <label>Special Facilities</label>
+                                              </div>
+                                            </div>
+                                              <div class="form-group col-md-2">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="special_facilities" value="GYM" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    GYM
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="special_facilities" value="Swimming Pool" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Swimming Pool
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="special_facilities" value="Vehicles Provided" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Vehicles Provided
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                              <div class="form-group col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="special_facilities" value="Dry Cleaning" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    Dry Cleaning
+                                                    
+                                                  </label>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                       <div class="form-row">
+                                          <div class="form-group col-md-12">
+                                            <label for="prop">Property Description</label>
+                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property" name="prop_desc"></textarea>
+                                          </div>
+                                        </div>
+                                     <div class="form-actions">
+                                        <div class="text-left">
+                                            <button type="reset" class="btn btn-dark">Reset</button>
+                                            <button type="submit" class="btn btn-info">Submit</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+	var selDiv = "";
+		
+	document.addEventListener("DOMContentLoaded", init, false);
+	
+	function init() {
+		document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+		selDiv = document.querySelector("#selectedFiles");
+	}
+		
+	function handleFileSelect(e) {
+		
+		if(!e.target.files || !window.FileReader) return;
+
+		selDiv.innerHTML = "";
+		
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		filesArr.forEach(function(f) {
+			// var f = files[i];
+			if(!f.type.match("image.*")) {
+				return;
+			}
+
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var html = "<img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/>";
+				selDiv.innerHTML += html;				
+			}
+			reader.readAsDataURL(f); 
+		});
+		
+	}
+	</script>
+                <!-- *************************************************************** -->
+                <!-- End Top Leader Table -->
+                <!-- *************************************************************** -->
+{% endblock %}

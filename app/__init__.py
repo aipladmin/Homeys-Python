@@ -23,29 +23,25 @@ def create_app():
 
 
     app.config.from_object(Config)
+    app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024   # 5 MB limit
 
 
 
 
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+    # app.config['SESSION_TYPE'] = 'sqlalchemy'
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # quiet warning message
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-    app.config['SESSION_TYPE'] = 'sqlalchemy'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # quiet warning message
-
-    db = SQLAlchemy(app)
-
-    app.config['SESSION_SQLALCHEMY']=db
-    sess = Session(app)
-    db.init_app(app)
+    # db = SQLAlchemy(app)
+    # app.config['SESSION_SQLALCHEMY']=db
+    
+    # sess = Session(app)
+    # db.init_app(app)
     # db.create_all()
+    # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    # db_path = os.path.join(BASE_DIR, "db.sqlite3")
+    # print(db_path)
 
-
-    mysql = MySQL()
-    app.config['MYSQL_DATABASE_USER'] = 'admin'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'adminadmin'
-    app.config['MYSQL_DATABASE_DB'] = 'finrep'
-    app.config['MYSQL_DATABASE_HOST'] =  'aipldb.cttdwedcfzhs.ap-south-1.rds.amazonaws.com'
-    mysql.init_app(app)
 
     sentry_sdk.init(
     dsn="https://3cbd60be648047aeaaa21a66b5be645d@o416140.ingest.sentry.io/5552589",

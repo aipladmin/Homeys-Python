@@ -58,13 +58,18 @@ def loginscr():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        data = mysql_query("select user_type_mst.role,user_mst.fname,user_mst.mname,user_mst.lname from user_mst inner join  user_type_mst ON user_mst.UTMID=user_type_mst.UTMID where user_mst.email='{}' and user_mst.password='{}'".format(email,password))
+        data = mysql_query("select user_mst.UID,user_type_mst.role,user_mst.fname,user_mst.mname,user_mst.lname from user_mst inner join  user_type_mst ON user_mst.UTMID=user_type_mst.UTMID where user_mst.email='{}' and user_mst.password='{}'".format(email,password))
         print(len(data))
         if len(data) == 1:
             session['email'] = email
             session['role'] = data[0]['role']
-            full_name = data[0]['fname']+" "+data[0]['lname']
-            return redirect(url_for('auth.Dashboard',full_name=full_name))
+            session['user_master'] = data[0]
+            if session['role']=="Owner":
+                return redirect(url_for('pgo.pgotest'))
+            elif session['role']=="Admin":
+                return redirect(url_for('auth.dashbord')) 
+            elif session['user']=="user":
+                return redirect(url_for('user.usertest'))   
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')
@@ -80,6 +85,7 @@ def loginscr():
 def logout():
     session.pop('email', None)
     session.pop('role', None)
+    session.pop('user_master',None)
     return redirect(url_for('auth.login'))
 
 @auth.route('/register',methods=['GET','POST'])
@@ -133,12 +139,14 @@ def index_template():
     return render_template('index.html')
 
 @auth.route('/Dashboard',methods=['GET'])
+@login_required
 def Dashboard():
-    full_name=request.args.get('full_name')
-    print("ADMIN:      "+str(full_name))
-    return render_template('adminDashboard.html',full_name=full_name)
+
+    
+    return render_template('adminDashboard.html')
 
 @auth.route('/updateprofile',methods=['GET','POST'])
+@login_required
 def updateProfile():
     personalinfo = mysql_query("select * from user_mst where email='{}'".format(session['email']))
     print(personalinfo)

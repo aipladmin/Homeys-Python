@@ -55,6 +55,8 @@ def mysql_query(sql):
         cursor.execute(sql)
         print(cursor._executed)
         
+        mysql_query.last_row_id = cursor.lastrowid
+
         connection.commit()
         cursor.close()
         connection.close()
@@ -160,19 +162,9 @@ def upload_file(file_name, bucket, object_name=None):
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'email' in session and "blockid" in session:
+        if 'email' in session and "role" in session and  "user_master" in session:
             return f(*args, **kwargs)
         else:
             # flash('You need to login first')
             return redirect(url_for('auth.login'))
-    return wrap
-
-def admin_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'admin_email' in session and "role" in session:
-            return f(*args, **kwargs)
-        else:
-            # flash('You need to login first')
-            return redirect(url_for('admin.login'))
     return wrap
