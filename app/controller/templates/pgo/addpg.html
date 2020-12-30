@@ -1,7 +1,27 @@
 {% extends 'adminDashboard.html' %}
 
 {% block content %}
+       
+                {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
 
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                
+              {% endif %}
+            {% endwith %}
+           
+              <style>
+                #selectedFiles img {
+		max-width: 125px;
+		max-height: 125px;
+		float: left;
+		margin-bottom:10px;
+	}
+              </style>
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
@@ -11,7 +31,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Add New PG Details</h4><br/>
-                                <form action="#">
+                                <form id="myForm" action="{{ url_for('pgo.addpg') }}" method="POST" enctype="multipart/form-data">
                                     <div class="form-body">
 
                                         <div class="form-row">
@@ -29,9 +49,8 @@
                                             <div class="form-group col-md-6">
                                             <label for="pgtype">PG Type</label>
                                             <select name="pgtype" id="pgtype" name="pg_type" class="form-control" >
-                                              
-                                                    <option value="boys" >Men's</option>
-                                                    <option value="girls" >Women's</option>
+                                                  <option value="boys" >Men's</option>
+                                                  <option value="girls" >Women's</option>
                                             </select>
                                             </div>
                                         </div>
@@ -70,11 +89,9 @@
 
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
-                                            <div class="custom-file">
-                                                <input type="file" name="pg_files" multiple class="custom-file-input" id="customFile">
-                                                <label class="custom-file-label" for="customFile">Upload PG Images</label>
+                                            Files: <input type="file" id="files" name="files" multiple accept="image/*">
                                             </div>
-                                            </div>
+                                            <div id="selectedFiles"></div>
                                         </div>
                                         
                                         <div class="form-row">
@@ -86,7 +103,7 @@
                                             </div>
                                               <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="ac" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="AC" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     AC
                                                   </label>
@@ -95,7 +112,7 @@
 
                                                 <div class="form-group col-md-3">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="cooking_allowed" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Cooking Allowed" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Cooking Allowed
                                                   </label>
@@ -103,7 +120,7 @@
                                               </div>
                                               <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="food" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Food" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Food
                                                     
@@ -112,7 +129,7 @@
                                               </div>
                                                <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="parking" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Parking" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Parking
                                                    </label>
@@ -120,7 +137,7 @@
                                               </div>
                                               <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="laundry" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Laundry" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Laundry
                                                    </label>
@@ -128,7 +145,7 @@
                                               </div>
                                                <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="television" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Television" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Television
                                                    </label>
@@ -136,7 +153,7 @@
                                               </div>
                                               <div class="form-group col-md-3">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="guests_allowed" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="Guests Allowed" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Guests Allowed
                                                    </label>
@@ -151,7 +168,7 @@
                                             </div>
                                               <div class="form-group col-md-2">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="gym" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="GYM" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     GYM
                                                   </label>
@@ -159,7 +176,7 @@
                                               </div>
                                               <div class="form-group col-md-3">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="swimming_pool" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="Swimming Pool" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Swimming Pool
                                                     
@@ -168,7 +185,7 @@
                                               </div>
                                               <div class="form-group col-md-3">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="vehicles_provided" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="Vehicles Provided" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Vehicles Provided
                                                     
@@ -177,7 +194,7 @@
                                               </div>
                                               <div class="form-group col-md-3">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="dry_cleaning" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="Dry Cleaning" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Dry Cleaning
                                                     
@@ -186,100 +203,13 @@
                                               </div>
                                           </div>
                                         </div>
-                                       
-                                              
-                                     
-                                        <div class="form-row">
+                                       <div class="form-row">
                                           <div class="form-group col-md-12">
                                             <label for="prop">Property Description</label>
-                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property"></textarea>
+                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property" name="prop_desc"></textarea>
                                           </div>
                                         </div>
-
-                                    <div class="form-group">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">
-                                      Add Rooms
-                                    </button>
-                                    </div>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
-                                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h5 class="modal-title" id="addroom">Add New Room</h5>
-                                            <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                          <div class="modal-body">
-                                           <form>
-                                              <div class="form-group row">
-                                                <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
-                                                <div class="col-md-6">
-                                                  <input type="number" name="total_beds" class="form-control" id="totalbed" >
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
-                                                <div class="col-md-6">
-                                                  <input type="number" name="vacant_beds" class="form-control" id="availbed">
-                                                </div>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
-                                                <div class="col-md-6">
-                                                  <input type="text" name="room_rent" class="form-control" id="rent" >
-                                                </div>
-                                              </div>
-                                               <fieldset disabled>
-                                               <div class="form-group row">
-                                                <label for="token" class="col-md-6 col-form-label">Token Amount</label>
-                                                <div class="col-md-6">
-                                                  <input type="text" name="token_amount" class="form-control" id="token" >
-                                                </div>
-                                                </div>
-                                               </fieldset>
-
-                                              <div class="form-group row">
-                                                <div class="col-md-6">Air conditioner</div>
-                                                <div class="col-md-2">
-                                                  <div class="form-check">
-                                                    <input class="form-check-input" name="room_ac" type="checkbox" id="ac">
-                                                  </div>
-                                                </div>
-                                              </div>
-                                               <div class="form-group row">
-                                                <div class="col-md-6">Personal Television</div>
-                                                <div class="col-md-2">
-                                                  <div class="form-check">
-                                                    <input class="form-check-input" name="room_tv" type="checkbox" id="ac">
-                                                  </div>
-                                                </div>
-                                              </div>
-
-                                               <div class="form-group row">
-                                                <div class="col-md-3">Room Images</div>
-                                                <div class="col-md-9">
-                                                  <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" name=   id="customFile">
-                                                    <label class="custom-file-label"  for="customFile">Choose files</label>
-                                                  </div>
-                                                </div>
-                                              </div>
-
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="reset" class="btn btn-secondary" >Clear</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMoreRows(this.form);">Save changes</button>
-                                          </div>
-                                        </form>
-                                        </div>
-                                      </div>
-                                    </div>
-
-
-
-                                    <div class="form-actions">
+                                     <div class="form-actions">
                                         <div class="text-left">
                                             <button type="reset" class="btn btn-dark">Reset</button>
                                             <button type="submit" class="btn btn-info">Submit</button>
@@ -292,254 +222,41 @@
                     </div>
                 </div>
             </div>
+            <script>
+	var selDiv = "";
+		
+	document.addEventListener("DOMContentLoaded", init, false);
+	
+	function init() {
+		document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+		selDiv = document.querySelector("#selectedFiles");
+	}
+		
+	function handleFileSelect(e) {
+		
+		if(!e.target.files || !window.FileReader) return;
 
+		selDiv.innerHTML = "";
+		
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		filesArr.forEach(function(f) {
+			// var f = files[i];
+			if(!f.type.match("image.*")) {
+				return;
+			}
 
-
-
-
-
-
-
-
-{#                                <div class="form-group">#}
-{#                                    Common Facilities#}
-{#                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">#}
-{#                                        <tr>#}
-{#                                            <td> #}
-{#                                                <div class="row">#}
-{#                                                    <div class="col-md-4">#}
-{#                                                         <div class="form-group">#}
-{#                                                            <input type="checkbox" name="AC"> AC#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{##}
-{#                                                    <div class="col-md-6">#}
-{#                                                        <div class="form-group">#}
-{#                                                           <input type="checkbox" name="food"> Food#}
-{#                                                       </div>#}
-{#                                                   </div>#}
-{##}
-{#                                                 #}
-{##}
-{#                                                    <div class="col-md-4">#}
-{#                                                        <div class="form-group">#}
-{##}
-{#                                                           <input type="checkbox" name="parking"> Parking#}
-{##}
-{#                                                       </div>#}
-{#                                                   </div>#}
-{##}
-{#                                                   <div class="col-md-8">#}
-{#                                                         <div class="form-group">#}
-{#                                                            <input type="checkbox" name="guestallowed"> Guests Allowed#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{##}
-{#                                                    <div class="col-md-4">#}
-{#                                                        <div class="form-group">#}
-{#                                                           <input type="checkbox" name="tv"> Television#}
-{#                                                       </div>#}
-{#                                                   </div>#}
-{##}
-{#                                                   <div class="col-md-4">#}
-{#                                                    <div class="form-group">#}
-{#                                                       <input type="checkbox" name="laundry"> Laundry#}
-{#                                                   </div>#}
-{#                                               </div>#}
-{##}
-{#                                                   <div class="col-md-12">#}
-{#                                                    <div class="form-group">#}
-{#                                                       <input type="checkbox" name="cookingallowed"> Cooking Allowed#}
-{#                                                   </div>#}
-{#                                                    </div>  #}
-{#                                              </div>#}
-{#                                            </td>#}
-{#                                         </tr>#}
-{#                                    </table>#}
-{#                                </div>#}
-{#                            </div>#}
-{##}
-{##}
-{#                            <div class="col-md-6">#}
-{#                                <div class="form-group">#}
-{#                                   Special Facilities#}
-{#                                    <table style="border: 1px solid rgba(209, 207, 207, 0.5); border-radius: 10px;">#}
-{#                                        <tr>#}
-{#                                            <td> #}
-{#                                                <div class="row">#}
-{#                                                    <div class="col-md-12">#}
-{#                                                         <div class="form-group">#}
-{#                                                            <input type="checkbox" name="gym"> Gym                                                        </div>#}
-{#                                                    </div>#}
-{##}
-{#                                                    <div class="col-md-12">#}
-{#                                                        <div class="form-group">#}
-{#                                                           <input type="checkbox" name="Spool"> Swmming Pool#}
-{#                                                       </div>#}
-{#                                                   </div>#}
-{##}
-{#                                                   <div class="col-md-12">#}
-{#                                                    <div class="form-group">#}
-{#                                                        <input type="checkbox" name="vp"> Vehicle Provided#}
-{#                                                     </div>#}
-{#                                                    </div>#}
-{##}
-{#                                                    <div class="col-md-12">#}
-{#                                                        <div class="form-group">#}
-{#                                                           <input type="checkbox" name="dry"> Dry Cleaning#}
-{#                                                       </div>#}
-{#                                                   </div>#}
-{#                                                   #}
-{#                                              </div>#}
-{#                                            </td>#}
-{#                                         </tr>#}
-{#                                    </table>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                         </div>#}
-{##}
-{#                        #}
-{#                              #}
-{#                         <div class="row">#}
-{#                            <div class="col-md-12">#}
-{#                            <div class="form-group">#}
-{#                                Property Description#}
-{#                                <textarea class="form-control" id="desc" rows="3" placeholder="Tell us something about your property." name="desc" required></textarea>#}
-{#                            </div>#}
-{#                            </div>#}
-{#            #}
-{#                        </div>#}
-{##}
-{#                        <hr>#}
-{##}
-{#                        <div class="row">			 	#}
-{#                            <div class="col-md-12">#}
-{#                                <div class="form-group">#}
-{#                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addroom">#}
-{#                                      Add Rooms#}
-{#                                    </button>#}
-{##}
-{#                                    <!-- Modal -->#}
-{#                                    <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">#}
-{#                                      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">#}
-{#                                        <div class="modal-content">#}
-{#                                          <div class="modal-header">#}
-{#                                            <h5 class="modal-title" id="addroom">Add New Room</h5>#}
-{#                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
-{#                                              <span aria-hidden="true">&times;</span>#}
-{#                                            </button>#}
-{#                                          </div>#}
-{#                                          <div class="modal-body">#}
-{#                                           <form>#}
-{#                                              <div class="form-group row">#}
-{#                                                <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>#}
-{#                                                <div class="col-md-6">#}
-{#                                                  <input type="number" class="form-control" id="totalbed" >#}
-{#                                                </div>#}
-{#                                              </div>#}
-{#                                              <div class="form-group row">#}
-{#                                                <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>#}
-{#                                                <div class="col-md-6">#}
-{#                                                  <input type="number" class="form-control" id="availbed">#}
-{#                                                </div>#}
-{#                                              </div>#}
-{#                                              <div class="form-group row">#}
-{#                                                <label for="rent" class="col-md-6 col-form-label">Room Rent</label>#}
-{#                                                <div class="col-md-6">#}
-{#                                                  <input type="text" class="form-control" id="rent" >#}
-{#                                                </div>#}
-{#                                              </div>#}
-{#                                               <fieldset disabled>#}
-{#                                               <div class="form-group row">#}
-{#                                                <label for="token" class="col-md-6 col-form-label">Token Amount</label>#}
-{#                                                <div class="col-md-6">#}
-{#                                                  <input type="text" class="form-control" id="token" >#}
-{#                                                </div>#}
-{#                                                </div>#}
-{#                                               </fieldset>#}
-{##}
-{#                                              <div class="form-group row">#}
-{#                                                <div class="col-md-6">Air conditioner</div>#}
-{#                                                <div class="col-md-2">#}
-{#                                                  <div class="form-check">#}
-{#                                                    <input class="form-check-input" type="checkbox" id="ac">#}
-{#                                                  </div>#}
-{#                                                </div>#}
-{#                                              </div>#}
-{#                                               <div class="form-group row">#}
-{#                                                <div class="col-md-6">Personal Television</div>#}
-{#                                                <div class="col-md-2">#}
-{#                                                  <div class="form-check">#}
-{#                                                    <input class="form-check-input" type="checkbox" id="ac">#}
-{#                                                  </div>#}
-{#                                                </div>#}
-{#                                              </div>#}
-{##}
-{#                                               <div class="form-group row">#}
-{#                                                <div class="col-md-3">Room Images</div>#}
-{#                                                <div class="col-md-9">#}
-{#                                                  <div class="custom-file">#}
-{#                                                    <input type="file" class="custom-file-input" id="customFile">#}
-{#                                                    <label class="custom-file-label" for="customFile">Choose files</label>#}
-{#                                                  </div>#}
-{#                                                </div>#}
-{#                                              </div>#}
-{##}
-{#                                          </div>#}
-{#                                          <div class="modal-footer">#}
-{#                                            <button type="reset" class="btn btn-secondary" >Clear</button>#}
-{#                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMoreRows(this.form);">Save changes</button>#}
-{#                                          </div>#}
-{#                                        </form>#}
-{#                                        </div>#}
-{#                                      </div>#}
-{#                                    </div>#}
-{#                                 <div id="addedRows"></div>#}
-{#                                 </div>#}
-{##}
-{#                            </div>#}
-{#                        </div>	#}
-{#                        <script type="text/javascript">#}
-{#                            var rowCount = 1;#}
-{#                            function addMoreRows(frm) {#}
-{#                                rowCount ++;#}
-{#                                var recRow = '<div id="rowCount'+rowCount+'"><div class="row"><div class="col-md-4"><div class="form-group"><br> <input type="button" class="button"  value="Delete" style="background-color: #f92952";  onclick="removeRow('+rowCount+');"> </div> </div></div><div class="row"> <div class="col-md-6"> <div class="form-group"> Number of Beds Available <input type="number" class="form-control" id="noofbeds" placeholder="Select number of Beds Available" name="noofbeds" required> </div> </div> <div class="col-md-6"> <div class="form-group"> Room Number<input type="number" class="form-control" id="Rooomno" placeholder="Enter Rooom no." name="roomno" required> </div> </div>  </div>'; $('#addedRows').append(recRow);#}
-{#                            }#}
-{#                        #}
-{#                            function removeRow(removeNum) {#}
-{#                                $('#rowCount'+removeNum).remove();#}
-{#                            }#}
-{#                        </script>#}
-{#                        #}
-{#                        <br>#}
-{#                        <div class="row">			 	#}
-{##}
-{#                            <div class="col-md-6">#}
-{#                                <div class="form-group">#}
-{##}
-{#                                    <input type="reset" class="btn btn-dark" value="Clear" style="float: right; height: 40px; width: 80px;">#}
-{#                                </div>#}
-{#                            </div>#}
-{##}
-{#                            <div class="col-md-2" >#}
-{#                                <div class="form-group">#}
-{#                                    #}
-{#                                    <input type="submit" class="btn btn-info" value="Submit" style="float: left;  height: 40px; width: 80px;">#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>	#}
-{#                    </form>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-
-
-            
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var html = "<img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/>";
+				selDiv.innerHTML += html;				
+			}
+			reader.readAsDataURL(f); 
+		});
+		
+	}
+	</script>
                 <!-- *************************************************************** -->
                 <!-- End Top Leader Table -->
                 <!-- *************************************************************** -->
-            
 {% endblock %}

@@ -11,8 +11,8 @@ class Config(object):
 
     TESTING = True
     DEBUG = True
-    dev='development'
-    FLASK_ENV=dev
+   
+    FLASK_ENV='development'
     SECRET_KEY = 'doFddfVtb1tT9RnJWM3rx0ZiijRvKGYc'
     
     

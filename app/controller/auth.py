@@ -58,7 +58,7 @@ def loginscr():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        data = mysql_query("select user_type_mst.role,user_mst.fname,user_mst.mname,user_mst.lname from user_mst inner join  user_type_mst ON user_mst.UTMID=user_type_mst.UTMID where user_mst.email='{}' and user_mst.password='{}'".format(email,password))
+        data = mysql_query("select user_mst.UID,user_type_mst.role,user_mst.fname,user_mst.mname,user_mst.lname from user_mst inner join  user_type_mst ON user_mst.UTMID=user_type_mst.UTMID where user_mst.email='{}' and user_mst.password='{}'".format(email,password))
         print(len(data))
         if len(data) == 1:
             session['email'] = email
