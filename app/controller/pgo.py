@@ -42,20 +42,6 @@ def addpg():
     if request.method == "POST":
         #! FILE UPLOAD LIMIT IS 5 MB.
         try:
-            allfiles = request.files.getlist('files')
-            print(allfiles)
-            for file in allfiles:
-                if file.filename == '':
-                    print('No file selected')
-                    return 'No file selected'
-                if file and allowed_file(file.filename):
-                    filename = secure_filename(file.filename)
-                    filename = str(session['email']+'_'+filename)
-                    print("filename:   "+str(filename))
-                    dir_path = os.path.dirname(os.path.realpath(__file__))
-                    idproofPath = os.path.join(dir_path,"uploads",filename)
-                    file.save(idproofPath)
-        
             mysql_query("INSERT INTO pg_mst(UID,pg_name,pg_gender,addr_1,addr_2,area,city,state,pincode,total_rooms,prop_desc) VALUES({},'{}','{}','{}','{}','{}','{}','{}',{},{},'{}')".format(session['user_master']['UID'],request.form['pg_name'],request.form['pgtype'],request.form['adressline1'],request.form['adressline2'],request.form['area'],request.form['city'],request.form['state'],request.form['pincode'],request.form['total_rooms'],request.form['prop_desc'] ))
         
             PGID= mysql_query.last_row_id
@@ -65,6 +51,31 @@ def addpg():
             for x in request.form.getlist('special_facilities'):
                 mysql_query("insert into facility_mst(PGID,amenity,amenity_type) values({},'{}','special')".format(PGID,x))    
             
+            allfiles = request.files.getlist('files')
+            print(allfiles)
+            for file in allfiles:
+                if file.filename == '':
+                    print('No file selected')
+                    return 'No file selected'
+                if file and allowed_file(file.filename):
+
+                    filename = secure_filename(file.filename)
+                    filename = str(session['email']+'_'+filename)
+                    print("filename:   "+str(filename))
+                    dir_path = os.path.dirname(os.path.realpath(__file__))
+                    idproofPath = os.path.join(dir_path,"uploads",filename)
+                    file.save(idproofPath)
+                    data = mysql_query("select image_1,image_2,image_3 from pg_mst")
+                    print(data)
+                    if data[0]['image_1'] is None:
+                        print('done')
+                        mysql_query("update pg_mst SET image_1='{}' where PGID={}".format(filename,PGID))
+                    if data[0]['image_2'] is None:
+                        mysql_query("update pg_mst SET image_2='{}' where PGID={}".format(filename,PGID))
+                    if data[0]['image_3'] is None:
+                        mysql_query("update pg_mst SET image_3='{}' where PGID={}".format(filename,PGID))
+                    
+           
         except Exception as e:
             print(e)
             flash(str(e),'danger')

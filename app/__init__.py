@@ -23,7 +23,7 @@ def create_app():
 
 
     app.config.from_object(Config)
-    app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024   # 5 MB limit
+    app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024   # 5 MB limit
 
 
 
