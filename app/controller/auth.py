@@ -141,13 +141,34 @@ def index_template():
 @auth.route('/Dashboard',methods=['GET'])
 @login_required
 def Dashboard():
-
-    
     return render_template('adminDashboard.html')
 
 @auth.route('/updateprofile',methods=['GET','POST'])
 @login_required
 def updateProfile():
+    if request.method == "POST":
+        mysql_query(''' UPDATE `homies`.`user_mst`
+                        SET
+                        `fname` = '{}',
+                        `mname` = '{}',
+                        `lname` = '{}',
+                        `email` = '{}',
+                        `phone` = {},
+                        `dob` = '{}',
+                        `gender` = '{}',
+                        `password` = '{}',
+                        `addr1` = '{}',
+                        `addr2` = '{}',
+                        `area` = '{}',
+                        `city` = '{}',
+                        `state` ='{}',
+                        `pincode` = {}
+                        WHERE `UID` = {} '''.format(request.form['fname'],request.form['mname'],request.form['lname'],request.form['email'],
+                                                    request.form['phone'],request.form['dob'],request.form['gender'],request.form['password'],
+                                                    request.form['addr1'],request.form['addr2'],request.form['area'],request.form['city'],
+                                                    request.form['state'],request.form['pincode'],request.form['submit']))
+        flash("Profile Updated","success")
+        return redirect(url_for('auth.updateProfile'))
     personalinfo = mysql_query("select * from user_mst where email='{}'".format(session['email']))
     print(personalinfo)
     return render_template('updateProfile.html',data=personalinfo)
