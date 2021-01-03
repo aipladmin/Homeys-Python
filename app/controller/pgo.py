@@ -89,3 +89,7 @@ def addpg():
 def viewpg():
     return render_template('pgo/viewpg.html')
 
+@pgo.route('/updatepg')
+def updatepg():
+    return render_template('pgo/updatepg.html')
+

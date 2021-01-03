@@ -65,11 +65,12 @@
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span class="logo-text">
+                            <span class="logo-text" style="font-size: 25px;">
                                 <!-- dark Logo text -->
                                 <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" /> -->
                                 <!-- Light Logo text -->
                                 <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" /> -->
+                                Homeys
                             </span>
                         </a>
                     </div>
@@ -110,7 +111,7 @@
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <div class="dropdown-divider"></div>
+
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -118,9 +119,7 @@
                                 <a accesskey="q" class="dropdown-item" href="{{ url_for('auth.logout') }}"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="pl-4 p-3"><a href="{{ url_for('auth.updateProfile') }}" class="btn btn-sm btn-info">
-                                    Update Profile</a></div>
+
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -193,11 +192,11 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i></i><span
                                     class="hide-menu">Add New PG</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
                                 aria-expanded="false"><i class="fas fa-rupee-sign"></i><span
                                     class="hide-menu">Bookings</span></a></li>
 
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('auth.logout') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu">Log Out</span></a></li>
                     </ul>
