@@ -93,3 +93,6 @@ def viewpg():
 def updatepg():
     return render_template('pgo/updatepg.html')
 
+@pgo.route('/rooms')
+def rooms():
+    return render_template('pgo/rooms.html')
