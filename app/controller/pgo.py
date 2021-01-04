@@ -74,7 +74,11 @@ def addpg():
                         mysql_query("update pg_mst SET image_2='{}' where PGID={}".format(filename,PGID))
                     if data[0]['image_3'] is None:
                         mysql_query("update pg_mst SET image_3='{}' where PGID={}".format(filename,PGID))
-                    
+                    file_name=idproofPath 
+                    print(file_name)
+                    bucket="mittrisem"
+                    object_name="pg_images/"+filename
+                    upload_file(file_name=file_name, bucket=bucket, object_name=object_name)
            
         except Exception as e:
             print(e)
