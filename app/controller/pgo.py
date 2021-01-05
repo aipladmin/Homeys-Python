@@ -91,6 +91,34 @@ def addpg():
 
 @pgo.route('/viewpg')
 def viewpg():
+    data = mysql_query("Select user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+    # print(data)
+    file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+    # print(file_names)
+    cntr=-1
+    for x in data:
+        cntr = cntr+1
+        # print(x)
+        length =x['email']+'_'+x['pg_name']
+        xLen = len(length)
+        lst=[]
+        # print(x['email']+'_'+x['pg_name'],xLen)
+        for y in file_names:
+            if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+                lst.append(y[10:])
+                dict = {'images':lst}
+                data[int(cntr)].update(dict)
+            else:
+                # print(x)
+                dict = {'images':None}    
+                data[int(cntr)].update(dict)
+                # print("cntr:   "+str(cntr))
+                # print(x['email']+'_'+x['pg_name'])
+            # print(y[10:int(xLen+10)])
+    print(data)    
+            # print(y[10:int(xLen+10)])
+            # if y[10:int(xLen)] ==  x['email']+'_'+x['pg_name']:
+            #     print(x['email']+'_'+x['pg_name'])
     return render_template('pgo/viewpg.html')
 
 @pgo.route('/updatepg')
