@@ -117,3 +117,10 @@ def viewpg():
             
     return render_template('pgo/viewpg.html',data=data)
 
+@pgo.route('/updatepg')
+def updatepg():
+    return render_template('pgo/updatepg.html')
+
+@pgo.route('/rooms')
+def rooms():
+    return render_template('pgo/rooms.html')

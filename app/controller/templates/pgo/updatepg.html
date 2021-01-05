@@ -1,7 +1,7 @@
 {% extends 'adminDashboard.html' %}
 
 {% block content %}
-       
+
                 {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
 
@@ -10,10 +10,10 @@
                         {{ message }}
                     </div>
                 {% endfor %}
-                
+
               {% endif %}
             {% endwith %}
-           
+
               <style>
                 #selectedFiles img {
 		max-width: 125px;
@@ -30,8 +30,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Add New PG Details</h3><br/>
-                                <form id="myForm" action="{{ url_for('pgo.addpg') }}" method="POST" enctype="multipart/form-data">
+                                <h3 class="card-title">Update PG Details</h3><br/>
+                                <form id="myForm" action="" method="POST" enctype="multipart/form-data">
                                     <div class="form-body">
 
                                         <div class="form-row">
@@ -44,7 +44,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="totroom">Total Rooms</label>
-                                            <input type="number" name="total_rooms" class="form-control" id="totroom"  >
+                                            <input type="number" name="total_rooms" class="form-control" id="totroom">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="pgtype">PG Type</label>
@@ -125,7 +125,7 @@
                                                   <input class="form-check-input" name="common_facilities" value="Food" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Food
-                                                    
+
                                                   </label>
                                                 </div>
                                               </div>
@@ -168,7 +168,7 @@
                                                 <label>Special Facilities</label>
                                               </div>
                                             </div>
-                                              <div class="form-group col-md-6">
+                                              <div class="form-group col-md-4">
                                                 <div class="form-check form-check-inline">
                                                   <input class="form-check-input" name="special_facilities" value="GYM" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
@@ -181,7 +181,7 @@
                                                   <input class="form-check-input" name="special_facilities" value="Swimming Pool" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Swimming Pool
-                                                    
+
                                                   </label>
                                                 </div>
                                               </div>
@@ -190,7 +190,7 @@
                                                   <input class="form-check-input" name="special_facilities" value="Vehicles Provided" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Vehicles Provided
-                                                    
+
                                                   </label>
                                                 </div>
                                               </div>
@@ -199,7 +199,7 @@
                                                   <input class="form-check-input" name="special_facilities" value="Dry Cleaning" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
                                                     Dry Cleaning
-                                                    
+
                                                   </label>
                                                 </div>
                                               </div>
@@ -226,20 +226,20 @@
             </div>
             <script>
 	var selDiv = "";
-		
+
 	document.addEventListener("DOMContentLoaded", init, false);
-	
+
 	function init() {
 		document.querySelector('#files').addEventListener('change', handleFileSelect, false);
 		selDiv = document.querySelector("#selectedFiles");
 	}
-		
+
 	function handleFileSelect(e) {
-		
+
 		if(!e.target.files || !window.FileReader) return;
 
 		selDiv.innerHTML = "";
-		
+
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		filesArr.forEach(function(f) {
@@ -251,11 +251,11 @@
 			var reader = new FileReader();
 			reader.onload = function (e) {
 				var html = "<img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/>";
-				selDiv.innerHTML += html;				
+				selDiv.innerHTML += html;
 			}
-			reader.readAsDataURL(f); 
+			reader.readAsDataURL(f);
 		});
-		
+
 	}
 	</script>
                 <!-- *************************************************************** -->
