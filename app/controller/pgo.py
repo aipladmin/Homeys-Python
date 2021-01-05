@@ -98,26 +98,22 @@ def viewpg():
     cntr=-1
     for x in data:
         cntr = cntr+1
-        # print(x)
         length =x['email']+'_'+x['pg_name']
         xLen = len(length)
         lst=[]
-        # print(x['email']+'_'+x['pg_name'],xLen)
         for y in file_names:
             if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+                print(y,cntr)
                 lst.append(y[10:])
                 dict = {'images':lst}
                 data[int(cntr)].update(dict)
-            else:
-                # print(x)
-                dict = {'images':None}    
-                data[int(cntr)].update(dict)
-                # print("cntr:   "+str(cntr))
-                # print(x['email']+'_'+x['pg_name'])
-            # print(y[10:int(xLen+10)])
-    print(data)    
-            # print(y[10:int(xLen+10)])
-            # if y[10:int(xLen)] ==  x['email']+'_'+x['pg_name']:
-            #     print(x['email']+'_'+x['pg_name'])
-    return render_template('pgo/viewpg.html')
+                print(data)    
+        #    else:
+        #         # print(x)
+        #         dict = {'images':None}    
+        #         data[int(cntr)].update(dict) 
+               
+                   
+            
+    return render_template('pgo/viewpg.html',data=data)
 
