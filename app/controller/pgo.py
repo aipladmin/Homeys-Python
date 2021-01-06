@@ -74,7 +74,11 @@ def addpg():
                         mysql_query("update pg_mst SET image_2='{}' where PGID={}".format(filename,PGID))
                     if data[0]['image_3'] is None:
                         mysql_query("update pg_mst SET image_3='{}' where PGID={}".format(filename,PGID))
-                    
+                    file_name=idproofPath 
+                    print(file_name)
+                    bucket="mittrisem"
+                    object_name="pg_images/"+filename
+                    upload_file(file_name=file_name, bucket=bucket, object_name=object_name)
            
         except Exception as e:
             print(e)
@@ -87,7 +91,31 @@ def addpg():
 
 @pgo.route('/viewpg')
 def viewpg():
-    return render_template('pgo/viewpg.html')
+    data = mysql_query("Select user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+    # print(data)
+    file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+    # print(file_names)
+    cntr=-1
+    for x in data:
+        cntr = cntr+1
+        length =x['email']+'_'+x['pg_name']
+        xLen = len(length)
+        lst=[]
+        for y in file_names:
+            if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+                print(y,cntr)
+                lst.append(y[10:])
+                dict = {'images':lst}
+                data[int(cntr)].update(dict)
+                print(data)    
+        #    else:
+        #         # print(x)
+        #         dict = {'images':None}    
+        #         data[int(cntr)].update(dict) 
+               
+                   
+            
+    return render_template('pgo/viewpg.html',data=data)
 
 @pgo.route('/updatepg')
 def updatepg():
