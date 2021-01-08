@@ -11,8 +11,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title float-left" >All Rooms</h3>
+                                    <a class="btn btn-light text-light float-right" style="background-color: rgb(220, 53, 69);border: none;height: 38px;" href="{{ url_for('pgo.viewpg') }}" role="button"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
+                                   
+                                <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addroom"><i class="far fa-plus-square"></i> &nbsp;Add New Room</button><br><br>
 
-                                <button type="button" class="btn btn-success  float-right" data-toggle="modal" data-target="#addroom"><i class="far fa-plus-square"></i> &nbsp;Add New Room</button><br><br>
+                              
                                  
                                 <!-- Modal -->
                                     <div class="modal fade" id="addroom" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
@@ -85,7 +88,7 @@
 
                                           </div>
                                           <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-secondary" >Close</button>
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger" >Close</button>
                                             <button type="reset" class="btn btn-secondary" >Clear</button>
                                             <button type="submit" name="submit" value="{{ pgid }}" class="btn btn-primary" >Save changes</button>
                                           </div>
@@ -147,7 +150,7 @@
                                         </div>
                                       </div>
                                     <div class="card-footer text-right" style="background-color: black">
-
+                                      
                                       <!-- HIDE ROOM MODAL -->
                                       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hide Room</button>
 
