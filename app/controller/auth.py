@@ -129,7 +129,7 @@ def register():
             
             mysql_query('insert into user_mst({}) values{}'.format(simplified_key_value,ins_value))
             
-        return "Registered"
+        return redirect(url_for('auth.login'))
     return render_template('register.html')
 
 
