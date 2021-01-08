@@ -91,7 +91,7 @@ def addpg():
 
 @pgo.route('/viewpg')
 def viewpg():
-    data = mysql_query("Select user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+    data = mysql_query("Select pg_mst.pgid,user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
     # print(data)
     file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
     # print(file_names)
@@ -99,15 +99,17 @@ def viewpg():
     for x in data:
         cntr = cntr+1
         length =x['email']+'_'+x['pg_name']
+        # print(length)
         xLen = len(length)
         lst=[]
         for y in file_names:
             if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
-                print(y,cntr)
+                print(y[10:int(xLen+10)])
                 lst.append(y[10:])
                 dict = {'images':lst}
+                # print(dict)
                 data[int(cntr)].update(dict)
-                print(data)    
+            # print(data)    
         #    else:
         #         # print(x)
         #         dict = {'images':None}    
@@ -121,6 +123,46 @@ def viewpg():
 def updatepg():
     return render_template('pgo/updatepg.html')
 
-@pgo.route('/rooms')
+@pgo.route('/rooms',methods=['GET','POST'])
 def rooms():
-    return render_template('pgo/rooms.html')
+    pgid = request.args.get('PGID')
+    # print(pgid)
+    if request.method == "POST":
+        pgid = request.form['submit']
+        print(request.form.get('amenities'))
+        print(request.form.get('amenitiesTV'))
+        if request.form.get('amenitiesTV') is None:
+            tv = 0
+        else:
+            tv=1
+        if request.form.get('amenities') is None:
+            ac=0
+        else:
+            ac=1
+        mysql_query(''' INSERT INTO `homies`.`room_mst`
+                        (`PGID`,
+                        `total_beds`,
+                        `avail_beds`,
+                        `AC`,
+                        `TV`,
+                        `rent`,
+                        `token_amt`)
+                        VALUES
+                        ({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
+        return "Masdhav"
+    data = mysql_query("select * from room_mst where PGID={}".format(pgid))
+    file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+    # print(file_names)
+    lst=[]
+    cntr=0
+    for x in data:
+        for y in file_names:
+            if y[10:14] == 'room':
+                lst.append(y)
+        dict = {'images':lst}
+        data[int(cntr)].update(dict)
+        cntr=cntr+1
+        # print(lst)
+        # print(data)
+
+    return render_template('pgo/rooms.html',pgid=pgid,data=data)
