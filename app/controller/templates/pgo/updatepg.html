@@ -31,61 +31,73 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-title">Update PG Details</h3><br/>
-                                <form id="myForm" action="" method="POST" enctype="multipart/form-data">
+                             
+                             {% for x in data %}
+                                <form id="myForm" action="{{ url_for('pgo.updatepg') }}" method="POST" enctype="multipart/form-data">
+                                	
                                     <div class="form-body">
 
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="pgname">PG Name</label>
-                                                <input type="text" name="pg_name" class="form-control" id="pgname">
+                                                <input type="text" name="pg_name" class="form-control" id="pgname" value="{{ x['pg_name'] }}">
                                             </div>
 
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="totroom">Total Rooms</label>
-                                            <input type="number" name="total_rooms" class="form-control" id="totroom">
+                                            <input type="number" name="total_rooms" class="form-control" id="totroom" value="{{ x['total_rooms'] }}">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="pgtype">PG Type</label>
-                                            <select name="pgtype" id="pgtype" name="pg_type" class="form-control" >
-                                                  <option value="boys" >Men's</option>
+                                            {%if x['pg_gender']=="boys"%}
+                                            <select name="pg_type" id="pgtype" class="form-control" >
+                                                  <option value="boys" selected>Men's</option>
                                                   <option value="girls" >Women's</option>
                                             </select>
+                                            {% endif %}
+                                            {% if x['pg_gender']=="girls" %}
+                                            <select name="pg_type" id="pgtype" class="form-control" >
+                                                  <option value="boys" >Men's</option>
+                                                  <option value="girls" selected>Women's</option>
+                                            </select>
+                                            {% endif %}
                                             </div>
                                         </div>
                                          <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="addr1">Address Line 1</label>
-                                                <input type="text" name="adressline1" class="form-control" id="addr1">
+                                                <input type="text" name="addressline1" class="form-control" id="addr1" value="{{ x['addr_1'] }}">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="addr2">Address Line 2</label>
-                                                <input type="text" name="adressline2" class="form-control" id="addr2">
+                                                <input type="text" name="addressline2" class="form-control" id="addr2" value="{{ x['addr_2'] }}">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="area">Area</label>
-                                            <input type="text" name="area" class="form-control" id="area">
+                                            <input type="text" name="area" class="form-control" id="area" value="{{ x['area'] }}">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="inputCity">City</label>
-                                            <input type="text" name="city" class="form-control" id="inputCity">
+                                            <input type="text" name="city" class="form-control" id="inputCity" value="{{ x['city'] }}">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="state">State</label>
-                                            <input type="text" name="state" class="form-control" id="state">
+                                            <input type="text" name="state" class="form-control" id="state" value="{{ x['state'] }}">
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="zip">Pincode</label>
-                                            <input type="text" name="pincode" class="form-control" id="zip">
+                                            <input type="text" name="pincode" class="form-control" id="zip" value="{{ x['pincode'] }}">
                                             </div>
                                         </div>
+                                        {% endfor %}
 
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
@@ -96,6 +108,7 @@
 
                                         <hr><br>
 
+
                                         <div class="form-row">
                                           <div class="form-group col-md-6">
                                             <div class="form-row">
@@ -103,64 +116,34 @@
                                                 <label>Common Facilities</label>
                                               </div>
                                             </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="AC" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    AC
-                                                  </label>
-                                                </div>
-                                              </div>
-
+                                           {% for x in amenity_com %}
+                                             
                                                 <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Cooking Allowed" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="{{ x['amenity'] }}" type="checkbox" id="gridCheck" checked>
                                                   <label class="form-check-label" for="gridCheck">
-                                                    Cooking Allowed
+                                                    {{ x['amenity'] }}
                                                   </label>
                                                 </div>
                                               </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Food" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Food
+                                              
+                                              
 
+                                              {% for item in common %}
+                                             
+                                                {% if item != x['amenity'] %}
+                                                <div class="form-group col-md-6">
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" name="common_facilities" value="{{ item }}" type="checkbox" id="gridCheck">
+                                                  <label class="form-check-label" for="gridCheck">
+                                                    {{ item }}
                                                   </label>
                                                 </div>
                                               </div>
-                                               <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Parking" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Parking
-                                                   </label>
-                                                </div>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Laundry" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Laundry
-                                                   </label>
-                                                </div>
-                                              </div>
-                                               <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Television" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Television
-                                                   </label>
-                                                </div>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="Guests Allowed" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Guests Allowed
-                                                   </label>
-                                                </div>
-                                              </div>
+                                              {% endif %}
+                                              
+                                              {% endfor %}
+                                              {% endfor %}                             
                                           </div>
                                           <div class="form-group col-md-6">
                                             <div class="form-row">
@@ -168,57 +151,58 @@
                                                 <label>Special Facilities</label>
                                               </div>
                                             </div>
+
+                                            {% for y in amenity_spe %}
+
                                               <div class="form-group col-md-4">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="GYM" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="{{ y['amenity'] }}" type="checkbox" id="gridCheck" checked>
                                                   <label class="form-check-label" for="gridCheck">
-                                                    GYM
+                                                    {{ y['amenity'] }}
                                                   </label>
                                                 </div>
                                               </div>
+                                				{% for item in special %}
+                                            
+                                              {% if y['amenity'] != item  %}
+
                                               <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="Swimming Pool" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="{{ item }}" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
-                                                    Swimming Pool
+                                                    {{ item }}
 
                                                   </label>
                                                 </div>
                                               </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="Vehicles Provided" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Vehicles Provided
 
-                                                  </label>
-                                                </div>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="Dry Cleaning" type="checkbox" id="gridCheck">
-                                                  <label class="form-check-label" for="gridCheck">
-                                                    Dry Cleaning
+                                              {% endif %}
 
-                                                  </label>
-                                                </div>
-                                              </div>
+                                              {% endfor %}
+                                              {% endfor %}
+                                            
                                           </div>
                                         </div>
+                                        {% for x in data %}
+
                                        <div class="form-row">
                                           <div class="form-group col-md-12">
                                             <label for="prop">Property Description</label>
-                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property" name="prop_desc"></textarea>
+                                            <textarea class="form-control" rows="5" id="prop" placeholder="Tell us something about your property" name="prop_desc">{{ x['prop_desc'] }}</textarea>
                                           </div>
                                         </div>
+                                        {% endfor %}
                                      <div class="form-actions">
                                         <div class="text-left">
+                                          <a class="btn btn-light text-light" style="background-color: rgb(220, 53, 69);" 
+                                          href="{{ url_for('pgo.viewpg') }}" role="button"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
                                             <button type="reset" class="btn btn-dark">Reset</button>
-                                            <button type="submit" class="btn btn-info">Submit</button>
+                                            <button type="submit" name="submit" value="{{ pgid }}" class="btn btn-info" >Submit</button>
 
                                         </div>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

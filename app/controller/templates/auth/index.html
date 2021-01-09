@@ -27,13 +27,18 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='auth/css/main.css') }}">
 <!--===============================================================================================-->
 </head>
-<body style="background-color: #666666;">
+<body>
 	
 	<div class="limiter">
+		
 		<div class="container-login100">
+			
 			<div class="wrap-login100">
+				
 				<form class="login100-form validate-form" method="POST" action="{{ url_for('auth.loginscr') }}">
+					<button class="close" onclick="location.href = '{{ url_for('auth.mainpage') }}';">&times;</button>
 					<span class="login100-form-title p-b-43">
+						
 						Login to continue
 					</span>
 					
@@ -50,11 +55,11 @@
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
-
+				
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div>
-							<a href="#" class="txt1">
-								Forgot Password?
+							<a href="#" data-target="#pwdModal" data-toggle="modal">
+								Forgot Password ?
 							</a>
 						</div>
 					</div>
@@ -83,12 +88,52 @@
 					</div>
 				</form>
 
+
+				
 				<div class="login100-more" style="background-image: url('{{ url_for('static',filename='auth/images/bg-01.jpg') }}');">
 				</div>
 			</div>
 		</div>
 	</div>
 	
+
+	<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">										
+				<h5>Password Recovery</h5>
+			</div>
+			<div class="modal-body">
+				<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="text-center">
+									<div class="panel-body">
+										<fieldset>
+										<form action="{{ url_for('auth.forgotpassword') }}" method="POST">
+											<div class="form-group">
+												
+											<input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email" required>
+											<br>
+											
+											<input class="login100-form-btn" value="Send Password" type="submit">
+										</form>
+										</div>
+										</fieldset>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<div class="col-md-5">
+				<button class="login100-form-btn" data-dismiss="modal" aria-hidden="true" style="float: right;">Cancel</button>
+				</div>	
+			</div>
+		</div>
+		</div>
+	</div> 
 	
 
 	
