@@ -67,9 +67,11 @@ def loginscr():
             if session['role']=="Owner":
                 return redirect(url_for('pgo.ownerdashboard'))
             elif session['role']=="Admin":
-                return redirect(url_for('auth.admindashboard')) 
+
+                return redirect(url_for('auth.Dashboard')) 
             elif session['role']=="User":
-                return redirect(url_for('user.userdashboard'))   
+                return redirect(url_for('user.user_dash'))
+
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')

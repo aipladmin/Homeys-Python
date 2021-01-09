@@ -38,11 +38,18 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
-@user.route('/UserDashboard')
-def userdashboard():
+  
+@user.route('/')
+def user_dash():
+
     return render_template('user/user_dashboard.html')
 
 # @user.route('/usernd')
+
+
+@user.route('/pg_ads')
+def pg_ads():
+    return render_template('user/pg_ads.html')
 
 # search Pg function Starts From here :
 
@@ -75,3 +82,4 @@ def searchpg():
     return render_template('user/searchpg.html',data=data)
 
 # Searh pg ends here 
+
