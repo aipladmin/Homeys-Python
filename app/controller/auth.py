@@ -78,6 +78,11 @@ def loginscr():
         # return redirect(url_for('admin.admintest'))
     return 'loginotp'
 
+@auth.route('/forgotpassword',methods['GET','POST'])
+def forgotpassword():
+    deets = {'Emailid':session['email'],'Subject':'Change Password Request','OTP':otp,'salutation':salutation}
+    send_mail(**deets)
+    return redirect(url_for('auth.login'))
 
 # LOGOUT CODE
 @auth.route('/logout')
