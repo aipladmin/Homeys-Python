@@ -92,7 +92,7 @@ def addpg():
 @pgo.route('/viewpg')
 def viewpg():
 
-    data = mysql_query("Select pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+    data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
     # print(data)
     file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
     # print(file_names)
@@ -134,7 +134,6 @@ def diff(list1, list2):
 @pgo.route('/updatepg',methods=['POST','GET'])
 def updatepg():
 	#displaying pg information
-
 	pgid=request.args.get('id')
 	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,pg_mst.addr_1,pg_mst.addr_2,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc from pg_mst where pg_mst.pgid='{}'".format(pgid)) 
 	#common amenities
@@ -172,9 +171,9 @@ def updatepg():
 
 @pgo.route('/rooms',methods=['GET','POST'])
 def rooms():
-
     pgid = request.args.get('PGID')
     # print(pgid)
+    data = mysql_query("select * from room_mst where pgid='{}'".format(pgid))
     if request.method == "POST":
         pgid = request.form['submit']
         print(request.form.get('amenities'))
@@ -198,7 +197,6 @@ def rooms():
                         VALUES
                         ({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
         return "Masdhav"
-    data = mysql_query("select * from room_mst where PGID={}".format(pgid))
     file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
     # print(file_names)
     lst=[]
