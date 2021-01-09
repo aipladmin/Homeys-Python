@@ -91,6 +91,7 @@
                                         </div>
                                       </div>
                                     </div>
+                                    {% for x in data %}
 
                                 <div class="card text-left" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                       <div class="row no-gutters">
@@ -126,12 +127,20 @@
                                            <!-- <div class="card-header" style="background-color: black; color:white;"><h3>Royal Paying Guest</h3></div> -->
 
                                             <div class="card-body">
-                                                Total Beds : 4 <br><br>
-                                                Vacant Beds : 2 <br><br>
-                                                Air Conditioner : Yes <br><br>
-                                                Personal Television : Yes <br><br>
-                                                Room Rent: 9,000/- <br><br>
-                                                Token Amount : 3,000/-
+                                                <h5 style="color: black; font-weight: bold;">Total Beds : {{x['total_beds']}} </h5>
+                                                <h5 style="color: black; font-weight: bold;">Vacant Beds : {{x['avail_beds']}} </h5>
+                                                {% if x['AC']==1 %}
+                                                <h5 style="color: black; font-weight: bold;">Air Conditioner : Yes </h5>
+                                                {% else %}
+                                                <h5 style="color: black; font-weight: bold;">Air Conditioner : No </h5>
+                                                {% endif %}
+                                                {% if x['TV']==1 %}
+                                                <h5 style="color: black; font-weight: bold;">Personal Television  : Yes </h5>
+                                                {% else %}
+                                                <h5 style="color: black; font-weight: bold;">Personal Television : No </h5>
+                                                {% endif %}
+                                                <h5 style="color: black; font-weight: bold;">Room Rent: {{x['rent']}}</h5>
+                                                <h5 style="color: black; font-weight: bold;">Token Amount : {{x['token_amt']}} </h5>
                                             </div>
                                         </div>
                                       </div>
@@ -276,6 +285,7 @@
                                     </div>
 
                                 </div><!-- card end -->
+                                {% endfor %}
 
                                 <br><br>
 

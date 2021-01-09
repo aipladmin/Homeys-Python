@@ -33,8 +33,8 @@ def handle_exception(e):
 
 
 
-@pgo.route('/')
-def pgotest():
+@pgo.route('/ownerdashboard')
+def ownerdashboard():
 	return render_template('pgo/pgo_dashboard.html')
 
 @pgo.route('/addpg',methods=['POST','GET'])
@@ -91,7 +91,7 @@ def addpg():
 
 @pgo.route('/viewpg')
 def viewpg():
-	data = mysql_query("Select pg_mst.pgid,user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+	data = mysql_query("Select pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
 	# print(data)
 	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
 	# print(file_names)
@@ -165,6 +165,9 @@ def updatepg():
 		return redirect(url_for('pgo.updatepg',id=pgid))
 	return render_template('pgo/updatepg.html',pgid=pgid,data=data,common=common,special=special,amenity_com=amenity_com,amenity_spe=amenity_spe)
 
-@pgo.route('/rooms')
+@pgo.route('/rooms',methods=['POST','GET'])
 def rooms():
-	return render_template('pgo/rooms.html')
+	pgid=request.args.get('pid')
+	print(pgid)
+	data=mysql_query("select * from room_mst where pgid='{}'".format(pgid))
+	return render_template('pgo/rooms.html',data=data,pgid=pgid)
