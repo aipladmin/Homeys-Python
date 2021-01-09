@@ -39,7 +39,11 @@ def handle_exception(e):
     return response
 
 @user.route('/')
-def usertest():
-    return render_template('user/userTest.html')
+def user_dash():
+    return render_template('user/user_dashboard.html')
 
 # @user.route('/usernd')
+
+@user.route('/pg_ads')
+def pg_ads():
+    return render_template('user/pg_ads.html')
