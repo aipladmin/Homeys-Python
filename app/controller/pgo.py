@@ -31,12 +31,10 @@ def handle_exception(e):
 	response.content_type = "application/json"
 	return response
 
-
-
-@pgo.route('/')
+@pgo.route('/ownerdashboard')
 @login_required
-def pgotest():
-	return render_template('pgo/pgo_dashboard.html')
+def ownerdashboard():
+  return render_template('pgo/pgo_dashboard.html')
 
 @pgo.route('/addpg',methods=['POST','GET'])
 @login_required
@@ -94,7 +92,8 @@ def addpg():
 @pgo.route('/viewpg')
 @login_required
 def viewpg():
-    data = mysql_query("Select pg_mst.pgid,user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+
+    data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
     # print(data)
     file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
     # print(file_names)
@@ -122,6 +121,7 @@ def viewpg():
             
     return render_template('pgo/viewpg.html',data=data)
 
+
 #
 #
 #
@@ -136,7 +136,6 @@ def diff(list1, list2):
 @login_required
 def updatepg():
 	#displaying pg information
-
 	pgid=request.args.get('id')
 	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,pg_mst.addr_1,pg_mst.addr_2,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc from pg_mst where pg_mst.pgid='{}'".format(pgid)) 
 	#common amenities
@@ -171,12 +170,13 @@ def updatepg():
 		return redirect(url_for('pgo.updatepg',id=pgid))
 	return render_template('pgo/updatepg.html',pgid=pgid,data=data,common=common,special=special,amenity_com=amenity_com,amenity_spe=amenity_spe)
 
+
 @pgo.route('/rooms',methods=['GET','POST'])
 @login_required
 def rooms():
-
     pgid = request.args.get('PGID')
     # print(pgid)
+    data = mysql_query("select * from room_mst where pgid='{}'".format(pgid))
     if request.method == "POST":
         pgid = request.form['submit']
         print(request.form.get('amenities'))
@@ -200,7 +200,6 @@ def rooms():
                         VALUES
                         ({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
         return "Masdhav"
-    data = mysql_query("select * from room_mst where PGID={}".format(pgid))
     file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
     # print(file_names)
     lst=[]
@@ -216,3 +215,5 @@ def rooms():
         # print(data)
 
     return render_template('pgo/rooms.html',pgid=pgid,data=data)
+
+

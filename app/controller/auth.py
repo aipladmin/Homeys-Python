@@ -65,11 +65,13 @@ def loginscr():
             session['role'] = data[0]['role']
             session['name'] = str(data[0]['fname'])+' '+str(data[0]['lname'])
             if session['role']=="Owner":
-                return redirect(url_for('pgo.pgotest'))
+                return redirect(url_for('pgo.ownerdashboard'))
             elif session['role']=="Admin":
+
                 return redirect(url_for('auth.Dashboard')) 
-            elif session['user']=="user":
-                return redirect(url_for('user.usertest'))   
+            elif session['role']=="User":
+                return redirect(url_for('user.user_dash'))
+
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')
@@ -78,6 +80,12 @@ def loginscr():
         # return redirect(url_for('admin.admintest'))
     return 'loginotp'
 
+
+@auth.route('/forgotpassword',methods=['GET','POST'])
+def forgotpassword():
+    deets = {'Emailid':session['email'],'Subject':'Change Password Request','OTP':otp,'salutation':salutation}
+    send_mail(**deets)
+    return redirect(url_for('auth.login'))
 
 # LOGOUT CODE
 @auth.route('/logout')

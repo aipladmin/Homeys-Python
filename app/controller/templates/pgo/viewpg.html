@@ -75,10 +75,17 @@
 
 
                                             <div class="card-body">
-                                                Men's PG <br><br>
-                                                Total Rooms : 4 <br><br>
-                                                Address: 112, alpana resedency, kalupur, ahmedabad, gujarat,380012, India <br><br>
-                                                Property Description: A property description is the written portion of a real estate listing that describes the real estate for sale or lease.
+                                                <h5 style="color: black; font-weight: bold;">Type : {{x['pg_gender']}} </h5>
+                                                <h5 style="color: black; font-weight: bold;">Total Rooms :{{x['total_rooms']}}</h5>
+                                               <h5 style="color: black; font-weight: bold;"> Area : {{x['area']}} </h5>
+                                               <h5 style="color: black; font-weight: bold;">
+                                               City : {{x['city']}} </h5>
+                                               <h5 style="color: black; font-weight: bold;">
+                                                State : {{x['state']}} 
+                                                {{x['pincode']}} </h5>
+                                               <h5 style="color: black; font-weight: bold;">
+                                                Description : {{x['prop_desc']}}
+                                              </h5>
                                             </div>
                                         </div>
                                       </div>
@@ -142,8 +149,9 @@
                                         </div>
                                       </div>
 
+
                                             <a href="{{ url_for('pgo.rooms',PGID=x['pgid']) }}" class="btn btn-primary">View/Add/Update Rooms</a>
-                                            <a href="{{ url_for('pgo.updatepg',id=x['pgid']) }}" class="btn btn-primary">Update PG Details</a>
+                                            <a href="{{ url_for('pgo.updatepg', id=x['pgid']) }}" class="btn btn-primary">Update PG Details</a>
 
                                     </div>
 

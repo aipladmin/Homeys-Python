@@ -143,7 +143,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.adminTest') }}"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.admindashboard') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
                        
@@ -151,10 +151,21 @@
                         <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Documentation</span></a></li>
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.adminTest') }}"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li> 
+                                    class="hide-menu">Pg Owners</span></a></li>
+
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Users</span></a></li>
+
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Complaints</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Generate Reports</span></a></li>
+
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -173,7 +184,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                          
-                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('pgo.pgotest') }}"
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('pgo.ownerdashboard') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
                           
@@ -196,9 +207,7 @@
                                 aria-expanded="false"><i class="fas fa-rupee-sign"></i><span
                                     class="hide-menu">Bookings</span></a></li>
 
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('auth.logout') }}"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li>
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -217,15 +226,28 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.user_dash') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
-                       
+                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a>
+                        </li>
+
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Addons</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Search Paying Accomodation</span></a></li>
+                                    class="hide-menu">Search PG-Trilok</span></a></li>
+
+
+
+                           <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('auth.updateProfile')}}"
+                                aria-expanded="false"><i data-feather="edit-3" class="fas fa-rupee-sign"></i></i><span
+                                    class="hide-menu">Update Profile</span></a></li>
+                      
+
+                          <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.searchpg') }}"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Search PG-bhuppi</span></a></li>
+
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
@@ -235,9 +257,7 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                     class="hide-menu">Payment</span></a></li>
 
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li>
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
