@@ -65,11 +65,12 @@
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span class="logo-text">
+                            <span class="logo-text" style="font-size: 25px;">
                                 <!-- dark Logo text -->
                                 <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" /> -->
                                 <!-- Light Logo text -->
                                 <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" /> -->
+                                Homeys
                             </span>
                         </a>
                     </div>
@@ -106,11 +107,11 @@
                                 <img src="{{ url_for('.static',filename='dash/assets/images/users/profile-pic.jpg') }}" alt="user" class="rounded-circle"
                                     width="40">
                                 <span class="ml-2 d-none d-lg-inline-block text-dark"><span>Hello,</span> <span
-                                        class="text-dark">{{ session['user_master']['fname'] ~" "~session['user_master']['lname'] }}</span> <i data-feather="chevron-down"
+                                        class="text-dark">{{ session['name'] }}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <div class="dropdown-divider"></div>
+
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Account Setting</a>
@@ -118,9 +119,7 @@
                                 <a accesskey="q" class="dropdown-item" href="{{ url_for('auth.logout') }}"><i data-feather="power"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="pl-4 p-3"><a href="{{ url_for('auth.updateProfile') }}" class="btn btn-sm btn-info">
-                                    Update Profile</a></div>
+
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -144,7 +143,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.adminTest') }}"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.admindashboard') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
                        
@@ -152,10 +151,21 @@
                         <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Documentation</span></a></li>
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.adminTest') }}"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li> 
+                                    class="hide-menu">Pg Owners</span></a></li>
+
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Users</span></a></li>
+
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Complaints</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Generate Reports</span></a></li>
+
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -174,7 +184,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                          
-                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('pgo.pgotest') }}"
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('pgo.ownerdashboard') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
                           
@@ -193,13 +203,11 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i></i><span
                                     class="hide-menu">Add New PG</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
                                 aria-expanded="false"><i class="fas fa-rupee-sign"></i><span
                                     class="hide-menu">Bookings</span></a></li>
 
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li>
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -218,15 +226,28 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.user_dash') }}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
-                       
+                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a>
+                        </li>
+
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Addons</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Search Paying Accomodation</span></a></li>
+                                    class="hide-menu">Search PG-Trilok</span></a></li>
+
+
+
+                           <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('auth.updateProfile')}}"
+                                aria-expanded="false"><i data-feather="edit-3" class="fas fa-rupee-sign"></i></i><span
+                                    class="hide-menu">Update Profile</span></a></li>
+                      
+
+                          <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.searchpg') }}"
+                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                    class="hide-menu">Search PG-bhuppi</span></a></li>
+
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
@@ -236,9 +257,7 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
                                     class="hide-menu">Payment</span></a></li>
 
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu">Log Out</span></a></li>
+                      
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

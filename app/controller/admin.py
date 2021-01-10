@@ -25,6 +25,6 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
-@admin.route('/adminTest')
-def adminTest():
-    return render_template('admin/adminDashboard_Test.html')
+@admin.route('/adminDashboard')
+def admindashboard():
+    return render_template('admin/admin_dashboard.html')

@@ -63,13 +63,15 @@ def loginscr():
         if len(data) == 1:
             session['email'] = email
             session['role'] = data[0]['role']
-            session['user_master'] = data[0]
+            session['name'] = str(data[0]['fname'])+' '+str(data[0]['lname'])
             if session['role']=="Owner":
-                return redirect(url_for('pgo.pgotest'))
+                return redirect(url_for('pgo.ownerdashboard'))
             elif session['role']=="Admin":
+
                 return redirect(url_for('auth.Dashboard')) 
-            elif session['user']=="user":
-                return redirect(url_for('user.usertest'))   
+            elif session['role']=="User":
+                return redirect(url_for('user.user_dash'))
+
         else:
             flash('Unauthorized','danger')
             return render_template('flash.html')
@@ -79,13 +81,23 @@ def loginscr():
     return 'loginotp'
 
 
+@auth.route('/forgotpassword',methods=['POST'])
+def forgotpassword():
+    
+    otp = password_generator(8)
+    mysql_query("update user_mst set password='{}' where email='{}';".format(otp,request.form['email']))
+    deets = {'Emailid':request.form['email'],'Subject':'Change Password Request','OTP':otp,'salutation':"salutation"}
+    Status = send_mail(**deets)
+    
+    return redirect(url_for('auth.login'))
+
 # LOGOUT CODE
 @auth.route('/logout')
 @login_required
 def logout():
     session.pop('email', None)
     session.pop('role', None)
-    session.pop('user_master',None)
+    session.pop('name',None)
     return redirect(url_for('auth.login'))
 
 @auth.route('/register',methods=['GET','POST'])
@@ -129,25 +141,52 @@ def register():
             
             mysql_query('insert into user_mst({}) values{}'.format(simplified_key_value,ins_value))
             
-        return "Registered"
+        return redirect(url_for('auth.login'))
     return render_template('register.html')
 
 
-@auth.route('/index')
-@login_required
-def index_template():
-    return render_template('index.html')
+# @auth.route('/index')
+# @login_required
+# def index_template():
+#     try:
+#         pass
+#     except expression as identifier:
+#         pass
+#     return render_template('index.html')
 
 @auth.route('/Dashboard',methods=['GET'])
 @login_required
 def Dashboard():
-
-    
     return render_template('adminDashboard.html')
+        
+    
 
 @auth.route('/updateprofile',methods=['GET','POST'])
 @login_required
 def updateProfile():
+    if request.method == "POST":
+        mysql_query(''' UPDATE `homies`.`user_mst`
+                        SET
+                        `fname` = '{}',
+                        `mname` = '{}',
+                        `lname` = '{}',
+                        `email` = '{}',
+                        `phone` = {},
+                        `dob` = '{}',
+                        `gender` = '{}',
+                        `password` = '{}',
+                        `addr1` = '{}',
+                        `addr2` = '{}',
+                        `area` = '{}',
+                        `city` = '{}',
+                        `state` ='{}',
+                        `pincode` = {}
+                        WHERE `UID` = {} '''.format(request.form['fname'],request.form['mname'],request.form['lname'],request.form['email'],
+                                                    request.form['phone'],request.form['dob'],request.form['gender'],request.form['password'],
+                                                    request.form['addr1'],request.form['addr2'],request.form['area'],request.form['city'],
+                                                    request.form['state'],request.form['pincode'],request.form['submit']))
+        flash("Profile Updated","success")
+        return redirect(url_for('auth.updateProfile'))
     personalinfo = mysql_query("select * from user_mst where email='{}'".format(session['email']))
     print(personalinfo)
     return render_template('updateProfile.html',data=personalinfo)
