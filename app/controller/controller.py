@@ -1,30 +1,22 @@
-import sqlite3
-import random
-import string
-
 import boto3
+from .. import mail
 from botocore.exceptions import ClientError
-from flask_pymongo import MongoClient,pymongo
 from flaskext.mysql import *
 from functools import wraps
 from flask_mail import *
 from flask import *
 from flask import current_app
 
-from app import create_app
 from flask import *
 from flaskext.mysql import MySQL
 from flask_mail import Mail,Message
 
-# mongo = PyMongo()
+
 mysql = MySQL()
+# mail=Mail()
 
 app = Flask(__name__)
 
-client = pymongo.MongoClient("mongodb+srv://MadhavParikh:MJfuRI1MJWEKXkBK@cluster0.8p8et.mongodb.net/mittrisem2?retryWrites=true&ssl=true&ssl_cert_reqs=CERT_NONE&w=majority")
-# print(client.server_info())
-db = client.mittrisem2
-db_operations = db.homies
 
 app.config['MYSQL_DATABASE_USER'] = 'admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'MiloniMadhav'
@@ -65,11 +57,8 @@ def mysql_query(sql):
 
 # MAIL DRIVER
 def send_mail(**deets):
-    mail = Mail()
-        # with current_app.app_context():
-    #     mail = Mail()
-    #     mail.send(msg)
-    # print(deets['otp'])
+ 
+    
     msg = Message(deets['Subject'], sender = 'developer.websupp@gmail.com', recipients = [deets['Emailid'] ])
     # print(msg)
     msg.html = render_template('mail.html',emailid=deets['Emailid'],otp=deets['OTP'],salutation = deets['salutation'])

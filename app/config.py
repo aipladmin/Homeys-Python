@@ -9,8 +9,8 @@ from flask import g,sessions
 # print(basedir)
 class Config(object):
 
-    TESTING = True
-    DEBUG = True
+    TESTING = False
+    DEBUG = False
    
     FLASK_ENV='development'
     SECRET_KEY = 'doFddfVtb1tT9RnJWM3rx0ZiijRvKGYc'
