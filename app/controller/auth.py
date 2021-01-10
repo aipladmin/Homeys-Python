@@ -63,7 +63,7 @@ def loginscr():
         if len(data) == 1:
             session['email'] = email
             session['role'] = data[0]['role']
-            session['user_master'] = data[0]
+            session['name'] = str(data[0]['fname'])+' '+str(data[0]['lname'])
             if session['role']=="Owner":
                 return redirect(url_for('pgo.pgotest'))
             elif session['role']=="Admin":
@@ -85,7 +85,7 @@ def loginscr():
 def logout():
     session.pop('email', None)
     session.pop('role', None)
-    session.pop('user_master',None)
+    session.pop('name',None)
     return redirect(url_for('auth.login'))
 
 @auth.route('/register',methods=['GET','POST'])
@@ -133,15 +133,21 @@ def register():
     return render_template('register.html')
 
 
-@auth.route('/index')
-@login_required
-def index_template():
-    return render_template('index.html')
+# @auth.route('/index')
+# @login_required
+# def index_template():
+#     try:
+#         pass
+#     except expression as identifier:
+#         pass
+#     return render_template('index.html')
 
 @auth.route('/Dashboard',methods=['GET'])
 @login_required
 def Dashboard():
     return render_template('adminDashboard.html')
+        
+    
 
 @auth.route('/updateprofile',methods=['GET','POST'])
 @login_required

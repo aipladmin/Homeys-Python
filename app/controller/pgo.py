@@ -34,10 +34,12 @@ def handle_exception(e):
 
 
 @pgo.route('/')
+@login_required
 def pgotest():
 	return render_template('pgo/pgo_dashboard.html')
 
 @pgo.route('/addpg',methods=['POST','GET'])
+@login_required
 def addpg():
 	if request.method == "POST":
 		#! FILE UPLOAD LIMIT IS 5 MB.
@@ -90,6 +92,7 @@ def addpg():
 	return render_template('pgo/addpg.html')
 
 @pgo.route('/viewpg')
+@login_required
 def viewpg():
     data = mysql_query("Select pg_mst.pgid,user_mst.email,pg_mst.pg_name from pg_mst inner join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
     # print(data)
@@ -130,6 +133,7 @@ def diff(list1, list2):
     return out
 #
 @pgo.route('/updatepg',methods=['POST','GET'])
+@login_required
 def updatepg():
 	#displaying pg information
 
@@ -168,6 +172,7 @@ def updatepg():
 	return render_template('pgo/updatepg.html',pgid=pgid,data=data,common=common,special=special,amenity_com=amenity_com,amenity_spe=amenity_spe)
 
 @pgo.route('/rooms',methods=['GET','POST'])
+@login_required
 def rooms():
 
     pgid = request.args.get('PGID')
