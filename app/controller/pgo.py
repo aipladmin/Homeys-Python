@@ -140,17 +140,47 @@ def updatepg():
 	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,pg_mst.addr_1,pg_mst.addr_2,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc from pg_mst where pg_mst.pgid='{}'".format(pgid)) 
 	#common amenities
 	amenity_com=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"common"))
+	
+	amenity_com_list=[]
+	for x in amenity_com:
+		amenity_com_list.append(x['amenity'])
+
 	#special amenities
 	amenity_spe=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"special"))	
-	
+	amenity_spe_list=[]
+	for x in amenity_spe:
+		amenity_spe_list.append(x['amenity'])
+
 	#making list of facilities
 	common=["AC","Cooking Allowed","Food","Parking","Laundry","Television","Guests Allowed"]
 	special=["GYM","Swimming","Pool","Vehicles Provided","Dry Cleaning"]
+	
+	# The Variable Passed
+	amenity_com_selected=[]
+	amenity_com_unselected =[]
+	for x in common:
+		if x in amenity_com_list:
+			amenity_com_selected.append(x)
+		else:
+			# print(x)
+			amenity_com_unselected.append(x)
+	print("Selected",set(amenity_com_selected),"Unselected",set(amenity_com_unselected))
 
-	#updatign pg information with facilities and imges
+	# The variable Passed
+	amenity_spe_selected=[]
+	amenity_spe_unselected =[]
+	for x in special:
+		if x in amenity_spe_list:
+			amenity_spe_selected.append(x)
+		else:
+			amenity_spe_unselected.append(x)
+	print("Selected",set(amenity_spe_selected),"Unselected",set(amenity_spe_unselected))
+	
+
+	#Updating pg information with facilities and imges
 	if request.method=='POST':
 		pgid = request.form['submit']
-		uid=session['user_master']
+		# uid=session['user_master']
 		pg_name=request.form['pg_name']
 		pg_gender=request.form['pg_type']
 		area=request.form['area']
@@ -168,7 +198,9 @@ def updatepg():
 		for x in request.form.getlist('special_facilities'):
 			mysql_query("insert into facility_mst(PGID,amenity,amenity_type) values({},'{}','special')".format(pgid,x))    
 		return redirect(url_for('pgo.updatepg',id=pgid))
-	return render_template('pgo/updatepg.html',pgid=pgid,data=data,common=common,special=special,amenity_com=amenity_com,amenity_spe=amenity_spe)
+	
+	return render_template('pgo/updatepg.html',pgid=pgid,data=data,
+							amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected)
 
 
 @pgo.route('/rooms',methods=['GET','POST'])

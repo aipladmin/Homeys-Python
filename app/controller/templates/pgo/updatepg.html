@@ -116,34 +116,26 @@
                                                 <label>Common Facilities</label>
                                               </div>
                                             </div>
-                                           {% for x in amenity_com %}
-                                             
-                                                <div class="form-group col-md-6">
+                                           {% for x in amenity_com_selected %}
+                                             <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="{{ x['amenity'] }}" type="checkbox" id="gridCheck" checked>
+                                                  <input class="form-check-input" name="common_facilities" value="{{ x }}" type="checkbox" id="gridCheck" checked>
                                                   <label class="form-check-label" for="gridCheck">
-                                                    {{ x['amenity'] }}
+                                                    {{ x }}
                                                   </label>
                                                 </div>
                                               </div>
-                                              
-                                              
-
-                                              {% for item in common %}
-                                             
-                                                {% if item != x['amenity'] %}
-                                                <div class="form-group col-md-6">
+                                            {% endfor %}
+                                            {% for x in amenity_com_unselected %}
+                                              <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="common_facilities" value="{{ item }}" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="common_facilities" value="{{ x }}" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
-                                                    {{ item }}
+                                                    {{ x }}
                                                   </label>
                                                 </div>
                                               </div>
-                                              {% endif %}
-                                              
-                                              {% endfor %}
-                                              {% endfor %}                             
+                                            {% endfor %}
                                           </div>
                                           <div class="form-group col-md-6">
                                             <div class="form-row">
@@ -151,35 +143,27 @@
                                                 <label>Special Facilities</label>
                                               </div>
                                             </div>
-
-                                            {% for y in amenity_spe %}
-
-                                              <div class="form-group col-md-4">
+                                               {% for x in amenity_spe_selected %}
+                                             <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="{{ y['amenity'] }}" type="checkbox" id="gridCheck" checked>
+                                                  <input class="form-check-input" name="special_facilities" value="{{ x }}" type="checkbox" id="gridCheck" checked>
                                                   <label class="form-check-label" for="gridCheck">
-                                                    {{ y['amenity'] }}
+                                                    {{ x }}
                                                   </label>
                                                 </div>
                                               </div>
-                                				{% for item in special %}
-                                            
-                                              {% if y['amenity'] != item  %}
-
+                                            {% endfor %}
+                                            {% for x in amenity_spe_unselected %}
                                               <div class="form-group col-md-6">
                                                 <div class="form-check form-check-inline">
-                                                  <input class="form-check-input" name="special_facilities" value="{{ item }}" type="checkbox" id="gridCheck">
+                                                  <input class="form-check-input" name="special_facilities" value="{{ x }}" type="checkbox" id="gridCheck">
                                                   <label class="form-check-label" for="gridCheck">
-                                                    {{ item }}
-
+                                                    {{ x }}
                                                   </label>
                                                 </div>
                                               </div>
-
-                                              {% endif %}
-
-                                              {% endfor %}
-                                              {% endfor %}
+                                            {% endfor %}
+                                           
                                             
                                           </div>
                                         </div>
