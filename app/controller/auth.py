@@ -81,10 +81,14 @@ def loginscr():
     return 'loginotp'
 
 
-@auth.route('/forgotpassword',methods=['GET','POST'])
+@auth.route('/forgotpassword',methods=['POST'])
 def forgotpassword():
-    deets = {'Emailid':session['email'],'Subject':'Change Password Request','OTP':otp,'salutation':salutation}
-    send_mail(**deets)
+    
+    otp = password_generator(8)
+    mysql_query("update user_mst set password='{}' where email='{}';".format(otp,request.form['email']))
+    deets = {'Emailid':request.form['email'],'Subject':'Change Password Request','OTP':otp,'salutation':"salutation"}
+    Status = send_mail(**deets)
+    
     return redirect(url_for('auth.login'))
 
 # LOGOUT CODE

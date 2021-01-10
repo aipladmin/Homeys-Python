@@ -13,7 +13,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 
 from .config import Config
 
-
+mail = Mail()
 def create_app():
     app = Flask(
         __name__,
@@ -21,13 +21,9 @@ def create_app():
         static_url_path=''
     )
 
-
     app.config.from_object(Config)
     app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024   # 5 MB limit
-
-
-
-
+    
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
     # app.config['SESSION_TYPE'] = 'sqlalchemy'
     # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # quiet warning message
@@ -43,11 +39,18 @@ def create_app():
     # print(db_path)
 
 
+    app.config['MAIL_SERVER']='smtp.gmail.com'
+    app.config['MAIL_PORT']=465
+    app.config['MAIL_USE_SSL']=True
+    app.config['MAIL_USERNAME'] = 'developer.websupp@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'jvlfatxjxjigmryg'
+    app.config['MAIL_DEFAULT_SENDER'] = 'developer.websupp@gmail.com'
+    app.config['MAIL_USE_TLS'] = False 
+    mail.init_app(app)
+
     sentry_sdk.init(
     dsn="https://3cbd60be648047aeaaa21a66b5be645d@o416140.ingest.sentry.io/5552589",
     integrations=[FlaskIntegration()])
-
-
 
     from app.controller import (
         auth,admin,user,pgo
