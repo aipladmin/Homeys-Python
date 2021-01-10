@@ -31,13 +31,13 @@ def handle_exception(e):
 	response.content_type = "application/json"
 	return response
 
-
-
 @pgo.route('/ownerdashboard')
+@login_required
 def ownerdashboard():
-	return render_template('pgo/pgo_dashboard.html')
+  return render_template('pgo/pgo_dashboard.html')
 
 @pgo.route('/addpg',methods=['POST','GET'])
+@login_required
 def addpg():
 	if request.method == "POST":
 		#! FILE UPLOAD LIMIT IS 5 MB.
@@ -90,6 +90,7 @@ def addpg():
 	return render_template('pgo/addpg.html')
 
 @pgo.route('/viewpg')
+@login_required
 def viewpg():
 
     data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
@@ -132,6 +133,7 @@ def diff(list1, list2):
     return out
 #
 @pgo.route('/updatepg',methods=['POST','GET'])
+@login_required
 def updatepg():
 	#displaying pg information
 	pgid=request.args.get('id')
@@ -170,6 +172,7 @@ def updatepg():
 
 
 @pgo.route('/rooms',methods=['GET','POST'])
+@login_required
 def rooms():
     pgid = request.args.get('PGID')
     # print(pgid)

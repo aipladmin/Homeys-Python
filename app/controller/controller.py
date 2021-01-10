@@ -119,7 +119,7 @@ def upload_file(file_name, bucket, object_name=None):
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'email' in session and "role" in session and  "user_master" in session:
+        if 'email' in session and 'role' in session and  'name' in session:
             return f(*args, **kwargs)
         else:
             # flash('You need to login first')
