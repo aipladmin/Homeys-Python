@@ -75,17 +75,26 @@
 
 
                                             <div class="card-body">
-                                                <h5 style="color: black; font-weight: bold;">Type : {{x['pg_gender']}} </h5>
-                                                <h5 style="color: black; font-weight: bold;">Total Rooms :{{x['total_rooms']}}</h5>
-                                               <h5 style="color: black; font-weight: bold;"> Area : {{x['area']}} </h5>
-                                               <h5 style="color: black; font-weight: bold;">
-                                               City : {{x['city']}} </h5>
-                                               <h5 style="color: black; font-weight: bold;">
-                                                State : {{x['state']}} 
-                                                {{x['pincode']}} </h5>
-                                               <h5 style="color: black; font-weight: bold;">
-                                                Description : {{x['prop_desc']}}
-                                              </h5>
+                                                
+                                                <span class="badge badge-primary" style="font-size: 18px;"> {{x['pg_gender']}} <i class="fas fa-user"></i> </span>
+                                              <br> 
+
+                                                <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">Total Rooms : </span>
+                                                 <span class="badge badge-pill badge-dark" style="font-size: 16px">{{x['total_rooms']}}</span>
+                                                 <br>
+
+                                               <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">Area : </span> {{x['area']}}
+
+                                               <br>
+                                                <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">City : </span> {{x['city']}}
+
+                                               <br>
+                                               
+
+
+                                                 <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">Description : </span> 
+                                                {{ x['prop_desc'] }} 
+                                            
                                             </div>
                                         </div>
                                       </div>
