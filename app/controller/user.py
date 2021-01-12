@@ -38,13 +38,6 @@ def handle_exception(e):
     response.content_type = "application/json"
     return response
 
-  
-# @user.route('/')
-# def user_dash():
-#     return render_template('user/user_dashboard.html')
-
-# @user.route('/usernd')
-
 @user.route('/')
 @user.route('/pg_ads')
 def pg_ads():
@@ -64,13 +57,7 @@ def pg_ads():
                 dict = {'images': lst}
                 data[int(cntr)].update(dict)
             print(data)
-        #    else:
-        #         # print(x)
-        #         dict = {'images':None}
-        #         data[int(cntr)].update(dict)
+
     return render_template('user/pg_ads.html',data=data)
-
-
-
 
 

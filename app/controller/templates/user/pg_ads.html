@@ -103,15 +103,17 @@ body {
 
 
 
-{#{{ data }}#}
+
 
      {% for x in data %}
+
   <!-- Card Start -->
   <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <div class="row ">
 
       <div class="col-md-7 px-3">
           <div class="card-block px-6">
+
           <h3 class="card-title">{{ x['pg_name'] }} </h3>
           <hr>
 
@@ -159,6 +161,7 @@ body {
           <p class="card-text"></p>
           
           <a href="#" class="mt-auto btn btn-primary  ">More details <i class="fas fa-chevron-circle-right"></i>    </a>
+
         </div>
       </div>
       <!-- Carousel start -->
@@ -195,6 +198,7 @@ body {
                                                     {% endif %}
 
 
+
             <a class="carousel-control-prev" href="#CarouselTest" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -210,8 +214,10 @@ body {
     </div>
   </div>
   <!-- End of card -->
+
     <br>
 {% endfor %}
+
 
 </div>
 

@@ -70,6 +70,7 @@ def loginscr():
 
                 return redirect(url_for('auth.Dashboard')) 
             elif session['role']=="User":
+
                 return redirect(url_for('user.pg_ads'))
 
         else:
