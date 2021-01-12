@@ -226,7 +226,9 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.user_dash') }}"
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
+
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a>
                         </li>
@@ -234,27 +236,23 @@
                         <li class="list-divider"></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Search PG-Trilok</span></a></li>
+
+                                aria-expanded="false"><i class="fas fa-search"></i><span
+                                    class="hide-menu">Search PG</span></a></li>
 
 
 
                            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('auth.updateProfile')}}"
                                 aria-expanded="false"><i data-feather="edit-3" class="fas fa-rupee-sign"></i></i><span
                                     class="hide-menu">Update Profile</span></a></li>
-                      
-
-                          <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.searchpg') }}"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Search PG-bhuppi</span></a></li>
 
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Bookings</span></a></li> 
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                                aria-expanded="false"><i class="fas fa-rupee-sign"></i><span
                                     class="hide-menu">Payment</span></a></li>
 
                       
