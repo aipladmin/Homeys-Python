@@ -89,3 +89,9 @@ def search():
 			print(data)	
 			return render_template('user/pg_ads.html',data=data)
 	return render_template('user/pg_ads.html')
+
+
+@user.route('/pg_details')
+def pg_details():
+	return render_template('user/pg_details.html')
+
