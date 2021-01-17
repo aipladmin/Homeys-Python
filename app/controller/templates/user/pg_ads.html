@@ -68,36 +68,33 @@ body {
 </style>
 
 <div class="container py-3">
-    <div><h3>Search PG</h3></div><br>
 
   <div class="row">
 
     <div class="col">
+    <form method="POST" action="{{ url_for('user.search') }}">
     <label for="byname">Search by name</label>
-    <input type="search" class="form-control" id="byname" placeholder="Search by PG name">
+    <input type="search" class="form-control" name="byname" placeholder="Search by PG name">
     </div>
+  
 
     <div class="col">
         <label for="sel1">Gender Preference</label>
-        <select class="form-control" id="sel1">
-        <option>Men's</option>
-        <option>Women's</option>
-        </select>
-    </div>
-
-    <div class="col">
-        <label for="sel2">AC Preference</label>
-        <select class="form-control" id="sel2">
-        <option>AC</option>
-        <option>Non AC</option>
+        <select class="form-control" name="sel1">
+          <option value="" selected >Select type</option>
+        <option value="boys">Men's</option>
+        <option value="girls">Women's</option>
         </select>
     </div>
 
     <div class="col">
         <label for="byarea">Search by area</label>
-    <input type="search" class="form-control" id="byarea" placeholder="Search by area">
+    <input type="search" class="form-control" name="byarea" placeholder="Search by area">
     </div>
-
+    <div>
+      <button type="submit" name="button1" class="btn btn-primary" >
+    </div>
+</form>
   </div>
   <br>
 
@@ -106,6 +103,8 @@ body {
 
 
      {% for x in data %}
+
+   
 
   <!-- Card Start -->
   <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
@@ -130,8 +129,6 @@ body {
           </div>
           <hr>
 
-{#               <p class="card-text">Address: 203, Narayan Nagar, Village Hinjawadi, Pune - 411057</p>#}
-
           <div class="row">
 
               <div class="col text-truncate">
@@ -144,19 +141,15 @@ body {
               <div class="col nowrap" style="border-right: 1px solid grey;">
                   <span class="badge badge-pill badge-dark" style="font-size: 16px">Total Rooms: {{ x['total_rooms'] }}</span>
               </div>
+          {% set list1 = x['facilities'].split(',') %}
+          {% for item in list1 [0:4] %}
               <div class="col" style="border-right: 1px solid grey;">
-                  <span class="badge badge-pill badge-dark" style="font-size: 16px">AC</span>
+                  <span class="badge badge-pill badge-dark" style="font-size: 16px">{{ item }}</span>
               </div>
-              <div class="col" style="border-right: 1px solid grey;">
-                  <span class="badge badge-pill badge-dark" style="font-size: 16px">Wifi</span>
-              </div>
-              <div class="col" style="border-right: 1px solid grey;">
-                  <span class="badge badge-pill badge-dark" style="font-size: 16px">Food </span>
-              </div>
-              <div class="col">
-                  <span class="badge badge-pill badge-dark" style="font-size: 16px">Laundry </span>
-              </div>
+              {% endfor %}
+          
           </div>
+          
 
           <p class="card-text"></p>
           
@@ -214,6 +207,7 @@ body {
     </div>
   </div>
   <!-- End of card -->
+ 
 
     <br>
 {% endfor %}
