@@ -7,8 +7,10 @@
     <div class="card shadow p-3">
       <div class="card-body">
         <div class="row">
-            <div class="col-8">
 
+            <div class="col-8">
+                <div class="row">
+                <div class="col">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                   <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -35,9 +37,20 @@
                     <span class="sr-only">Next</span>
                   </a>
                 </div>
+                </div>
+                </div><br>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-primary btn-block"><i class="far fa-heart"></i>&nbsp; Add to favourite</button>
+                    </div>
+                    <div class="col">
+                        <a href="#rooms"> <button type="button" class="btn btn-outline-secondary btn-block"><i class="fas fa-bed"></i>&nbsp; View Rooms</button></a>
+                    </div>
 
+                  </div>
 
             </div>
+
             <div class="col-4">
                 <div class="row">
                     <div class="col"><h3 class="badge badge-primary" style="font-size: 24px;">Royal Paying Guest</h3></div>
@@ -73,11 +86,44 @@
             </div>
         </div>
         <hr>
-
+        <br>
         <div class="row">
-            <div class="col" style="text-align: center;"><h3 class="badge badge-dark" style="font-size: 22px;">Facilities</h3></div>
+            <div class="col" style="text-align: center;"><h3 class="badge badge-dark d-block" style="font-size: 22px;">Facilities</h3></div>
         </div>
+        <br>
         <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Common Facilities</th>
+                      <th scope="col">Yes/No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Food</th>
+                      <td>Yes</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <table class="table table-striped">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Special Facilities</th>
+                      <th scope="col">Yes/No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Gymnasium</th>
+                      <td>Yes</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
 
         </div>
 
@@ -90,7 +136,7 @@
     <div class="card shadow p-3">
       <div class="card-body ">
           <div class="row">
-          <div class="col" style="text-align: center;"><h3 class="badge badge-dark" style="font-size: 22px;">Room Details</h3></div>
+          <div class="col" style="text-align: center;"><h3 class="badge badge-dark d-block" style="font-size: 22px;">Room Details</h3></div>
           </div>
           <hr>
 
@@ -121,8 +167,8 @@
                 </div>
               </div>
               <div class="col-6 ">
-                  <div class="row">
-                      <div class="col badge badge-primary p-1    ">
+                  <div class="row" id="rooms">
+                      <div class="col badge badge-primary p-1">
                           <h3 style="font-size: 18px; margin-top: 8px;">Three Sharing Room</h3>
                       </div>
                   </div>
@@ -130,37 +176,37 @@
 
                   <div class="row" >
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Total Beds: 3</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Total Beds: 3</span>
                       </div>
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Vacant Beds: 1</span>
-                      </div>
-                  </div>
-                  <hr>
-
-                  <div class="row" >
-                      <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Air Conditioner: Yes</span>
-                      </div>
-                      <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Personal Television: No</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Vacant Beds: 1</span>
                       </div>
                   </div>
                   <hr>
 
                   <div class="row" >
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Room Rent: 9000/-</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Air Conditioner: Yes</span>
                       </div>
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning" style="font-size: 16px;">Token Amount: 3000/-</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Personal Television: No</span>
+                      </div>
+                  </div>
+                  <hr>
+
+                  <div class="row" >
+                      <div class="col-6 text-center">
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Room Rent: 9000/-</span>
+                      </div>
+                      <div class="col-6 text-center">
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Token Amount: 3000/-</span>
                       </div>
                   </div>
                   <hr>
 
                   <div class="row" >
                       <div class="col text-center">
-                          <button type="button" class="btn btn-success"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
+                          <button type="button" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
                       </div>
                   </div>
 
