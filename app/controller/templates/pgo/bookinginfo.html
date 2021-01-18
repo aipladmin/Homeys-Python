@@ -1,0 +1,224 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+
+            <div class="container-fluid">
+              <!-----------button coding------------->
+              <div class="row">
+                    <div class="col-12">
+                     
+                        <div class="card">
+                            <div class="card-body">
+                              <form method="POST" action="{{url_for('pgo.confirmbooking')}}">
+
+                        <button type="submit" class="btn btn-warning" name="but1" value=1 style="color:white; font-weight: bold;"> Pending </button>
+
+
+                       <button type="submit" class="btn btn-success" name="but2" value=2 style="color:white; font-weight: bold;"> Approved</button>
+
+                       <button type="submit" class="btn btn-danger" name="but3" value=3 style="color:white; font-weight: bold;"> Declined</button>
+                       </form>
+                       </div>
+                       </div>
+                       </div>
+                       </div>    
+
+                       <!----------------buttton done------------->
+                       {% if value == "1" %}
+          <div class="row">
+                    <div class="col-12">
+                     
+                        <div class="card">
+                            <div class="card-body">
+                            	<form method="POST" action="{{ url_for('pgo.confirmbooking') }}">
+              
+                <table class="table table-hover">
+                	 <thead>
+       {%for x in data %}
+    <tr style="font-weight:bold; background-color: #E8E8E8;">
+      <td scope="col" colspan=6 style="color:black; margin-left: 15px; font-size: 22px;">{{ x['pg_name']}} </td>
+      <td style="color:black; font-size: 22px;">{{ x['pg_gender']}} Pg
+      </td>
+      
+    </tr>
+  </thead>
+  <thead>
+    <tr style="font-weight:bold; background-color: #181818;">
+      <td scope="col" style="color:white;">User name</td>
+      <td scope="col"style="color:white;">Email</td>
+      <td scope="col"style="color:white;">Date</td>
+      <td scope="col"style="color:white;">Gender</td>
+      <td scope="col"style="color:white;">Area</td>
+      <td scope="col"style="color:white;">City</td>
+      <td scope="col"style="color:white;">Status</td>
+
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for x in data%}
+    <tr>
+      <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['email']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['book_date']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['gender']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['area']}}</td>
+
+       <td scope="row" style="color:black;">{{ x['city']}}</td>
+
+
+    <td scope="row"><button type="submit" class="btn btn-success" name="button1" value="{{ x['bid'] }}" style="color:white; font-weight: bold;"><i class="fa fa-check"></i></button>
+
+      <button type="submit" class="btn btn-danger" style="color:white; font-weight: bold;"><i class="fa fa-times" value="{{ x['bid'] }}" name="button2"></i></button>
+      </td>
+     
+
+  
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endfor %}
+  
+</table>  
+</form>       
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+
+                {% if value=="2" %}
+          <div class="row">
+                    <div class="col-12">
+                     
+                        <div class="card">
+                            <div class="card-body">
+                              
+              
+                <table class="table table-hover">
+                   <thead>
+       {%for x in data %}
+    <tr style="font-weight:bold; background-color: #E8E8E8;">
+      <td scope="col" colspan=6 style="color:black; margin-left: 15px; font-size: 22px;">{{ x['pg_name']}} </td>
+      <td style="color:black; font-size: 22px;">{{ x['pg_gender']}} Pg
+      </td>
+      
+    </tr>
+  </thead>
+  <thead>
+    <tr style="font-weight:bold; background-color: #181818;">
+      <td scope="col" style="color:white;">User name</td>
+      <td scope="col"style="color:white;">Email</td>
+      <td scope="col"style="color:white;">Date</td>
+      <td scope="col"style="color:white;">Gender</td>
+      <td scope="col"style="color:white;">Area</td>
+      <td scope="col"style="color:white;">City</td>
+      <td scope="col"style="color:white;">Status</td>
+
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for x in data%}
+    <tr>
+      <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['email']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['book_date']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['gender']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['area']}}</td>
+
+       <td scope="row" style="color:black;">{{ x['city']}}</td>
+       <td scope="row"><button type="submit" class="btn btn-success" style="color:white; font-weight: bold;">Approved</button>
+     </td>
+
+  
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endfor %}
+  
+</table>  
+       
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+
+                {% if value == "3" %}
+          <div class="row">
+                    <div class="col-12">
+                     
+                        <div class="card">
+                            <div class="card-body">
+                              
+              
+                <table class="table table-hover">
+                   <thead>
+       {%for x in data %}
+    <tr style="font-weight:bold; background-color: #E8E8E8;">
+      <td scope="col" colspan=6 style="color:black; margin-left: 15px; font-size: 22px;">{{ x['pg_name']}} </td>
+      <td style="color:black; font-size: 22px;">{{ x['pg_gender']}} Pg
+      </td>
+      
+    </tr>
+  </thead>
+  <thead>
+    <tr style="font-weight:bold; background-color: #181818;">
+      <td scope="col" style="color:white;">User name</td>
+      <td scope="col"style="color:white;">Email</td>
+      <td scope="col"style="color:white;">Date</td>
+      <td scope="col"style="color:white;">Gender</td>
+      <td scope="col"style="color:white;">Area</td>
+      <td scope="col"style="color:white;">City</td>
+      <td scope="col"style="color:white;">Status</td>
+
+    </tr>
+  </thead>
+  
+  <tbody>
+    {% for x in data%}
+    <tr>
+      <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['email']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['book_date']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['gender']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['area']}}</td>
+
+       <td scope="row" style="color:black;">{{ x['city']}}</td>
+         <td scope="row"><button type="submit" class="btn btn-danger" style="color:white; font-weight: bold;">Declined</button>
+     </td>
+
+
+     
+
+  
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endfor %}
+  
+</table>        
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+            </div>
+{% endblock %}

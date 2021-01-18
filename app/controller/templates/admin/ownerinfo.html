@@ -1,0 +1,49 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+            <div class="container-fluid">
+                <form method="POST" action="{{ url_for('admin.owner') }}">
+              
+                <table class="table table-hover">
+  <tdead>
+    <tr style="font-weight:bold; background-color: 	#181818;">
+      <td scope="col" style="color:white;">Name</td>
+      <td scope="col"style="color:white;">Email</td>
+      <td scope="col"style="color:white;">Gender</td>
+      <td scope="col"style="color:white;">DOB</td>
+      <td scope="col"style="color:white;">Pan No</td>
+      <td scope="col"style="color:white;">Status</td>
+
+    </tr>
+  </tdead>
+  
+  <tbody>
+    {% for x in data%}
+    <tr>
+      <td scope="row" style="color:black;">{{ x['fname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['email']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['gender']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['dob']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['id_proof']}}</td>
+     
+    
+    {% if x['authorised']=="Activated" %}
+      <td scope="row"><button type="submit" class="btn btn-success" name="button1" value="{{ x['uid']}}" style="color:white; font-weight: bold;"><i class="far fa-eye"></i>Activated</button></td>
+      {% else %}
+      <td scope="row"><button type="submit" class="btn btn-danger" name="button2" value="{{ x['uid'] }}" style="color:white; font-weight: bold;"><i class="far fa-eye"> Deactivated</i></button></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  
+</table>  
+</form>       
+            </div>
+            
+            
+{% endblock %}

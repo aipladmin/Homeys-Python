@@ -249,3 +249,31 @@ def rooms():
     return render_template('pgo/rooms.html',pgid=pgid,data=data)
 
 
+@pgo.route('/Confirmbooking',methods=['GET','POST'])
+def confirmbooking():
+	data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid ")
+	if request.method=="POST":
+		if "but1" in request.form:
+			value=request.form['but1']
+			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Deactivated"))
+			return render_template('pgo/bookinginfo.html',data=data,value=value)
+		elif "but2" in request.form:
+			value=request.form['but2']
+			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Activated"))
+			return render_template('pgo/bookinginfo.html',data=data,value=value)
+		elif "but3" in request.form:
+			value=request.form['but3']
+			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Declined"))
+			return render_template('pgo/bookinginfo.html',data=data,value=value)
+	if request.method=="POST":
+				if "button1" in request.form:
+					bid=request.form['button1']
+					print(bid)
+					mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Activated",bid))
+					return render_template('pgo/bookinginfo.html')
+				elif "button2" in request.form:
+					bid=request.form['button2']
+					print(bid)
+					mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Declined",bid))
+					return render_template('pgo/bookinginfo.html',data=data,value=value)
+	return render_template('pgo/bookinginfo.html',data=data)
