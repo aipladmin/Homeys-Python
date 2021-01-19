@@ -91,6 +91,7 @@ def search():
 	return render_template('user/pg_ads.html')
 
 
+
 @user.route('/bookingstatus',methods=['GET','POST'])
 def userbookinginfo():
 	uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
@@ -109,3 +110,9 @@ def userbookinginfo():
 			return render_template('user/userbooking.html',data=data,value=value)
 
 	return render_template('user/userbooking.html')
+
+@user.route('/pg_details')
+def pg_details():
+	return render_template('user/pg_details.html')
+
+
