@@ -1,0 +1,49 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+            <div class="container-fluid">
+                <form method="POST" action="{{ url_for('admin.pg') }}">
+              
+                <table class="table table-hover">
+  <tdead>
+    <tr style="font-weight:bold; background-color: #181818;">
+      <td scope="col" style="color:white;">Pg name</td>
+      <td scope="col"style="color:white;">Owner</td>
+      <td scope="col"style="color:white;">Type</td>
+      <td scope="col"style="color:white;">Area</td>
+      <td scope="col"style="color:white;">City</td>
+      <td scope="col"style="color:white;">Status</td>
+
+    </tr>
+  </tdead>
+  
+  <tbody>
+    {% for x in data%}
+    <tr>
+      <td scope="row" style="color:black;">{{ x['pg_name']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['pg_gender']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['area']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['city']}}</td>
+     
+    
+    {% if x['status']=="Activated" %}
+      <td scope="row"><button type="submit" class="btn btn-success" name="button1" value="{{ x['pgid']}}" style="color:white; font-weight: bold;"><i class="far fa-eye"></i>Activated</button></td>
+      {% else %}
+      <td scope="row"><button type="submit" class="btn btn-danger" name="button2" value="{{ x['pgid'] }}" style="color:white; font-weight: bold;"><i class="far fa-eye"> Deactivated</i></button></td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  
+</table>  
+</form>       
+            </div>
+            
+            
+{% endblock %}

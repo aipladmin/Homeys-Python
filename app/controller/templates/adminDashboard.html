@@ -17,6 +17,8 @@
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" /> -->
     <!-- Custom CSS -->
     <link href="{{ url_for('.static',filename='dash/dist/css/style.css') }}" rel="stylesheet">
+    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -148,21 +150,22 @@
                                 <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a></li>
                        
                         <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                        <li class="nav-small-cap"><span class="hide-menu">details</span></li>
+                        
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.owner') }}"
+                                aria-expanded="false"><i class="fa fa-user-circle"></i><span
                                     class="hide-menu">Pg Owners</span></a></li>
 
-                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.user') }}"
+                                aria-expanded="false"><i class="fa fa-users"></i><span
                                     class="hide-menu">Users</span></a></li>
 
-                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
-                                    class="hide-menu">Complaints</span></a></li>
+                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.pg') }}"
+                                aria-expanded="false"><i class="fa fa-home"></i><span
+                                    class="hide-menu">Pg details</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
-                                aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i><span
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('admin.report') }}"
+                                aria-expanded="false"><i class=" fa fa-file"></i><span
                                     class="hide-menu">Generate Reports</span></a></li>
 
                       
@@ -203,7 +206,7 @@
                                 aria-expanded="false"><i data-feather="edit-3" class="feather-icon"></i></i><span
                                     class="hide-menu">Add New PG</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="#"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('pgo.confirmbooking')}}"
                                 aria-expanded="false"><i class="fas fa-rupee-sign"></i><span
                                     class="hide-menu">Bookings</span></a></li>
 
@@ -227,19 +230,14 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
 
-                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i>
-                                <span class="hide-menu"> {{ session['role'] }} Dashboard</span></a>
-                        </li>
-
-                        <li class="list-divider"></li>
+                        
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ url_for('user.pg_ads') }}"
 
                                 aria-expanded="false"><i class="fas fa-search"></i><span
                                     class="hide-menu">Search PG</span></a></li>
-
+                                    <li class="list-divider"></li>
 
 
                            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('auth.updateProfile')}}"
@@ -247,7 +245,7 @@
                                     class="hide-menu">Update Profile</span></a></li>
 
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="../../docs/docs.html"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{url_for('user.userbookinginfo')}}"
                                 aria-expanded="false"><i class="fas fa-bed"></i><span
                                     class="hide-menu">Bookings</span></a></li> 
 
