@@ -68,7 +68,7 @@ def search():
 			pgname=request.form['byname']
 			gen=request.form['sel1']
 			area=request.form['byarea']
-			data = mysql_query("Select user_mst.email,pg_mst.pgid,pg_mst.pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc, GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid having pg_mst.pg_name='{}' or pg_mst.pg_gender='{}' or pg_mst.area='{}' ".format(pgname,gen,area))
+			data = mysql_query("Select user_mst.email,pg_mst.pgid,pg_mst.pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc, GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid having pg_mst.pg_name LIKE '%{}%' or pg_mst.pg_gender='{}' or pg_mst.area LIKE '%{}%' ".format(pgname,gen,area))
 			for x in data:
 				print(x['pgid'])
 			file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')

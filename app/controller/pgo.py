@@ -93,44 +93,44 @@ def addpg():
 @login_required
 def viewpg():
 
-    data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
-    # print(data)
-    file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
-    # print(file_names)
-    cntr=-1
-    for x in data:
-        cntr = cntr+1
-        length =x['email']+'_'+x['pg_name']
-        # print(length)
-        xLen = len(length)
-        lst=[]
-        for y in file_names:
-            if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
-                print(y[10:int(xLen+10)])
-                lst.append(y[10:])
-                dict = {'images':lst}
-                # print(dict)
-                data[int(cntr)].update(dict)
-            # print(data)    
-        #    else:
-        #         # print(x)
-        #         dict = {'images':None}    
-        #         data[int(cntr)].update(dict) 
-               
-                   
-            
-    return render_template('pgo/viewpg.html',data=data)
+	data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+	# print(data)
+	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+	# print(file_names)
+	cntr=-1
+	for x in data:
+		cntr = cntr+1
+		length =x['email']+'_'+x['pg_name']
+		# print(length)
+		xLen = len(length)
+		lst=[]
+		for y in file_names:
+			if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+				print(y[10:int(xLen+10)])
+				lst.append(y[10:])
+				dict = {'images':lst}
+				# print(dict)
+				data[int(cntr)].update(dict)
+			# print(data)    
+		#    else:
+		#         # print(x)
+		#         dict = {'images':None}    
+		#         data[int(cntr)].update(dict) 
+			   
+				   
+			
+	return render_template('pgo/viewpg.html',data=data)
 
 
 #
 #
 #
 def diff(list1, list2):
-    out = []
-    for ele in list1:
-        if not ele in list2:
-            out.append(ele)
-    return out
+	out = []
+	for ele in list1:
+		if not ele in list2:
+			out.append(ele)
+	return out
 #
 @pgo.route('/updatepg',methods=['POST','GET'])
 @login_required
@@ -206,53 +206,54 @@ def updatepg():
 @pgo.route('/rooms',methods=['GET','POST'])
 @login_required
 def rooms():
-    pgid = request.args.get('PGID')
-    # print(pgid)
-    data = mysql_query("select * from room_mst where pgid='{}'".format(pgid))
-    if request.method == "POST":
-        pgid = request.form['submit']
-        print(request.form.get('amenities'))
-        print(request.form.get('amenitiesTV'))
-        if request.form.get('amenitiesTV') is None:
-            tv = 0
-        else:
-            tv=1
-        if request.form.get('amenities') is None:
-            ac=0
-        else:
-            ac=1
-        mysql_query(''' INSERT INTO `homies`.`room_mst`
-                        (`PGID`,
-                        `total_beds`,
-                        `avail_beds`,
-                        `AC`,
-                        `TV`,
-                        `rent`,
-                        `token_amt`)
-                        VALUES
-                        ({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
-        return "Masdhav"
-    file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
-    # print(file_names)
-    lst=[]
-    cntr=0
-    for x in data:
-        for y in file_names:
-            if y[10:14] == 'room':
-                lst.append(y)
-        dict = {'images':lst}
-        data[int(cntr)].update(dict)
-        cntr=cntr+1
-        # print(lst)
-        # print(data)
+	pgid = request.args.get('PGID')
+	# print(pgid)
+	data = mysql_query("select * from room_mst where pgid='{}'".format(pgid))
+	if request.method == "POST":
+		pgid = request.form['submit']
+		print(request.form.get('amenities'))
+		print(request.form.get('amenitiesTV'))
+		if request.form.get('amenitiesTV') is None:
+			tv = 0
+		else:
+			tv=1
+		if request.form.get('amenities') is None:
+			ac=0
+		else:
+			ac=1
+		mysql_query(''' INSERT INTO `homies`.`room_mst`
+						(`PGID`,
+						`total_beds`,
+						`avail_beds`,
+						`AC`,
+						`TV`,
+						`rent`,
+						`token_amt`)
+						VALUES
+						({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
+		return "Masdhav"
+	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+	# print(file_names)
+	lst=[]
+	cntr=0
+	for x in data:
+		for y in file_names:
+			if y[10:14] == 'room':
+				lst.append(y)
+		dict = {'images':lst}
+		data[int(cntr)].update(dict)
+		cntr=cntr+1
+		# print(lst)
+		# print(data)
 
-    return render_template('pgo/rooms.html',pgid=pgid,data=data)
+	return render_template('pgo/rooms.html',pgid=pgid,data=data)
 
 
 @pgo.route('/Confirmbooking',methods=['GET','POST'])
 def confirmbooking():
 	data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid ")
 	if request.method=="POST":
+		print("########################################"+str(request.form))
 		if "but1" in request.form:
 			value=request.form['but1']
 			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Deactivated"))
@@ -265,15 +266,14 @@ def confirmbooking():
 			value=request.form['but3']
 			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Declined"))
 			return render_template('pgo/bookinginfo.html',data=data,value=value)
-	if request.method=="POST":
-				if "button1" in request.form:
-					bid=request.form['button1']
-					print(bid)
-					mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Activated",bid))
-					return render_template('pgo/bookinginfo.html')
-				elif "button2" in request.form:
-					bid=request.form['button2']
-					print(bid)
-					mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Declined",bid))
-					return render_template('pgo/bookinginfo.html',data=data,value=value)
+		if "button1" in request.form:
+			bid=request.form['button1']
+			print(bid)
+			mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Activated",bid))
+			return render_template('pgo/bookinginfo.html')
+		if "decline" in request.form:
+			bid=request.form['decline']
+			print(bid)
+			mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Declined",bid))
+			return render_template('pgo/bookinginfo.html',data=data)			
 	return render_template('pgo/bookinginfo.html',data=data)
