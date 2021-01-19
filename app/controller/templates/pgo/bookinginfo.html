@@ -31,7 +31,7 @@
                      
                         <div class="card">
                             <div class="card-body">
-                            	<form method="POST" action="{{ url_for('pgo.confirmbooking') }}">
+                            	<form method="POST" action="{{ url_for('pgo.confirmbooking') }}" >
               
                 <table class="table table-hover">
                 	 <thead>
@@ -74,7 +74,7 @@
 
     <td scope="row"><button type="submit" class="btn btn-success" name="button1" value="{{ x['bid'] }}" style="color:white; font-weight: bold;"><i class="fa fa-check"></i></button>
 
-      <button type="submit" class="btn btn-danger" style="color:white; font-weight: bold;"><i class="fa fa-times" value="{{ x['bid'] }}" name="button2"></i></button>
+      <button type="submit" class="btn btn-danger" name="decline" value="{{ x['bid'] }}" style="color:white; font-weight: bold;"><i class="fa fa-times" ></i></button>
       </td>
      
 
