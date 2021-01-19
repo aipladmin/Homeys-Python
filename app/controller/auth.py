@@ -67,10 +67,8 @@ def loginscr():
             if session['role']=="Owner":
                 return redirect(url_for('pgo.ownerdashboard'))
             elif session['role']=="Admin":
-
-                return redirect(url_for('auth.Dashboard')) 
+                return redirect(url_for('admin.admindashboard')) 
             elif session['role']=="User":
-
                 return redirect(url_for('user.pg_ads'))
 
         else:

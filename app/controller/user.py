@@ -91,7 +91,28 @@ def search():
 	return render_template('user/pg_ads.html')
 
 
+
+@user.route('/bookingstatus',methods=['GET','POST'])
+def userbookinginfo():
+	uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
+	if request.method=="POST":
+		if "button1" in request.form:
+			value=request.form['button1']
+			data=mysql_query("select user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Deactivated"))
+			return render_template('user/userbooking.html',data=data,value=value)
+		elif "button2" in request.form:
+			value=request.form['button2']
+			data=mysql_query("select user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Activated"))
+			return render_template('user/userbooking.html',data=data,value=value)
+		elif "button3" in request.form:
+			value=request.form['button3']
+			data=mysql_query("select user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Declined"))
+			return render_template('user/userbooking.html',data=data,value=value)
+
+	return render_template('user/userbooking.html')
+
 @user.route('/pg_details')
 def pg_details():
 	return render_template('user/pg_details.html')
+
 
