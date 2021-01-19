@@ -50,10 +50,11 @@
                   </div>
 
             </div>
-
+          
+            {% for x in data %}
             <div class="col-4">
                 <div class="row">
-                    <div class="col"><h3 class="badge badge-primary" style="font-size: 24px;">Royal Paying Guest</h3></div>
+                    <div class="col"><h3 class="badge badge-primary" style="font-size: 24px;">{{ x['pg_name'] }}</h3></div>
                 </div>
                 <hr>
 
@@ -61,13 +62,14 @@
                     <div class="col"><h3 class="badge badge-pill badge-success" style="font-size: 18px;">Overview</h3></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p>For: Boys</p></div>
+                    <div class="col"><p>For: {{ x['pg_gender'] }}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p>Total Rooms: 4</p></div>
+                    <div class="col"><p>Total Rooms: {{ x['total_rooms'] }}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p>Address: 512-D,Surel Apartments, near mocha cafe, bodakdev, gujarat, 380054</p></div>
+                    <div class="col"><p>Address: {{ x['addr_1'] }}, {{ x['addr_2'] }}, {{ x['area'] }}, {{ x['city'] }}, {{ x['state'] }},
+                       {{ x['pincode'] }}</p></div>
                 </div>
                 <hr>
 
@@ -75,15 +77,16 @@
                     <div class="col"><h3 class="badge badge-pill badge-success" style="font-size: 18px;">Contact PG Owner</h3></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p><i class="fas fa-user"></i>&nbsp; Trilok Sharma</p></div>
+                    <div class="col"><p><i class="fas fa-user"></i>&nbsp; {{ x['fname'] }} {{ x['lname'] }}</p></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p><i class="fas fa-phone-alt"></i>&nbsp; 7227947952</p></div>
+                    <div class="col"><p><i class="fas fa-phone-alt"></i>&nbsp; {{ x['phone'] }} </p></div>
                 </div>
                 <div class="row">
-                    <div class="col"><p><i class="fas fa-envelope"></i>&nbsp; Strilok4031@gmail.com</p></div>
+                    <div class="col"><p><i class="fas fa-envelope"></i>&nbsp; {{ x['email'] }}</p></div>
                 </div>
             </div>
+            {% endfor %}
         </div>
         <hr>
         <br>
@@ -97,14 +100,24 @@
                   <thead class="thead-dark">
                     <tr>
                       <th scope="col">Common Facilities</th>
-                      <th scope="col">Yes/No</th>
+                      <th scope="col">&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for x in amenity_com_selected %}
                     <tr>
-                      <th scope="row">Food</th>
-                      <td>Yes</td>
+                      <th scope="row">{{ x }}</th>
+                      
+                      <td><i class="fas fa-check-circle" style="color:#1cc88a;"></i></td>
                     </tr>
+                    {% endfor %}
+                    {% for x in amenity_com_unselected %}
+                    <tr>
+                      <th scope="row">{{ x }}</th>
+                      
+                      <td><i class="fas fa-check-circle" style="color:#e74a3b;"></i></td>
+                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
             </div>
@@ -113,14 +126,24 @@
                   <thead class="thead-dark">
                     <tr>
                       <th scope="col">Special Facilities</th>
-                      <th scope="col">Yes/No</th>
+                      <th scope="col">&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for x in amenity_spe_selected %}
                     <tr>
-                      <th scope="row">Gymnasium</th>
-                      <td>Yes</td>
+                      <th scope="row">{{ x }}</th>
+                      
+                      <td><i class="fas fa-check-circle" style="color:#1cc88a;"></i></td>
                     </tr>
+                    {% endfor %}
+                    {% for x in amenity_spe_unselected %}
+                    <tr>
+                      <th scope="row">{{ x }}</th>
+                      
+                      <td><i class="fas fa-check-circle" style="color:#e74a3b;"></i></td>
+                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
             </div>

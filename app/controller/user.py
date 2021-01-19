@@ -41,7 +41,7 @@ def handle_exception(e):
 @user.route('/')
 @user.route('/pg_ads')
 def pg_ads():
-	data = mysql_query("Select pg_mst.pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
+	data = mysql_query("Select pg_mst.pgid,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
 	file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')
 	# print(file_names)
 	cntr = -1
@@ -56,7 +56,7 @@ def pg_ads():
 				lst.append(y[10:])
 				dict = {'images': lst}
 				data[int(cntr)].update(dict)
-			print(data)
+			# print(data)
 
 	return render_template('user/pg_ads.html',data=data)
 
@@ -68,7 +68,7 @@ def search():
 			pgname=request.form['byname']
 			gen=request.form['sel1']
 			area=request.form['byarea']
-			data = mysql_query("Select user_mst.email,pg_mst.pgid,pg_mst.pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc, GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid having pg_mst.pg_name LIKE '%{}%' or pg_mst.pg_gender='{}' or pg_mst.area LIKE '%{}%' ".format(pgname,gen,area))
+			data = mysql_query("Select pg_mst.pgid,user_mst.email,pg_mst.pgid,pg_mst.pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc, GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid having pg_mst.pg_name LIKE '%{}%' or pg_mst.pg_gender='{}' or pg_mst.area LIKE '%{}%' ".format(pgname,gen,area))
 			for x in data:
 				print(x['pgid'])
 			file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')
@@ -113,6 +113,44 @@ def userbookinginfo():
 
 @user.route('/pg_details')
 def pg_details():
-	return render_template('user/pg_details.html')
+    pgid = request.args.get('PGID')
+    data = mysql_query("select * from user_mst inner join pg_mst ON user_mst.UID=pg_mst.UID where pg_mst.pgid={}".format(pgid))
+
+    #common amenities
+    amenity_com=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"common"))
+	
+    amenity_com_list=[]
+    for x in amenity_com:
+        amenity_com_list.append(x['amenity'])
+
+	#special amenities
+    amenity_spe=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"special"))	
+    amenity_spe_list=[]
+    for x in amenity_spe:
+        amenity_spe_list.append(x['amenity'])
+
+	#making list of facilities
+    common=["AC","Cooking Allowed","Food","Parking","Laundry","Television","Guests Allowed"]
+    special=["GYM","Swimming","Pool","Vehicles Provided","Dry Cleaning"]
+	
+	# The Variable Passed
+    amenity_com_selected=[]
+    amenity_com_unselected =[]
+    for x in common:
+        if x in amenity_com_list:
+            amenity_com_selected.append(x)
+        else:
+            amenity_com_unselected.append(x)
+    print("Selected",set(amenity_com_selected),"Unselected",set(amenity_com_unselected))
+
+	# The variable Passed
+    amenity_spe_selected=[]
+    amenity_spe_unselected =[]
+    for x in special:
+        if x in amenity_spe_list:
+            amenity_spe_selected.append(x)
+        else:
+            amenity_spe_unselected.append(x)
+    return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected)
 
 
