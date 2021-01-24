@@ -253,7 +253,6 @@ def rooms():
 def confirmbooking():
 	data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid ")
 	if request.method=="POST":
-		print("########################################"+str(request.form))
 		if "but1" in request.form:
 			value=request.form['but1']
 			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Deactivated"))
