@@ -125,10 +125,11 @@ def userbookinginfo():
 			return render_template('user/userbooking.html')
 	return render_template('user/userbooking.html')
 
-@user.route('/pg_details')
+@user.route('/pg_details',methods=['GET','POST'])
 def pg_details():
 	pgid = request.args.get('PGID')
 	data = mysql_query("select * from user_mst inner join pg_mst ON user_mst.UID=pg_mst.UID where pg_mst.pgid={}".format(pgid))
+
 
 	#common amenities
 	amenity_com=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"common"))
@@ -165,6 +166,16 @@ def pg_details():
 			amenity_spe_selected.append(x)
 		else:
 			amenity_spe_unselected.append(x)
+
+	# if request.method == "POST":
+	# 	if "button1" in request.form:
+	# 		uid = mysql_query("select uid from user_mst where email='{}'".format(session['email']))
+	# 		pgid = request.form['button1']
+	# 		print("######################################################################")
+	# 		print(pgid)
+	# 		mysql_query("INSERT into wishlist values({},{},{})".format(1,pgid,uid[0]['uid']))
+	# 		return redirect(url_for('user.pg_details',PGID=pgid))
+
 	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected)
 
 
@@ -173,3 +184,8 @@ def payment():
 	uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
 	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,user_mst.phone,user_mst.fname,user_mst.lname,transaction_mst.status,pg_mst.area,pg_mst.city,transaction_mst.tid,transaction_mst.date from transaction_mst inner join pg_mst on transaction_mst.pgid=pg_mst.pgid inner join user_mst on pg_mst.uid=user_mst.uid where transaction_mst.uid={}".format(uid[0]['uid']))
 	return render_template('user/userpayment.html',data=data)
+
+
+@user.route('/favourites')
+def favourites():
+	return render_template('user/favourites.html')

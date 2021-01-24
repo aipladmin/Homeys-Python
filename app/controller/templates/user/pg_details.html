@@ -39,19 +39,25 @@
                 </div>
                 </div>
                 </div><br>
+
+                {% for x in data %}
+                <form method="POST" action="{{url_for('user.pg_details')}}">
                 <div class="row">
+
                     <div class="col">
-                        <button type="button" class="btn btn-outline-primary btn-block"><i class="far fa-heart"></i>&nbsp; Add to favourite</button>
+                        <button type="submit" name="button1" value="{{ x['pgid'] }}" class="btn btn-outline-primary btn-block"><i class="far fa-heart"></i>&nbsp; Add to favourite</button>
                     </div>
+
                     <div class="col">
                         <a href="#rooms"> <button type="button" class="btn btn-outline-secondary btn-block"><i class="fas fa-bed"></i>&nbsp; View Rooms</button></a>
                     </div>
 
                   </div>
+                </form>
 
             </div>
           
-            {% for x in data %}
+
             <div class="col-4">
                 <div class="row">
                     <div class="col"><h3 class="badge badge-primary" style="font-size: 24px;">{{ x['pg_name'] }}</h3></div>
