@@ -295,7 +295,7 @@ def rooms():
 						`token_amt`)
 						VALUES
 						({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
-		return "Madhav"
+		return redirect(url_for('pgo.rooms'))
 	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
 	# print(file_names)
 	lst=[]
