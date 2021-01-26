@@ -119,6 +119,7 @@ def viewpg():
 	if request.method=="POST":
 		if "hidepg" in request.form:
 			pgid=request.form['pgid']
+			
 			mysql_query("UPDATE pg_mst set hidden='{}' where pgid={}".format("yes",pgid))
 			data=mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
 			# print(data)

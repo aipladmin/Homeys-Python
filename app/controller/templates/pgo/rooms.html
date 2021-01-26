@@ -128,9 +128,10 @@
                                               </a>
                                             </div>
                                         </div>
+
                                         <div class="col-8" >
                                            <!-- <div class="card-header" style="background-color: black; color:white;"><h3>Royal Paying Guest</h3></div> -->
-                                          
+                                          <form method="POST" action="{{url_for('pgo.updaterooms')}}">
                                             <div class="card-body">
                                                 Total Beds : {{ items['total_beds'] }} <br><br>
                                                 Vacant Beds : {{ items['avail_beds'] }} <br><br>
@@ -151,14 +152,14 @@
                                             </div>
                                         </div>
                                       </div>
-                                      <form method="POST" action="{{url_for('pgo.updaterooms')}}">
+                                      
                                     <div class="card-footer text-right" style="background-color: black">
                                       {% if items['hidden'] == "yes"%}
                                       <!-- HIDE ROOM MODAL -->
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hidden</button>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal{{ items['RID'] }}">Hidden</button>
 
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="hidemodal">
+                                      <div class="modal fade" id="hidemodal{{ items['RID'] }}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -170,7 +171,7 @@
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <p style="color: black; font-size: 24px;"> Are you sure you want to hide this Room?</p>
+                                                <p style="color: black; font-size: 24px;"> Are you sure you want to unhide this Room?</p>
                                             </div>
 
                                             <!-- Modal footer -->
@@ -185,10 +186,10 @@
                                       </div>
                                       {% else %}
                                        <!-- HIDE ROOM MODAL -->
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal1">Hide Room</button>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal1{{ items['RID'] }}">Hide Room</button>
 
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="hidemodal1">
+                                      <div class="modal fade" id="hidemodal1{{ items['RID'] }}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -217,10 +218,10 @@
 
 
                                       <!-- Delete Room Modal-->
-                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal">Delete Room</button>
+                                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal{{ items['RID'] }}">Delete Room</button>
 
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="delmodal">
+                                      <div class="modal fade" id="delmodal{{ items['RID'] }}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -246,15 +247,15 @@
                                         </div>
                                       </div>
 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updtroom">Update Room Details</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updtroom{{ items['RID'] }}">Update Room Details</button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="updtroom" tabindex="-1" role="dialog" aria-labelledby="updtroom" aria-hidden="true">
+                                    <div class="modal fade" id="updtroom{{ items['RID'] }}" tabindex="-1" role="dialog" aria-labelledby="updtroom" aria-hidden="true">
                                       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                     
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h5 class="modal-title" id="updtroom">Update Room detail</h5>
+                                            <h5 class="modal-title">Update Room detail</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
@@ -329,15 +330,16 @@
                                           <div class="modal-footer">
                                             <button type="reset" class="btn btn-secondary" >Clear</button>
                                             <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
-                                              <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="updateroom" >Yes</button>>
+                                              <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="updateroom" >Yes</button>
                                           </div>
                                        
                                         </div>
                                       </div>
                                     </div>
 
-                                  </form>
+                                  
                                     </div>
+                                    </form>
 
 
                                 </div><!-- card end -->

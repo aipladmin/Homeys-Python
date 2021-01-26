@@ -14,10 +14,11 @@
                      
                         <div class="card">
                             <div class="card-body">
+                               {% for x in data %}
                               <form method="POST" action="{{url_for('pgo.viewpg')}}" >
                                 <h3 class="card-title">All PG Details</h3><br/>
 
-                                {% for x in data %}
+                               
                                
                <div class="card text-left" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                       <div class="row no-gutters">
@@ -90,7 +91,7 @@
                                                 <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">City : </span> {{x['city']}}
 
                                                <br>
-                                               <input type="text" name="pgid" value="{{x['pgid']}}" hidden>
+                                               <input type="text" name="pgid" value="{{x['pgid']}}" hidden="">
 
 
                                                  <span class="badge badge-primary" style="font-size: 18px; margin-top: 5px;">Description : </span> 
@@ -103,13 +104,13 @@
                                     <div class="card-footer text-right" style="background-color: black">
                                          {% if x['hidden'] == "yes"%}
 
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal1" >Hidden</button>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal1{{x['pgid']}}" >Hidden</button>
                                      
                                        {% else %}
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal2"  >Hide PG</button>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal2{{x['pgid']}}"  >Hide PG</button>
                                       
                                       {% endif %}      
-                               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal" name="button3">Delete PG</button>
+                               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal{{x['pgid']}}" name="button3">Delete PG</button>
 
 
                                       
@@ -122,13 +123,13 @@
                                     
 
                                 </div><!-- card end -->
-                                {% endfor %}
+                                
 
                                 
                             <!-- HIDE PG MODAL -->
                                      
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="hidemodal1">
+                                      <div class="modal fade" id="hidemodal1{{x['pgid']}}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -160,7 +161,7 @@
                                       
 
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="hidemodal2">
+                                      <div class="modal fade" id="hidemodal2{{x['pgid']}}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -194,7 +195,7 @@
 
 
                                       <!-- The Modal -->
-                                      <div class="modal fade" id="delmodal">
+                                      <div class="modal fade" id="delmodal{{x['pgid']}}">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
@@ -221,7 +222,7 @@
                                         </div>
                                       </div>
                                       </form>
-
+{% endfor %}
                                
                             </div>
                         </div>
