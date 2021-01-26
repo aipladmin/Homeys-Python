@@ -98,17 +98,18 @@
                                             </div>
                                         </div>
                                       </div>
+                                      <form method="POST" action="{{url_for('pgo.viewpg')}}" >
                                     <div class="card-footer text-right" style="background-color: black">
-
                                       <!-- HIDE PG MODAL -->
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hide PG</button>
-
+                                      {% if x['hidden'] == "yes"%}
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hidden</button>
                                       <!-- The Modal -->
                                       <div class="modal fade" id="hidemodal">
                                         <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
 
                                             <!-- Modal Header -->
+
                                             <div class="modal-header">
                                               <h4 class="modal-title">Confirmation!</h4>
                                               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -122,12 +123,50 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                              <button type="button" class="btn btn-primary" >Yes</button>
+                                          
+                                              <button type="submit" name="unhidepg" value="{{x['pgid']}}"class="btn btn-success" >Yes</button>
+                                            
+                                              
                                             </div>
 
                                           </div>
                                         </div>
                                       </div>
+                                      {% else %}
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hide PG</button>
+                                      {% endif %}
+                                      
+
+                                      <!-- The Modal -->
+                                      <div class="modal fade" id="hidemodal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+
+                                            <!-- Modal Header -->
+
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Confirmation!</h4>
+                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <p style="color: black; font-size: 24px;"> Are you sure you want to hide your PG?</p>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                          
+                                              <button type="submit" name="hidepg" value="{{x['pgid']}}"class="btn btn-primary" >Yes</button>
+                                            
+                                              
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
 
                                       <!-- Delete PG Modal-->
                                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal">Delete PG</button>
@@ -151,18 +190,23 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                              <button type="button" class="btn btn-primary" >Yes</button>
+                                              
+                                              <button type="submit" name="deletepg" value="{{x['pgid']}}"class="btn btn-primary" >Yes</button>
+                                              
                                             </div>
 
                                           </div>
                                         </div>
                                       </div>
+                                      
+                                      
 
 
                                             <a href="{{ url_for('pgo.rooms',PGID=x['pgid']) }}" class="btn btn-primary">View/Add/Update Rooms</a>
                                             <a href="{{ url_for('pgo.updatepg', id=x['pgid']) }}" class="btn btn-primary">Update PG Details</a>
 
                                     </div>
+                                    </form>
 
                                 </div><!-- card end -->
 

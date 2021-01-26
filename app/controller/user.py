@@ -40,8 +40,7 @@ def handle_exception(e):
 	response.content_type = "application/json"
 	return response
 
-@user.route('/')
-@user.route('/pg_ads')
+@user.route('/pg_ads',methods=['GET','POST'])
 def pg_ads():
 	data = mysql_query("Select pg_mst.pgid,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
 	file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')
@@ -166,17 +165,7 @@ def pg_details():
 			amenity_spe_selected.append(x)
 		else:
 			amenity_spe_unselected.append(x)
-
-	# if request.method == "POST":
-	# 	if "button1" in request.form:
-	# 		uid = mysql_query("select uid from user_mst where email='{}'".format(session['email']))
-	# 		pgid = request.form['button1']
-	# 		print("######################################################################")
-	# 		print(pgid)
-	# 		mysql_query("INSERT into wishlist values({},{},{})".format(1,pgid,uid[0]['uid']))
-	# 		return redirect(url_for('user.pg_details',PGID=pgid))
-
-	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected)
+	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected,pgid=pgid)
 
 
 @user.route('/Payment Status')
@@ -186,6 +175,21 @@ def payment():
 	return render_template('user/userpayment.html',data=data)
 
 
-@user.route('/favourites')
+@user.route('/favourites',methods=['GET','POST'])
 def favourites():
-	return render_template('user/favourites.html')
+	uid = mysql_query("select uid from user_mst where email='{}'".format(session['email']))
+	data=mysql_query("select wishlist.wid,wishlist.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.total_rooms from wishlist inner join pg_mst on wishlist.pgid=pg_mst.pgid where wishlist.uid='{}'".format(uid[0]['uid']))
+	if request.method=="POST":
+	 	if "button1" in request.form:
+	 		uid = mysql_query("select uid from user_mst where email='{}'".format(session['email']))
+	 		pgid=request.form['button1']
+	 		mysql_query("INSERT into wishlist(pgid,uid) values({},{})".format(pgid,uid[0]['uid']))
+	 		return redirect(url_for('user.pg_details',PGID=pgid))
+	 	if "delete" in request.form:
+	 		wid=request.form['delete']
+	 		mysql_query("DELETE from wishlist where wid={}".format(wid))
+	 		return render_template('user/favourites.html')
+	 	if "view" in request.form:
+	 		pgid=request.form['view']
+	 		return redirect(url_for('user.pg_details',PGID=pgid))
+	return render_template('user/favourites.html',data=data)

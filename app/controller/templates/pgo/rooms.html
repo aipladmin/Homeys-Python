@@ -151,9 +151,40 @@
                                             </div>
                                         </div>
                                       </div>
+                                      <form method="POST" action="{{url_for('pgo.updaterooms')}}">
                                     <div class="card-footer text-right" style="background-color: black">
-                                      
+                                      {% if items['hidden'] == "yes"%}
                                       <!-- HIDE ROOM MODAL -->
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hidden</button>
+
+                                      <!-- The Modal -->
+                                      <div class="modal fade" id="hidemodal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                              <h4 class="modal-title">Confirmation!</h4>
+                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <p style="color: black; font-size: 24px;"> Are you sure you want to hide this Room?</p>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                              <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
+                                              <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="unhideroom">Yes</button>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      {% else %}
+                                       <!-- HIDE ROOM MODAL -->
                                       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hidemodal">Hide Room</button>
 
                                       <!-- The Modal -->
@@ -175,12 +206,15 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                              <button type="button" class="btn btn-primary" >Yes</button>
+                                              <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
+                                              <button type="submit" name="hideroom" class="btn btn-primary" value="{{items['RID']}}" >Yes</button>
                                             </div>
 
                                           </div>
                                         </div>
                                       </div>
+                                      {%endif%}
+
 
                                       <!-- Delete Room Modal-->
                                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delmodal">Delete Room</button>
@@ -204,7 +238,8 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                              <button type="button" class="btn btn-primary" >Yes</button>
+                                              <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
+                                              <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="deleteroom" >Yes</button>
                                             </div>
 
                                           </div>
@@ -216,7 +251,7 @@
                                     <!-- Modal -->
                                     <div class="modal fade" id="updtroom" tabindex="-1" role="dialog" aria-labelledby="updtroom" aria-hidden="true">
                                       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                        <form method="POST" action="#">
+                                    
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <h5 class="modal-title" id="updtroom">Update Room detail</h5>
@@ -224,31 +259,32 @@
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
+
                                           <div class="modal-body">
-                                           <form>
+                                        
                                               <div class="form-group row">
                                                 <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="totalbed" >
+                                                  <input type="number" class="form-control" id="totalbed" value="{{items['total_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="availbed">
+                                                  <input type="number" class="form-control" id="availbed" value="{{ items['avail_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="rent" >
-                                                </div>
+                                                  <input type="text" class="form-control" id="rent" value="{{items['rent']}}">
+                                                </div >
                                               </div>
                                                
                                                <div class="form-group row">
                                                 <label for="token" class="col-md-6 col-form-label">Token Amount</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="token" >
+                                                  <input type="text" class="form-control" id="token" value="{{items['token_amt']}}">
                                                 </div>
                                                 </div>
                                                
@@ -257,7 +293,12 @@
                                                 <div class="col-md-6">Air conditioner</div>
                                                 <div class="col-md-2">
                                                   <div class="form-check">
+                                                    {% if items['AC'] == "1" %}
+                                                    <input class="form-check-input" type="checkbox" id="ac" checked>
+                                                    {%else%}
                                                     <input class="form-check-input" type="checkbox" id="ac">
+                                                    {%endif%}
+                                                    
                                                   </div>
                                                 </div>
                                               </div>
@@ -265,7 +306,12 @@
                                                 <div class="col-md-6">Personal Television</div>
                                                 <div class="col-md-2">
                                                   <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                    {% if items['TV'] == "1" %}
+                                                    <input class="form-check-input" type="checkbox" id="tv" checked>
+                                                    {%else%}
+                                                     <input class="form-check-input" type="checkbox" id="tv">
+                                                     {%endif%}
+
                                                   </div>
                                                 </div>
                                               </div>
@@ -282,15 +328,17 @@
                                           </div>
                                           <div class="modal-footer">
                                             <button type="reset" class="btn btn-secondary" >Clear</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                                            <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
+                                              <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="updateroom" >Yes</button>>
                                           </div>
-                                        </form>
+                                       
                                         </div>
                                       </div>
                                     </div>
 
-
+                                  </form>
                                     </div>
+
 
                                 </div><!-- card end -->
 {% endfor %}
