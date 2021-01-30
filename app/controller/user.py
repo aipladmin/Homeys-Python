@@ -171,7 +171,7 @@ def pg_details():
 @user.route('/Payment Status')
 def payment():
 	uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
-	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,user_mst.phone,user_mst.fname,user_mst.lname,transaction_mst.status,pg_mst.area,pg_mst.city,transaction_mst.tid,transaction_mst.date from transaction_mst inner join pg_mst on transaction_mst.pgid=pg_mst.pgid inner join user_mst on pg_mst.uid=user_mst.uid where transaction_mst.uid={}".format(uid[0]['uid']))
+	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,user_mst.phone,user_mst.fname,user_mst.lname,transaction_mst.tstatus,pg_mst.area,pg_mst.city,transaction_mst.tid,transaction_mst.date from transaction_mst inner join pg_mst on transaction_mst.pgid=pg_mst.pgid inner join user_mst on pg_mst.uid=user_mst.uid where transaction_mst.uid={}".format(uid[0]['uid']))
 	return render_template('user/userpayment.html',data=data)
 
 

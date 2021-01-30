@@ -58,22 +58,14 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="index.html">
+                        <a href="#">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
-                                <img src="{{ url_for('.static',filename='dash/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
+                                <img src="{{ url_for('.static',filename='dash/assets/images/logo.png') }}" alt="homepage" class="dark-logo"/>
                                 <!-- Light Logo icon -->
-                                <img src="{{ url_for('.static',filename='dash/assets/images/logo-icon.png') }}" alt="homepage" class="light-logo" />
+                                <img src="{{ url_for('.static',filename='dash/assets/images/logo.png') }}" alt="homepage" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span class="logo-text" style="font-size: 25px;">
-                                <!-- dark Logo text -->
-                                <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo" /> -->
-                                <!-- Light Logo text -->
-                                <!-- <img src="{{ url_for('.static',filename='dash/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage" /> -->
-                                Homeys
-                            </span>
                         </a>
                     </div>
                     <!-- ============================================================== -->
@@ -319,6 +311,53 @@
     <!--This page JavaScript -->
     
     <!-- <script src="../dist/js/pages/dashboards/dashboard1.min.js"></script> -->
+
+<script> 
+    function printDiv() 
+    { 
+        var divContents = document.getElementById("printdivision").innerHTML; 
+        var a = window.open('', '', 'height=1080, width=1080'); 
+        a.document.write('<html>'); 
+        a.document.write('<body >'); 
+        a.document.write(divContents); 
+        a.document.write('</body></html>'); 
+        a.document.close(); 
+        a.print(); 
+    } 
+
+    function fnExcelReport()
+    {
+        var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+        var textRange; var j=0;
+        tab = document.getElementById('table'); // id of table
+
+        for(j = 0 ; j < tab.rows.length ; j++) 
+        {     
+            tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        }
+
+        tab_text=tab_text+"</table>";
+        tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+        tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE "); 
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html","replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus(); 
+            sa=txtArea1.document.execCommand("SaveAs",true,"Thanks");
+        }  
+        else                 //other browser not tested on IE 11
+            sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+        return (sa);
+    }
+</script>
+
 </body>
 
 </html>
