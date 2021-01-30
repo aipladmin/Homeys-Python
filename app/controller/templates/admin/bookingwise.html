@@ -1,0 +1,117 @@
+{% extends "adminDashboard.html" %}
+{% block content %}
+
+<div class="container py-3">
+<form method="POST" action="{{url_for('admin.bookingwise')}}">
+    
+    <div class="row">        
+        <div class="col">
+            <label for="booking status" style="font-weight: bold;">Booking Status</label>
+            <select class="form-control" name="status" required>
+                <option value="#">select</option>
+                <option value="Activated">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Deactivated">Rejected</option>
+            </select>
+        </div>
+  
+        <div class="col">
+            <label for="status" style="font-weight: bold;">Booking Date</label>
+            <input class="form-control" name="fromdate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date From">
+            &nbsp
+            <input class="form-control" name="todate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date To">
+        </div>
+        
+        <div class="col">
+            <label for="boking amount" style="font-weight: bold;">Booking Amount</label>
+            <select class="form-control" name="booking_amt" required>
+                <option value="0 AND 0">select</option>
+                <option value="0 AND 500">Less Than 500</option>
+                <option value="500 AND 1000">500 - 1000</option>
+                <option value="1000 AND 2000">1000 - 2000</option>
+                <option value="2000 AND 10000">More Than 2000</option>
+            </select>
+        </div>
+
+        <div class="col-1">
+            <button type="submit" name="button1" class="btn btn-primary" style="margin-top: 30px;" value="1"> Submit </button>
+        </div>
+    </div>
+</form>
+
+    <br>
+    <div class="row">
+        <iframe id="txtArea1" style="display:none"></iframe>
+        &nbsp
+        &nbsp&nbsp
+        <div class="col-0">
+            <button id="pdf" class="btn btn-primary" name="pdf" onclick="printDiv()">Save as PDF &nbsp<i class="fa fa-file-pdf"></i></button>
+        </div>
+        <div class="col">
+            <button id="excel" class="btn btn-primary" name="excel" onclick="fnExcelReport();">Save as Excelsheet &nbsp<i class="fa fa-file-excel"></i></button>
+        </div>
+    </div>
+
+</div>
+
+
+<form method="POST" action="{{url_for('admin.bookingwise')}}">
+<div id="printdivision">
+    {% if evalue == "1" %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table user-table" id="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Booking Status</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Booking Date</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Booking Amount</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Name</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Type</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">User Name</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">User Contact no.</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Transaction ID</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Transaction Date</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Transaction Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in res %}
+                                <tr>
+                                    {% if item['status'] == "Activated" %}
+                                        <td>Approved</td>
+                                    {% elif item['status'] == "Deactivated" %}
+                                        <td>Rejected</td>
+                                    {% else %}
+                                        <td>Pending</td>
+                                    {% endif %}
+
+                                    <td>{{ item['book_date'] }}</td>
+                                    <td>₹ {{ item['amount'] }}</td>
+                                    <td>{{ item['pg_name'] }}</td>
+                                    <td>{{ item['pg_gender'] }}</td>
+                                    <td>{{ item['fname'] }} {{ item['lname'] }}</td>
+                                    <td>{{ item['phone'] }}</td>
+                                    <td>{{ item['tid'] }}</td>
+                                    <td>{{ item['date'] }}</td>
+
+                                    {% if item['tstatus'] == "success" %}
+                                        <td>Successful</td>
+                                    {% else %}
+                                        <td>Failed</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</form>
+
+{% endblock content%}

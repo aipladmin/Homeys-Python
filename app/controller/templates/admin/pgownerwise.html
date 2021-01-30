@@ -1,0 +1,102 @@
+{% extends "adminDashboard.html" %}
+{% block content %}
+
+<div class="container py-3">
+<form method="POST" action="{{url_for('admin.pgownerwise')}}">
+    
+    <div class="row">        
+        <div class="col">
+            <label for="DOB" style="font-weight: bold;">Date Of Birth</label>
+            <input class="form-control" name="fromdate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date From">
+            &nbsp
+            <input class="form-control" name="todate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date To">
+        </div>
+  
+        <div class="col">
+            <label for="authorization" style="font-weight: bold;">Authorization</label>
+            <select class="form-control" name="authorization" required>
+                <option value="#">select</option>
+                <option value="Activated">Activated</option>
+                <option value="Deactivated">Deactivated</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="Gender" style="font-weight: bold;">Gender</label>
+            <select class="form-control" name="gender" required>
+                <option value="#">select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="col-1">
+            <button type="submit" name="button1" class="btn btn-primary" style="margin-top: 30px;" value="1"> Submit </button>
+        </div>
+    </div>
+</form>
+
+    <br>
+    <div class="row">
+        <iframe id="txtArea1" style="display:none"></iframe>
+        &nbsp
+        &nbsp&nbsp
+        <div class="col-0">
+            <button id="pdf" class="btn btn-primary" name="pdf" onclick="printDiv()">Save as PDF &nbsp<i class="fa fa-file-pdf"></i></button>
+        </div>
+        <div class="col">
+            <button id="excel" class="btn btn-primary" name="excel" onclick="fnExcelReport();">Save as Excelsheet &nbsp<i class="fa fa-file-excel"></i></button>
+        </div>
+    </div>
+
+</div>
+
+
+<form method="POST" action="{{url_for('admin.pgownerwise')}}">
+<div id="printdivision">
+    {% if evalue == "1" %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table user-table" id="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">User Id</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Fullname</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Email</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Phone</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Gender</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">DOB</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Authorization</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Address</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Pincode</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">ID Method & Proof</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in res %}
+                                <tr>
+                                    <td>{{ item['UID'] }}</td>
+                                    <td>{{ item['fname'] }} {{ item['lname'] }}</td>
+                                    <td>{{ item['email'] }}</td>
+                                    <td>{{ item['phone'] }}</td>
+                                    <td>{{ item['gender'] }}</td>
+                                    <td>{{ item['dob'] }}</td>
+                                    <td>{{ item['authorised'] }}</td>
+                                    <td>{{ item['addr1'] }} {{ item['addr2'] }}, {{ item['area'] }}, {{ item['city'] }} ({{ item['state'] }})</td>
+                                    <td>{{ item['pincode'] }}</td>
+                                    <td>ID - ({{ item['id_method'] }}) Proof - ({{ item['id_proof'] }})</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</form>
+
+{% endblock content%}
