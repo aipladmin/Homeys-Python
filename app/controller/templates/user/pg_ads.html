@@ -103,6 +103,7 @@ body {
 
 
      {% for x in data %}
+     {% if x['hidden'] == "no" %}
 
    
 
@@ -210,6 +211,7 @@ body {
  
 
     <br>
+    {% endif %}
 {% endfor %}
 
 

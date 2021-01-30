@@ -42,7 +42,7 @@ def handle_exception(e):
 
 @user.route('/pg_ads',methods=['GET','POST'])
 def pg_ads():
-	data = mysql_query("Select pg_mst.pgid,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
+	data = mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
 	file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')
 	# print(file_names)
 	cntr = -1
@@ -128,7 +128,7 @@ def userbookinginfo():
 def pg_details():
 	pgid = request.args.get('PGID')
 	data = mysql_query("select * from user_mst inner join pg_mst ON user_mst.UID=pg_mst.UID where pg_mst.pgid={}".format(pgid))
-
+	rdata=mysql_query("select * from room_mst where pgid={}".format(pgid))
 
 	#common amenities
 	amenity_com=mysql_query("select amenity from facility_mst where pgid='{}' and amenity_type='{}'".format(pgid,"common"))
@@ -165,7 +165,7 @@ def pg_details():
 			amenity_spe_selected.append(x)
 		else:
 			amenity_spe_unselected.append(x)
-	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected,pgid=pgid)
+	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected,pgid=pgid,rdata=rdata)
 
 
 @user.route('/Payment Status')
