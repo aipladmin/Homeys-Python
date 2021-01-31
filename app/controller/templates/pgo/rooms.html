@@ -98,6 +98,7 @@
                                     </div>
 
                                     {% for items in data %}
+
                                 <div class="card text-left" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                       <div class="row no-gutters">
                                         <div class="col-4">
@@ -109,13 +110,13 @@
                                               </ol>
                                               <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                  <img class="d-block w-100"  height="300px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_1.jpg" alt="First slide">
+                                                  <img class="d-block w-100"  height="320px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_1.jpg" alt="First slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                  <img class="d-block w-100" height="300px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_2.jpg" alt="Second slide">
+                                                  <img class="d-block w-100" height="320px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_2.jpg" alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                  <img class="d-block w-100" height="300px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_3.jpg" alt="Third slide">
+                                                  <img class="d-block w-100" height="320px" src="https://mittrisem.s3.amazonaws.com/pg_images/room_images_3.jpg" alt="Third slide">
                                                 </div>
                                               </div>
                                               <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -255,7 +256,7 @@
                                     
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h5 class="modal-title">Update Room detail</h5>
+                                            <h5 class="modal-title">Update Room details</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
@@ -266,26 +267,26 @@
                                               <div class="form-group row">
                                                 <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="totalbed" value="{{items['total_beds']}}">
+                                                  <input type="number" name="totalbed" class="form-control" id="totalbed" value="{{items['total_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
                                                 <div class="col-md-6">
-                                                  <input type="number" class="form-control" id="availbed" value="{{ items['avail_beds']}}">
+                                                  <input type="number" name="availbed" class="form-control" id="availbed" value="{{ items['avail_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
                                                 <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="rent" value="{{items['rent']}}">
+                                                  <input type="text" name="rent" class="form-control" id="rentM1" value="{{items['rent']}}">
                                                 </div >
                                               </div>
                                                
                                                <div class="form-group row">
                                                 <label for="token" class="col-md-6 col-form-label">Token Amount</label>
                                                 <div class="col-md-6">
-                                                  <input type="text" class="form-control" id="token" value="{{items['token_amt']}}">
+                                                  <input type="text" name="token_amt" class="form-control" id="tokenM1" value="{{items['token_amt']}}" readonly  onclick="calculateRent()" onfocus="calculateRent()">
                                                 </div>
                                                 </div>
                                                
@@ -295,9 +296,9 @@
                                                 <div class="col-md-2">
                                                   <div class="form-check">
                                                     {% if items['AC'] == "1" %}
-                                                    <input class="form-check-input" type="checkbox" id="ac" checked>
+                                                    <input name="ac" class="form-check-input" type="checkbox" checked>
                                                     {%else%}
-                                                    <input class="form-check-input" type="checkbox" id="ac">
+                                                    <input name="ac" class="form-check-input" type="checkbox">
                                                     {%endif%}
                                                     
                                                   </div>
@@ -308,9 +309,9 @@
                                                 <div class="col-md-2">
                                                   <div class="form-check">
                                                     {% if items['TV'] == "1" %}
-                                                    <input class="form-check-input" type="checkbox" id="tv" checked>
+                                                    <input name="tv" class="form-check-input" type="checkbox" checked>
                                                     {%else%}
-                                                     <input class="form-check-input" type="checkbox" id="tv">
+                                                     <input name="tv" class="form-check-input" type="checkbox">
                                                      {%endif%}
 
                                                   </div>
@@ -322,7 +323,7 @@
                                                 <div class="col-md-9">
                                                   <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile">Choose files</label>
+                                                    <label class="custom-file-label" for="customFile"></label>
                                                   </div>
                                                 </div>
                                               </div>

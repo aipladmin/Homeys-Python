@@ -350,20 +350,38 @@ def updaterooms():
 		if "hideroom" in request.form:
 			pgid=request.form['pgid']
 			rid=request.form['hideroom']
-			mysql_query("UPDATE room_mst set hidden='{}' where rid={}".format("yes",rid))
+			mysql_query("UPDATE room_mst set rhidden='{}' where rid={}".format("yes",rid))
 			return redirect(url_for('pgo.rooms',PGID=pgid))
 		if "unhideroom" in request.form:
 			pgid=request.form['pgid']
 			rid=request.form['unhideroom']
-			mysql_query("UPDATE room_mst set hidden='{}' where rid={}".format("no",rid))
+			mysql_query("UPDATE room_mst set rhidden='{}' where rid={}".format("no",rid))
 			return redirect(url_for('pgo.rooms',PGID=pgid))
 		if "deleteroom" in request.form:
 			pgid=request.form['pgid']
 			rid=request.form['deleteroom']
 			mysql_query("DELETE from room_mst where rid={}".format(rid))
 			return redirect(url_for('pgo.rooms',PGID=pgid))
+
 		if "updateroom" in request.form:
-			pgid=request.form['pgid']
+			rid = request.form['updateroom']
+			pgid = request.form['pgid']
+			totalbed = request.form['totalbed']
+			availbed = request.form['availbed']
+			rent = request.form['rent']
+			if request.form.get('ac') is None:
+				ac = 0
+			else:
+				ac = 1
+			if request.form.get('tv') is None:
+				tv = 0
+			else:
+				tv = 1
+
+			# token = (rent/3)
+			mysql_query("UPDATE room_mst set total_beds='{}',avail_beds='{}',AC={},TV={},rent='{}' where RID={}".format(totalbed,availbed,ac,tv,rent,rid))
+
+
 
 			#ghode tuje bas idhar wo update wala form h na usse values lani h variable me jese agar rent lana
 			#h toh rent = request.form['rent'] ye jo square brackets ke andar rent h woo imput field ka naam h 
