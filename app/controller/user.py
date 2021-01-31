@@ -110,17 +110,15 @@ def userbookinginfo():
 			return render_template('user/userbooking.html',data=data,value=value)
 		elif "button2" in request.form:
 			value=request.form['button2']
-			data=mysql_query("select booking_mst.uid,booking_mst.rid,booking_mst.pgid,user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount,room_mst.rent from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid join room_mst on booking_mst.rid=room_mst.rid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Activated"))
+			data=mysql_query("select booking_mst.uid,booking_mst.bid,booking_mst.pgid,user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount,room_mst.rent from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid join room_mst on booking_mst.rid=room_mst.rid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Activated"))
 			return render_template('user/userbooking.html',data=data,value=value)
 		elif "button3" in request.form:
 			value=request.form['button3']
 			data=mysql_query("select user_mst.phone,pg_mst.pg_gender,pg_mst.pg_name,user_mst.fname,user_mst.lname,booking_mst.book_date,pg_mst.area,pg_mst.city,booking_mst.amount from pg_mst join user_mst on pg_mst.uid=user_mst.uid join booking_mst on booking_mst.pgid=pg_mst.pgid where booking_mst.UID={} and booking_mst.status='{}'".format(uid[0]['uid'],"Declined"))
 			return render_template('user/userbooking.html',data=data,value=value)
 		elif "payment" in request.form:
-			rid=request.form['rid']
-			pgid=request.form['pgid']
-			uid=request.form['uid']
-			mysql_query("INSERT INTO transaction_mst VALUES('{}',{},{},{},'{}','{}')".format(tid,uid,pgid,rid,tdate,'success'))
+			bid=request.form['bid']
+			mysql_query("INSERT INTO transaction_mst VALUES('{}','{}','{}',{})".format(tid,tdate,'success',bid))
 			return render_template('user/userbooking.html')
 	return render_template('user/userbooking.html')
 
@@ -168,10 +166,10 @@ def pg_details():
 	return render_template('user/pg_details.html',data=data,amenity_com_selected=amenity_com_selected,amenity_com_unselected=amenity_com_unselected,amenity_spe_selected=amenity_spe_selected,amenity_spe_unselected=amenity_spe_unselected,pgid=pgid,rdata=rdata)
 
 
-@user.route('/Payment Status')
+@user.route('/Payment_Status')
 def payment():
 	uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
-	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,user_mst.phone,user_mst.fname,user_mst.lname,transaction_mst.tstatus,pg_mst.area,pg_mst.city,transaction_mst.tid,transaction_mst.date from transaction_mst inner join pg_mst on transaction_mst.pgid=pg_mst.pgid inner join user_mst on pg_mst.uid=user_mst.uid where transaction_mst.uid={}".format(uid[0]['uid']))
+	data=mysql_query("select pg_mst.pg_name,pg_mst.pg_gender,user_mst.phone,user_mst.fname,user_mst.lname,transaction_mst.tstatus,pg_mst.area,pg_mst.city,transaction_mst.tid,transaction_mst.date from transaction_mst inner join booking_mst on transaction_mst.bid=booking_mst.bid inner join pg_mst on booking_mst.pgid=pg_mst.pgid inner join user_mst on user_mst.uid=pg_mst.uid where booking_mst.uid={}".format(uid[0]['uid']))
 	return render_template('user/userpayment.html',data=data)
 
 
