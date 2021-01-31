@@ -186,7 +186,7 @@ def favourites():
 	 	if "delete" in request.form:
 	 		wid=request.form['delete']
 	 		mysql_query("DELETE from wishlist where wid={}".format(wid))
-	 		return render_template('user/favourites.html')
+	 		return redirect(url_for('user.favourites'))
 	 	if "view" in request.form:
 	 		pgid=request.form['view']
 	 		return redirect(url_for('user.pg_details',PGID=pgid))
