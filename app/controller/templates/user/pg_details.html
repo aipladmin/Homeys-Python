@@ -250,34 +250,28 @@
                           <span class="badge badge-warning d-block" style="font-size: 16px;">{{x['token_amt']}}</span>
                       </div>
                   </div>
-                  <hr>
-
-                  <div class="row" >
-                      <div class="col text-center">
-                          <button type="button" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
-                      </div>
-                  </div>
-
+                    <hr>
+                    
+                  <form method="post" action="{{url_for('user.pg_details')}}">
+                    <div class="row" >
+                     
+                        <div class="col text-center">
+                            <button type="submit" name="booking" value="{{ x['RID'] }}" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
+                        </div>
+                        
+                    </div>
+                  </form>
               </div>
 
           </div>
           </div>
           </div>
 
-
-
       </div>
     </div>
+
     {% endif %}
     {% endfor %}
-
-
-
-
-
-
-
-
 
 </div>
 
