@@ -1,0 +1,72 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+            <div class="container-fluid">
+                    
+          <div class="row">
+                    <div class="col-12">
+                     
+                        <div class="card">
+                            <div class="card-body">
+                            	<form>
+              {%for x in data %}
+                <table class="table table-hover">
+                	 <thead>
+       
+    <tr style="font-weight:bold; background-color: #E8E8E8;">
+      <td scope="col" colspan=6 style="color:black; margin-left: 15px; font-size: 22px;">{{ x['pg_name']}} </td>
+      <td style="color:black; font-size: 22px;">{{ x['pg_gender']}} Pg
+      </td>
+      
+    </tr>
+  <thead>
+    <tr style="font-weight:bold; background-color: #181818;">
+
+      <td scope="col" style="color:white;">Transaction Id</td>
+      <td scope="col" style="color:white;">Owner name</td>
+      <td scope="col"style="color:white;">Phone</td>
+      <td scope="col"style="color:white;">Area</td>
+      <td scope="col"style="color:white;">City</td>
+      <td scope="col"style="color:white;">Payment Date</td>
+      <td scope="col"style="color:white;">Status</td>
+      
+  
+
+    </tr>
+  </thead>
+  
+  <tbody>
+
+    <tr>
+       <td scope="row" style="color:black;">{{ x['tid']}}</td>
+
+      <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['phone']}}</td>
+    
+      <td scope="row" style="color:black;">{{ x['area']}}</td>
+   
+      <td scope="row" style="color:black;">{{ x['city']}}</td>
+
+      <td scope="row" style="color:black;">{{ x['date']}}</td>
+      {% if x['tstatus'] == "success"%}
+      <td scope="row"><button type="button" class="btn btn-success" name="button2" style="color:white; font-weight: bold;">Success</button></td>
+      {% else %}
+      <td scope="row"><button type="button" class="btn btn-warning" name="button2" style="color:white; font-weight: bold;"> Declined</button></td>
+      {% endif %}
+
+    </tr>
+    
+  </tbody>
+  {% endfor %}
+  
+</table>  
+</form>       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  {% endblock %}
+          

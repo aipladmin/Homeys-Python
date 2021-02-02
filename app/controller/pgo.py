@@ -89,11 +89,10 @@ def addpg():
 			return redirect(url_for('pgo.addpg'))
 	return render_template('pgo/addpg.html')
 
-@pgo.route('/viewpg')
+@pgo.route('/viewpg',methods=['GET','POST'])
 @login_required
 def viewpg():
-
-	data = mysql_query("Select pg_mst.pgid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+	data=mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
 	# print(data)
 	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
 	# print(file_names)
@@ -117,8 +116,74 @@ def viewpg():
 		#         dict = {'images':None}    
 		#         data[int(cntr)].update(dict) 
 			   
-				   
+	if request.method=="POST":
+		if "hidepg" in request.form:
+			pgid=request.form['pgid']
 			
+			mysql_query("UPDATE pg_mst set hidden='{}' where pgid={}".format("yes",pgid))
+			data=mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+			# print(data)
+			file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+			# print(file_names)
+			cntr=-1
+			for x in data:
+				cntr = cntr+1
+				length =x['email']+'_'+x['pg_name']
+				# print(length)
+				xLen = len(length)
+				lst=[]
+				for y in file_names:
+					if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+						print(y[10:int(xLen+10)])
+						lst.append(y[10:])
+						dict = {'images':lst}
+						# print(dict)
+						data[int(cntr)].update(dict)
+			return render_template('pgo/viewpg.html',data=data)
+		if "unhidepg" in request.form:
+			pgid=request.form['pgid']
+			mysql_query("UPDATE pg_mst set hidden='{}' where pgid={}".format("no",pgid))
+			data=mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+			# print(data)
+			file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+			# print(file_names)
+			cntr=-1
+			for x in data:
+				cntr = cntr+1
+				length =x['email']+'_'+x['pg_name']
+				# print(length)
+				xLen = len(length)
+				lst=[]
+				for y in file_names:
+					if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+						print(y[10:int(xLen+10)])
+						lst.append(y[10:])
+						dict = {'images':lst}
+						# print(dict)
+						data[int(cntr)].update(dict)
+			return render_template('pgo/viewpg.html',data=data)
+		if "deletepg" in request.form:
+			pgid=request.form['pgid']
+			mysql_query("DELETE from pg_mst where pgid={}".format(pgid))
+			data = mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email from pg_mst join user_mst ON pg_mst.UID=user_mst.UID where user_mst.email='{}'".format(session['email']))
+			# print(data)
+			file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
+			# print(file_names)
+			cntr=-1
+			for x in data:
+				cntr = cntr+1
+				length =x['email']+'_'+x['pg_name']
+				# print(length)
+				xLen = len(length)
+				lst=[]
+				for y in file_names:
+					if y[10:int(xLen+10)] == x['email']+'_'+x['pg_name']:
+						print(y[10:int(xLen+10)])
+						lst.append(y[10:])
+						dict = {'images':lst}
+						# print(dict)
+						data[int(cntr)].update(dict)
+			return render_template('pgo/viewpg.html',data=data)			
 	return render_template('pgo/viewpg.html',data=data)
 
 
@@ -231,7 +296,7 @@ def rooms():
 						`token_amt`)
 						VALUES
 						({},{},{},{},{},{},{}); '''.format(pgid,request.form["total_beds"],request.form['vacant_beds'],int(ac),int(tv),request.form['room_rent'],request.form['token_amount']))
-		return "Masdhav"
+		return redirect(url_for('pgo.rooms'))
 	file_names = get_file_list_s3(bucket ='mittrisem',prefix='pg_images/')
 	# print(file_names)
 	lst=[]
@@ -253,7 +318,6 @@ def rooms():
 def confirmbooking():
 	data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid ")
 	if request.method=="POST":
-		print("########################################"+str(request.form))
 		if "but1" in request.form:
 			value=request.form['but1']
 			data=mysql_query("select user_mst.email,booking_mst.bid,pg_mst.pg_name,pg_mst.pg_gender,pg_mst.area,user_mst.fname,user_mst.lname,pg_mst.city,booking_mst.book_date,user_mst.gender,booking_mst.status from booking_mst inner join user_mst on booking_mst.uid=user_mst.uid inner join pg_mst on pg_mst.pgid=booking_mst.pgid where booking_mst.status='{}'".format("Deactivated"))
@@ -277,3 +341,50 @@ def confirmbooking():
 			mysql_query("UPDATE booking_mst SET status='{}' where bid={}".format("Declined",bid))
 			return render_template('pgo/bookinginfo.html',data=data)			
 	return render_template('pgo/bookinginfo.html',data=data)
+
+
+
+@pgo.route('/updaterooms',methods=['GET','POST'])
+def updaterooms():
+	if request.method=="POST":
+		if "hideroom" in request.form:
+			pgid=request.form['pgid']
+			rid=request.form['hideroom']
+			mysql_query("UPDATE room_mst set rhidden='{}' where rid={}".format("yes",rid))
+			return redirect(url_for('pgo.rooms',PGID=pgid))
+		if "unhideroom" in request.form:
+			pgid=request.form['pgid']
+			rid=request.form['unhideroom']
+			mysql_query("UPDATE room_mst set rhidden='{}' where rid={}".format("no",rid))
+			return redirect(url_for('pgo.rooms',PGID=pgid))
+		if "deleteroom" in request.form:
+			pgid=request.form['pgid']
+			rid=request.form['deleteroom']
+			mysql_query("DELETE from room_mst where rid={}".format(rid))
+			return redirect(url_for('pgo.rooms',PGID=pgid))
+
+		if "updateroom" in request.form:
+			rid = request.form['updateroom']
+			pgid = request.form['pgid']
+			totalbed = request.form['totalbed']
+			availbed = request.form['availbed']
+			rent = request.form['rent']
+			if request.form.get('ac') is None:
+				ac = 0
+			else:
+				ac = 1
+			if request.form.get('tv') is None:
+				tv = 0
+			else:
+				tv = 1
+
+			# token = (rent/3)
+			mysql_query("UPDATE room_mst set total_beds='{}',avail_beds='{}',AC={},TV={},rent='{}' where RID={}".format(totalbed,availbed,ac,tv,rent,rid))
+
+
+
+			#ghode tuje bas idhar wo update wala form h na usse values lani h variable me jese agar rent lana
+			#h toh rent = request.form['rent'] ye jo square brackets ke andar rent h woo imput field ka naam h 
+			#or phir ye update ki query pel diyo "UPDATE room_mst set values({})"
+			return redirect(url_for('pgo.rooms',PGID=pgid))
+	return "completed"	

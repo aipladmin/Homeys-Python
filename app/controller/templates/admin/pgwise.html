@@ -1,0 +1,113 @@
+{% extends "adminDashboard.html" %}
+{% block content %}
+
+<div class="container py-3">
+<form method="POST" action="{{url_for('admin.pgwise')}}">
+    
+    <div class="row">        
+        <div class="col">
+            <label for="name" style="font-weight: bold;">PG Name</label>
+            <input class="form-control" type="text" name="pg_name" placeholder="Enter Name">
+        </div>
+  
+        <div class="col">
+            <label for="no of rooms" style="font-weight: bold;">Total No. of Rooms</label>
+            <input class="form-control" name="total_rooms" type="number" max="100" min="1">
+        </div>
+        
+        <div class="col">
+            <label for="preference" style="font-weight: bold;">Preference</label>
+            <select class="form-control" name="preference" required>
+                <option value="#">select</option>
+                <option value="Boys">Men's</option>
+                <option value="Girls">Women's</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="hidden" style="font-weight: bold;">Hidden PGs</label>
+            <select class="form-control" name="hidden" required>
+                <option value="#">select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="city" style="font-weight: bold;">City</label>
+            <input class="form-control" name="city" placeholder="Enter City">
+        </div>
+
+        <div class="col-2.5">
+            <button type="submit" name="button1" class="btn btn-primary" style="margin-top: 30px;" value="1"> Submit </button>
+            <button type="reset" name="reset" class="btn btn-primary" style="margin-top: 30px;"> Clear Filters </button>
+        </div>
+    </div>
+</form>
+
+    <br>
+    <div class="row">
+        <iframe id="txtArea1" style="display:none"></iframe>
+        &nbsp
+        &nbsp&nbsp
+        <div class="col-0">
+            <button id="pdf" class="btn btn-primary" name="pdf" onclick="printDiv()">Save as PDF &nbsp<i class="fa fa-file-pdf"></i></button>
+        </div>
+        <div class="col">
+            <button id="excel" class="btn btn-primary" name="excel" onclick="fnExcelReport();">Save as Excelsheet &nbsp<i class="fa fa-file-excel"></i></button>
+        </div>
+    </div>
+
+</div>
+
+
+<form method="POST" action="{{url_for('admin.pgwise')}}">
+<div id="printdivision">
+    {% if evalue == "1" %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table user-table" id="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG ID</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Name</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Type</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Owner Name</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Owner Email</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Owner Phone</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Address</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Total Rooms</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Description</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Status</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Hidden</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in res %}
+                                <tr>
+                                    <td>{{ item['PGID'] }}</td>
+                                    <td>{{ item['pg_name'] }}</td>
+                                    <td>{{ item['pg_gender'] }}</td>
+                                    <td>{{ item['fname'] }} {{ item['lname'] }}</td>
+                                    <td>{{ item['email'] }}</td>
+                                    <td>{{ item['phone'] }}</td>
+                                    <td>{{ item['addr_1'] }} {{ item['addr_2'] }}, {{ item['area'] }}, {{ item['city'] }} ({{ item['state'] }})</td>
+                                    <td>{{ item['total_rooms'] }}</td>
+                                    <td>{{ item['prop_desc'] }}</td>
+                                    <td>{{ item['status'] }}</td>
+                                    <td>{{ item['hidden'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</form>
+
+{% endblock content%}

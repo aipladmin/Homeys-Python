@@ -39,15 +39,22 @@
                 </div>
                 </div>
                 </div><br>
+
+                
+                <form method="POST" action="{{url_for('user.favourites')}}">
+                  
                 <div class="row">
+
                     <div class="col">
-                        <button type="button" class="btn btn-outline-primary btn-block"><i class="far fa-heart"></i>&nbsp; Add to favourite</button>
+                        <button type="submit" value="{{ pgid }}" class="btn btn-outline-primary btn-block" name="button1" ><i class="far fa-heart"></i>&nbsp; Add to favourite</button>
                     </div>
+
                     <div class="col">
                         <a href="#rooms"> <button type="button" class="btn btn-outline-secondary btn-block"><i class="fas fa-bed"></i>&nbsp; View Rooms</button></a>
                     </div>
 
                   </div>
+                </form>
 
             </div>
           
@@ -154,7 +161,8 @@
       </div>
     </div>
 
-
+{% for x in rdata %}
+ {% if x['rhidden'] == 'no' %}
 
     <div class="card shadow p-3">
       <div class="card-body ">
@@ -165,7 +173,7 @@
 
           <div class="card shadow">
           <div class="card-body">
-          <div class="row">
+          <div class="row" >
               <div class="col-6">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
@@ -189,51 +197,68 @@
                   </a>
                 </div>
               </div>
-              <div class="col-6 ">
+              <div class="col-6">
                   <div class="row" id="rooms">
                       <div class="col badge badge-primary p-1">
+                        {% if x['total_beds'] == 4 %}
+                          <h3 style="font-size: 18px; margin-top: 8px;">Four Sharing Room</h3>
+                          {% elif x['total_beds'] == 3 %}
                           <h3 style="font-size: 18px; margin-top: 8px;">Three Sharing Room</h3>
+                        {% elif x['total_beds'] == 2 %}
+                        <h3 style="font-size: 18px; margin-top: 8px;">Two Sharing Room</h3>
+                        {% elif x['total_beds'] == 1 %}
+                         <h3 style="font-size: 18px; margin-top: 8px;">Single bed Room</h3>
+                         {% endif %}
+
+                        
                       </div>
                   </div>
                   <br>
 
                   <div class="row" >
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning d-block" style="font-size: 16px;">Total Beds: 3</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">{{x['total_beds']}}</span>
                       </div>
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning d-block" style="font-size: 16px;">Vacant Beds: 1</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">{{x['avail_beds']}}</span>
                       </div>
                   </div>
                   <hr>
 
                   <div class="row" >
                       <div class="col-6 text-center">
+                        {% if x['AC'] == "1"%}
                           <span class="badge badge-warning d-block" style="font-size: 16px;">Air Conditioner: Yes</span>
+                        {% else %}
+                        <span class="badge badge-warning d-block" style="font-size: 16px;">Air Conditioner: NO</span>
+                        {% endif %}
                       </div>
-                      <div class="col-6 text-center">
-                          <span class="badge badge-warning d-block" style="font-size: 16px;">Personal Television: No</span>
-                      </div>
-                  </div>
+                        <div class="col-6 text-center">
+                        {% if x['TV'] == "1"%}
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">Television: Yes</span>
+                        {% else %}
+                        <span class="badge badge-warning d-block" style="font-size: 16px;">Television: NO</span>
+                        {% endif %}
+                      </div>                  </div>
                   <hr>
 
                   <div class="row" >
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning d-block" style="font-size: 16px;">Room Rent: 9000/-</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">{{x['rent']}}</span>
                       </div>
                       <div class="col-6 text-center">
-                          <span class="badge badge-warning d-block" style="font-size: 16px;">Token Amount: 3000/-</span>
+                          <span class="badge badge-warning d-block" style="font-size: 16px;">{{x['token_amt']}}</span>
                       </div>
                   </div>
                     <hr>
                     
                   <form method="post" action="{{url_for('user.pg_details')}}">
                     <div class="row" >
-                      {% for x in rdata %}
+                     
                         <div class="col text-center">
                             <button type="submit" name="booking" value="{{ x['RID'] }}" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
                         </div>
-                        {% endfor %}
+                        
                     </div>
                   </form>
               </div>
@@ -244,7 +269,10 @@
 
       </div>
     </div>
-    
+
+    {% endif %}
+    {% endfor %}
+
 </div>
 
 {% endblock %}

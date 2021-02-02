@@ -1,0 +1,50 @@
+{% extends 'adminDashboard.html' %}
+{% block content %}
+
+<div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                              <form method="POST" action="{{ url_for('user.favourites') }}">
+                                <h4 class="card-title">My Favourites</h4><br/>
+                                {% for x in data%}
+                                <div class="card shadow">
+                                  <div class="card-header" style="background-color: black; color:white;"><h3>{{ x['pg_name']}}</h3></div>
+                                  <div class="card-body">
+
+                                      <div class="row">
+                                          <div class="col">
+                                              <span class="badge badge-primary d-block" style="font-size: 18px;">{{x['pg_gender']}} Pg<i class="fas fa-user"></i> </span>
+                                          </div>
+                                          <div class="col">
+                                              <span class="badge badge-success d-block" style="font-size: 18px;">{{x['area']}}<i class="fas fa-map-marker-alt"></i></span>
+                                          </div>
+                                         
+                                          <div class="col">
+                                              <span class="badge badge-primary d-block" style="font-size: 18px;">Total Rooms: {{x['total_rooms']}} </span>
+                                              <input type="text" value="{{x['pgid']}}" name="pid" hidden>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                                  <div class="card-footer text-right" >
+                                      <button type="submit" name="delete" value="{{x['wid']}}"class="btn btn-danger">Delete</button> &nbsp;
+
+                                      <button type="submit" name="view" value="{{x['pgid']}}" class="btn btn-primary">View PG</button>
+                                  </div>
+                                </div>
+                                {% endfor %}
+                              </form>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+{% endblock %}
