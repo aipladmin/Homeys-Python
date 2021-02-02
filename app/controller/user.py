@@ -114,7 +114,7 @@ def pg_details():
 	if request.method == "POST":
 		data = mysql_query("Select room_mst.RID,room_mst.PGID,user_mst.UID from room_mst inner join pg_mst ON pg_mst.PGID = room_mst.PGID inner join user_mst ON user_mst.UID=pg_mst.UID where room_mst.RID={}".format(request.form['booking']))
 		mysql_query("insert into booking_mst(PGID,RID,UID) values({},{},{})".format(data[0]['PGID'],data[0]['RID'],data[0]['UID']))
-		return str(data)
+		return redirect(url_for('user.pg_details'))
 
 	pgid = request.args.get('PGID')
 	data = mysql_query("select * from user_mst inner join pg_mst ON user_mst.UID=pg_mst.UID where pg_mst.pgid={}".format(pgid))
