@@ -225,33 +225,26 @@
                           <span class="badge badge-warning d-block" style="font-size: 16px;">Token Amount: 3000/-</span>
                       </div>
                   </div>
-                  <hr>
-
-                  <div class="row" >
-                      <div class="col text-center">
-                          <button type="button" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
-                      </div>
-                  </div>
-
+                    <hr>
+                    
+                  <form method="post" action="{{url_for('user.pg_details')}}">
+                    <div class="row" >
+                      {% for x in rdata %}
+                        <div class="col text-center">
+                            <button type="submit" name="booking" value="{{ x['RID'] }}" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                  </form>
               </div>
 
           </div>
           </div>
           </div>
 
-
-
       </div>
     </div>
-
-
-
-
-
-
-
-
-
+    
 </div>
 
 {% endblock %}
