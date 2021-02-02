@@ -114,7 +114,7 @@ def pgownerwise():
 		fromdate=request.form['fromdate']
 		todate=request.form['todate']
 		if "button1" in request.form:
-			res=mysql_query("select UID,fname,lname,email,phone,gender,dob,authorised,addr1,addr2,area,city,state,pincode,id_method,id_proof from user_mst where (UTMID={}) AND (gender='{}' OR authorised='{}' OR dob BETWEEN '{}' AND '{}');".format(2,gender,authorization,fromdate,todate))
+			res=mysql_query("select UID,fname,lname,email,phone,gender,dob,authorised,addr1,addr2,area,city,state,pincode,id_method,id_proof from user_mst where (UTMID={}) AND (gender='{}' AND authorised='{}' OR dob BETWEEN '{}' AND '{}');".format(2,gender,authorization,fromdate,todate))
 			print(evalue)
 			return render_template('admin/pgownerwise.html',res=res,evalue=evalue)
 	return render_template('admin/pgownerwise.html')
