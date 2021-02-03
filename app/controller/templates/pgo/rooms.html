@@ -253,77 +253,73 @@
                                     <!-- Modal -->
                                     <div class="modal fade" id="updtroom{{ items['RID'] }}" tabindex="-1" role="dialog" aria-labelledby="updtroom" aria-hidden="true">
                                       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                    
                                         <div class="modal-content">
+                                          <form>
                                           <div class="modal-header">
-                                            <h5 class="modal-title">Update Room details</h5>
+                                            <h5 class="modal-title" id="addroom">Update Room Details</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
-
                                           <div class="modal-body">
-                                        
                                               <div class="form-group row">
-                                                <label for="totalbed" class="col-md-6 col-form-label">Total Beds in Room</label>
+                                                <label for="totalbed" class="col-md-6 col-form-label" style="text-align:left;">Total Beds in Room</label>
                                                 <div class="col-md-6">
                                                   <input type="number" name="totalbed" class="form-control" id="totalbed" value="{{items['total_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
-                                                <label for="availbed" class="col-md-6 col-form-label">Vacant beds in room</label>
+                                                <label for="availbed" class="col-md-6 col-form-label" style="text-align:left;">Vacant beds in room</label>
                                                 <div class="col-md-6">
                                                   <input type="number" name="availbed" class="form-control" id="availbed" value="{{ items['avail_beds']}}">
                                                 </div>
                                               </div>
                                               <div class="form-group row">
-                                                <label for="rent" class="col-md-6 col-form-label">Room Rent</label>
+                                                <label for="rentM1" class="col-md-6 col-form-label" style="text-align:left;">Room Rent</label>
                                                 <div class="col-md-6">
                                                   <input type="text" name="rent" class="form-control" id="rentM1" value="{{items['rent']}}">
-                                                </div >
+                                                </div>
                                               </div>
-                                               
-                                               <div class="form-group row">
-                                                <label for="token" class="col-md-6 col-form-label">Token Amount</label>
+                                              
+                                              <div class="form-group row">
+                                                <label for="tokenM1" class="col-md-6 col-form-label" style="text-align:left;">Token Amount</label>
                                                 <div class="col-md-6">
                                                   <input type="text" name="token_amt" class="form-control" id="tokenM1" value="{{items['token_amt']}}" readonly  onclick="calculateRent()" onfocus="calculateRent()">
                                                 </div>
                                                 </div>
-                                               
+                                              
 
                                               <div class="form-group row">
-                                                <div class="col-md-6">Air conditioner</div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-6" style="text-align:left;">Air conditioner</div>
+                                                <div class="col-md-1">
                                                   <div class="form-check">
                                                     {% if items['AC'] == "1" %}
-                                                    <input name="ac" class="form-check-input" type="checkbox" checked>
+                                                    <input class="form-check-input" name="ac" type="checkbox" checked>
                                                     {%else%}
-                                                    <input name="ac" class="form-check-input" type="checkbox">
+                                                    <input class="form-check-input" name="ac" type="checkbox">
                                                     {%endif%}
-                                                    
                                                   </div>
                                                 </div>
                                               </div>
-                                               <div class="form-group row">
-                                                <div class="col-md-6">Personal Television</div>
-                                                <div class="col-md-2">
+                                              <div class="form-group row">
+                                                <div class="col-md-6" style="text-align:left;">Personal Television</div>
+                                                <div class="col-md-1">
                                                   <div class="form-check">
                                                     {% if items['TV'] == "1" %}
-                                                    <input name="tv" class="form-check-input" type="checkbox" checked>
+                                                    <input class="form-check-input" name="tv" type="checkbox" checked>
                                                     {%else%}
-                                                     <input name="tv" class="form-check-input" type="checkbox">
-                                                     {%endif%}
-
+                                                    <input class="form-check-input" name="tv" type="checkbox">
+                                                    {%endif%}
                                                   </div>
                                                 </div>
                                               </div>
 
-                                               <div class="form-group row">
-                                                <div class="col-md-3">Room Images</div>
+                                              <div class="form-group row">
+                                                <div class="col-md-3" style="text-align:left;">Room Images</div>
                                                 <div class="col-md-9">
                                                   <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile"></label>
+                                                    <label class="custom-file-label" for="customFile" style="text-align: left;">Choose files</label>
                                                   </div>
                                                 </div>
                                               </div>
@@ -333,14 +329,12 @@
                                             <input type="text" name="pgid" value="{{ items['PGID']}}" hidden>
                                               <button type="submit" class="btn btn-primary" value="{{items['RID']}}" name="updateroom" >Yes</button>
                                           </div>
-                                       
+                                        </form>
                                         </div>
                                       </div>
                                     </div>
-
-                                  
-                                    </div>
-                                    </form>
+                                  </div>
+                                </div>
 
 
                                 </div><!-- card end -->
