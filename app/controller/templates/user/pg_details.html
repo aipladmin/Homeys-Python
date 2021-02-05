@@ -254,9 +254,12 @@
                     
                   <form method="post" action="{{url_for('user.pg_details')}}">
                     <div class="row" >
+                        <input type="text" value="{{ x['token_amt']}}" name="amt" hidden>
                         <input type="text" value="{{pgid}}" hidden name="pgid">
                         <div class="col text-center">
                             <button type="submit" name="booking" value="{{ x['RID'] }}" class="btn btn-success btn-block"><i class="fas fa-bed"></i>&nbsp; Request For Booking</button>
+                        
+                          
                         </div>
                     </form>
                         

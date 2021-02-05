@@ -33,7 +33,7 @@ def handle_exception(e):
 @user.route('/')
 @user.route('/pg_ads',methods=['GET','POST'])
 def pg_ads():
-	data = mysql_query("Select pg_mst.pgid,pg_mst.hidden,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
+	data = mysql_query("Select pg_mst.status,pg_mst.pgid,pg_mst.hidden,pg_name,pg_mst.addr_1,pg_mst.addr_2,pg_mst.pg_gender,pg_mst.area,pg_mst.city,pg_mst.state,pg_mst.pincode,pg_mst.total_rooms,pg_mst.prop_desc,user_mst.email,GROUP_CONCAT(facility_mst.amenity) as facilities from pg_mst inner join user_mst on pg_mst.uid=user_mst.uid inner join facility_mst on facility_mst.pgid=pg_mst.pgid group by pg_mst.pgid")
 	file_names = get_file_list_s3(bucket='mittrisem', prefix='pg_images/')
 	# print(file_names)
 	cntr = -1
@@ -113,8 +113,9 @@ def pg_details():
 	if request.method == "POST":
 		uid=mysql_query("select uid from user_mst where email='{}'".format(session['email']))
 		pgid=request.form['pgid']
+		book_amt=request.form['amt']
 		data = mysql_query("Select room_mst.RID,room_mst.PGID from room_mst where room_mst.RID={}".format(request.form['booking']))
-		mysql_query("insert into booking_mst(PGID,RID,UID) values({},{},{})".format(data[0]['PGID'],data[0]['RID'],uid[0]['uid']))
+		mysql_query("insert into booking_mst(PGID,RID,UID,amount) values({},{},{},{})".format(data[0]['PGID'],data[0]['RID'],uid[0]['uid'],book_amt))
 		data = mysql_query("select * from user_mst inner join pg_mst ON user_mst.UID=pg_mst.UID where pg_mst.pgid={}".format(pgid))
 		rdata=mysql_query("select * from room_mst where pgid={}".format(pgid))
 
