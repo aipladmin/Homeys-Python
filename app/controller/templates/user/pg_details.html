@@ -53,6 +53,10 @@
                         <a href="#rooms"> <button type="button" class="btn btn-outline-secondary btn-block"><i class="fas fa-bed"></i>&nbsp; View Rooms</button></a>
                     </div>
 
+                    <div class="col">
+                        <a href="#maps"> <button type="button" class="btn btn-outline-secondary btn-block"><i class="fas fa-map-marked-alt"></i>&nbsp; View on map</button></a>
+                    </div>
+
                   </div>
                 </form>
 
@@ -92,6 +96,7 @@
                 <div class="row">
                     <div class="col"><p><i class="fas fa-envelope"></i>&nbsp; {{ x['email'] }}</p></div>
                 </div>
+
             </div>
             {% endfor %}
         </div>
@@ -163,10 +168,10 @@
     <!-- used for diplaying maps  -->
 
 
-    <div class="card shadow p-3">
+    <div class="card shadow p-3" id="maps">
       <div class="card-body ">
-          <div class="row">
-          <div class="col" style="text-align: center;"><h3 class="badge badge-dark d-block" style="font-size: 22px; align-content: center;">Map</h3></div>
+          <div class="row" >
+          <div class="col" style="text-align: center;"><h3 class="badge badge-dark d-block" style="font-size: 22px;">Map</h3></div>
           </div>
           <hr>
        <div class="card shadow">
