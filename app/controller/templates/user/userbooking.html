@@ -66,7 +66,7 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
@@ -84,7 +84,7 @@
     <td scope="row"><button type="button" class="btn btn-warning" name="button2" style="color:white; font-weight: bold;"><i class="far fa-eye"> Pending</i></button></td>
       
     </tr>
-    {% endfor %}
+  
   </tbody>
   {% endfor %}
   
@@ -130,7 +130,7 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
@@ -145,17 +145,19 @@
        <td scope="row" style="color:black;">{{ x['amount']}}</td>
     
 
-    <td scope="row"><button type="button" class="btn btn-success" style="color:white; font-weight: bold;" data-toggle="modal" data-target="#payment"><i class="fa fa-wallet"> Pay </i></button></td>
+    <td scope="row"><button type="button" class="btn btn-success" style="color:white; font-weight: bold;" data-toggle="modal" data-target="#payment{{x['pgid']}}"><i class="fa fa-wallet"> Pay </i></button></td>
       
     </tr>
-    {% endfor %}
+    
   </tbody>
   {% endfor %}
   
 </table>  
 </form> 
 <!-- Modal -->
-                                    <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
+                                    {% for x in data %}
+
+                                    <div class="modal fade" id="payment{{x['pgid']}}" tabindex="-1" role="dialog" aria-labelledby="addroom" aria-hidden="true">
                                       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                            <form method="POST"action="{{url_for('user.userbookinginfo')}}">
@@ -165,7 +167,7 @@
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
-                                          {% for x in data %}
+                                          
                                           <div class="modal-body">
                                             
                                               <div class="form-group row">
@@ -271,7 +273,7 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
@@ -289,7 +291,7 @@
     <td scope="row"><button type="button" class="btn btn-danger" style="color:white; font-weight: bold;"> Declined</button></td>
       
     </tr>
-    {% endfor %}
+    
   </tbody>
   {% endfor %}
   
