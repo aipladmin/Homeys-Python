@@ -1,0 +1,58 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/Bootstrap-4---Payment-Form.css')}}">
+    
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/Bootstrap-Payment-Form.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/styles.css')}}">
+    
+</head>
+    <div class="row .payment-dialog-row">
+        <div class="col-12 col-md-4 offset-md-4">
+            <div class="card credit-card-box">
+                <div class="card-header">
+                    <h3><span class="panel-title-text">Payment Details </span><img class="img-fluid panel-title-image" src="{{url_for('.static',filename='payment/accepted_cards.png')}}"></h3>
+                </div>
+                <div class="card-body">
+                    <form id="payment-form" method="POST" action="{{url_for('user.paymentpage')}}">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="form-group"><label for="cardNumber" style="height: 30px;">Card number </label>
+                                    <div class="input-group"><input class="form-control" type="tel" id="cardNumber" required="" placeholder="Valid Card Number" style="height: 45px;" maxlength="19" onkeyup="addHyphen(this)">
+                                        <div class="input-group-append"><span class="input-group-text"><i class="fa fa-credit-card"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-7" style="height: 108px;">
+                                <div class="form-group"><label for="cardExpiry" style="height: 30px;"><span>expiry </span>date</label><input class="form-control" type="month" id="cardExpiry" required="" placeholder="MM / YY" style="height: 45px;"></div>
+                            </div>
+                            <div class="col-5 pull-right">
+                                <div class="form-group"><label for="cardCVC" style="height: 30px;">cvv</label><input class="form-control" type="tel" id="cardCVC" required="" placeholder="CVC" style="height: 45px;" maxlength="3" minlength="3"></div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12"><button class="btn btn-success btn-block btn-lg" type="submit" name="button1">Make payment</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+	function addHyphen (element) {
+    	let ele = document.getElementById(element.id);
+        ele = ele.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+
+        let finalVal = ele.match(/.{1,4}/g).join('-');
+        document.getElementById(element.id).value = finalVal;
+    }
+</script>
+{% endblock %}

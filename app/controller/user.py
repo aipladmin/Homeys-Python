@@ -105,7 +105,7 @@ def userbookinginfo():
 		elif "payment" in request.form:
 			bid=request.form['bid']
 			mysql_query("INSERT INTO transaction_mst VALUES('{}','{}','{}',{})".format(tid,tdate,'success',bid))
-			return render_template('user/userbooking.html')
+			return redirect(url_for('user.paymentpage'))
 	return render_template('user/userbooking.html')
 
 @user.route('/pg_details',methods=['GET','POST'])
@@ -222,3 +222,25 @@ def favourites():
 	 		pgid=request.form['view']
 	 		return redirect(url_for('user.pg_details',PGID=pgid))
 	return render_template('user/favourites.html',data=data)
+
+
+@user.route('/paymentpage',methods=['GET','POST'])
+def paymentpage():
+	if "button1" in request.form:
+		return redirect(url_for('user.otp'))
+	return render_template('user/payment.html')
+
+
+@user.route('/otp',methods=['GET','POST'])
+def otp():
+	if "button1" in request.form:
+		return redirect(url_for('user.transaction'))
+	return render_template('user/otp.html')
+
+@user.route('/transaction Complete',methods=['GET','POST'])
+def transaction():
+	uid = mysql_query("select uid from user_mst where email='{}'".format(session['email']))
+	data=mysql_query("select tid,transaction_mst.date,tstatus,pg_name,fname,lname from booking_mst join transaction_mst on booking_mst.bid=transaction_mst.bid join pg_mst on booking_mst.pgid=pg_mst.pgid join user_mst on pg_mst.uid=user_mst.uid  where booking_mst.uid='{}' order by transaction_mst.tid DESC limit 1".format(uid[0]['uid']))
+	if "button1" in request.form:
+		return redirect(url_for('user.payment'))
+	return render_template('user/transaction.html',data=data)
