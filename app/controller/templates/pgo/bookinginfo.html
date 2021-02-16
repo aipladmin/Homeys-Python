@@ -46,7 +46,7 @@
   <thead>
     <tr style="font-weight:bold; background-color: #181818;">
       <td scope="col" style="color:white;">User name</td>
-      <td scope="col"style="color:white;">Email</td>
+      <td scope="col"style="color:white;">Phone</td>
       <td scope="col"style="color:white;">Date</td>
       <td scope="col"style="color:white;">Gender</td>
       <td scope="col"style="color:white;">Area</td>
@@ -57,13 +57,13 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
-      <td scope="row" style="color:black;">{{ x['email']}}</td>
+      <td scope="row" style="color:black;">{{ x['phone'] }}</td>
     
-      <td scope="row" style="color:black;">{{ x['book_date']}}</td>
+      <td scope="row" style="color:black;">{{ x['book_date'].strftime('%d-%m-%Y')}}</td>
     
       <td scope="row" style="color:black;">{{ x['gender']}}</td>
    
@@ -80,7 +80,6 @@
 
   
     </tr>
-    {% endfor %}
   </tbody>
   {% endfor %}
   
@@ -125,7 +124,7 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
@@ -143,7 +142,7 @@
 
   
     </tr>
-    {% endfor %}
+    
   </tbody>
   {% endfor %}
   
@@ -188,7 +187,7 @@
   </thead>
   
   <tbody>
-    {% for x in data%}
+    
     <tr>
       <td scope="row" style="color:black;">{{ x['fname']}} {{x['lname']}}</td>
     
@@ -209,7 +208,7 @@
 
   
     </tr>
-    {% endfor %}
+    
   </tbody>
   {% endfor %}
   

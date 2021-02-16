@@ -1,0 +1,129 @@
+{% extends "adminDashboard.html" %}
+{% block content %}
+
+<div class="container py-3">
+<form method="POST" action="{{url_for('admin.pgroomwise')}}">
+    
+    <div class="row">
+        <div class="col">
+            <label for="no of beds" style="font-weight: bold;">Total Number of Beds</label>
+            <input class="form-control" name="total_beds" type="number" max="100" min="1">
+        </div>
+
+        <div class="col">
+            <label for="hidden" style="font-weight: bold;">Rooms Hidden</label>
+            <select class="form-control" name="hidden" required>
+                <option value="#">select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="col">
+            <label for="rent" style="font-weight: bold;">Rent</label>
+            <select class="form-control" name="rent" required>
+                <option value="0 AND 0">select</option>
+                <option value="0 AND 5000">Less Than 5000</option>
+                <option value="5000 AND 10000">5000 - 10000</option>
+                <option value="10000 AND 20000">10000 - 20000</option>
+                <option value="20000 AND 30000">20000 - 30000</option>
+                <option value="30000 AND 100000">More Than 30000</option>
+            </select>
+        </div>
+        
+        <div class="col">
+            <label for="token_amt" style="font-weight: bold;">Token Amount</label>
+            <select class="form-control" name="token_amt" required>
+                <option value="0 AND 0">select</option>
+                <option value="0 AND 500">Less Than 500</option>
+                <option value="500 AND 1000">500 - 1000</option>
+                <option value="1000 AND 2000">1000 - 2000</option>
+                <option value="2000 AND 3000">2000 - 3000</option>
+                <option value="3000 AND 20000">More than 3000</option>
+            </select>
+        </div>
+
+        <div class="col-2.5">
+            <button type="submit" name="button1" class="btn btn-primary" style="margin-top: 30px;" value="1"> Submit </button>
+            <button type="reset" name="reset" class="btn btn-primary" style="margin-top: 30px;"> Clear Filters </button>
+        </div>
+    </div>
+</form>
+
+    <br>
+    <div class="row">
+        <iframe id="txtArea1" style="display:none"></iframe>
+        &nbsp
+        &nbsp&nbsp
+        <div class="col-0">
+            <button id="pdf" class="btn btn-primary" name="pdf" onclick="printDiv()">Save as PDF &nbsp<i class="fa fa-file-pdf"></i></button>
+        </div>
+        <div class="col">
+            <button id="excel" class="btn btn-primary" name="excel" onclick="fnExcelReport();">Save as Excelsheet &nbsp<i class="fa fa-file-excel"></i></button>
+        </div>
+    </div>
+
+</div>
+
+
+<form method="POST" action="{{url_for('admin.pgroomwise')}}">
+<div id="printdivision">
+    {% if evalue == "1" %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table user-table" id="table">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Name</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">PG Type</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Room ID</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Total Rooms</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Total Beds</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Available Beds</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">AC</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">TV</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Rent</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Token Amount</th>
+                                    <th class="border-top-0"style="font-weight: bold;font-size: 17px;">Room Hidden</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in res %}
+                                <tr>
+                                    <td>{{ item['pg_name'] }}</td>
+                                    <td>{{ item['pg_gender'] }}</td>
+                                    <td>{{ item['RID'] }}</td>
+                                    <td>{{ item['total_rooms'] }}</td>
+                                    <td>{{ item['total_beds'] }}</td>
+                                    <td>{{ item['avail_beds'] }}</td>
+                                    
+                                    {% if item['AC'] == "0" %}
+                                        <td>N/A</td>
+                                    {% else %}
+                                        <td>Yes</td>
+                                    {% endif %}
+
+                                    {% if item['TV'] == "0" %}
+                                        <td>N/A</td>
+                                    {% else %}
+                                        <td>Yes</td>
+                                    {% endif %}
+
+                                    <td>₹ {{ item['rent'] }}</td>
+                                    <td>₹ {{ item['token_amt'] }}</td>
+                                    <td>{{ item['rhidden'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+</form>
+
+{% endblock content%}
