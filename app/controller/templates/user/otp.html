@@ -1,0 +1,56 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/Bootstrap-4---Payment-Form.css')}}">
+    
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/Bootstrap-Payment-Form.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('.static',filename='payment/styles.css')}}">
+    
+</head>
+    <div class="row .payment-dialog-row">
+        <div class="col-12 col-md-4 offset-md-4">
+            <div class="card credit-card-box">
+                <div class="card-header">
+                    <h3><span class="panel-title-text">OTP</span>
+                        <br>
+                        <img class="img-fluid panel-title-image" src="{{url_for('.static',filename='payment/accepted_cards.png')}}"></h3>
+                </div>
+                <div class="card-body">
+                    <form id="payment-form" method="POST" action="{{url_for('user.otp')}}">
+                        <div class="form-row">
+                            <div class="col-12">
+                                <div class="form-group"><label for="cardNumber" style="height: 30px;">
+                                <b>Enter the six digit OTP that has been sent to your registered mobile no</b>
+                            </label>
+                                </div>
+                                <br>
+                                <input type="text" autocomplete="off" id="txtIdNum" onkeypress="return AllowOnlyNumbers(event);" onpaste="return AllowOnlyNumbers(event);" maxlength="6" minlength="6" style="width: 300px;" />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col-12"><button class="btn btn-success btn-block btn-lg" name="button1" type="submit">Submit</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    function AllowOnlyNumbers(e) {
+
+    e = (e) ? e : window.event;
+    var clipboardData = e.clipboardData ? e.clipboardData : window.clipboardData;
+    var key = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+    var str = (e.type && e.type == "paste") ? clipboardData.getData('Text') : String.fromCharCode(key);
+
+    return (/^\d+$/.test(str));
+}
+</script>
+{% endblock %}

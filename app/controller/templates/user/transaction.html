@@ -1,0 +1,58 @@
+{% extends 'adminDashboard.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+{% for x in data %}
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col">
+                    <center>
+                    <h4 style="font-size: 25px; font-weight: bold;"> Transaction Completed</h4>
+</center>
+<hr class="solid">
+</hr>
+                    
+                </div>
+            </div>
+        
+
+            <div class="row">
+                <div class="col-6">
+                    
+                        <h3 style="font-size: 15px; font-weight: bold; color: black;"> Transaction id: {{x['tid']}}</h3>
+                 
+                        <h3 style="font-size: 15px; font-weight: bold; color: black;">Transaction date: {{x['date']}} </h3>
+               
+               
+                        <h3 style="font-size: 15px; font-weight: bold; color: black;"> success : {{x['tstatus']}} </h3>
+                    
+
+                
+            
+                        <h3 style="font-size: 15px; font-weight: bold; color: black;"> user name : {{x['fname']}} {{x['lname']}}</h3>
+                
+                   
+                        <h3 style="font-size: 15px; font-weight: bold; color: black;"> pg name :{{x['pg_name']}}</h3>
+                    </div>
+                                   </div>
+                                   <br>
+                                   <form method="post">
+            <div class="row">
+                <div class="col">
+             <button class="btn btn-primary" value="Go Back" type="submit" name="button1" >Go Back </button>
+                </div>
+            </div>
+</form>
+
+
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
