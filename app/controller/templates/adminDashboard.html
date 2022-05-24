@@ -316,9 +316,11 @@
     function printDiv() 
     { 
         var divContents = document.getElementById("printdivision").innerHTML; 
+        var reportname = document.getElementById("pdf").name;
         var a = window.open('', '', 'height=1080, width=1080'); 
         a.document.write('<html>'); 
-        a.document.write('<body >'); 
+        a.document.write('<body >');
+        a.document.write('<h2> <center>');a.document.write(reportname);a.document.write('</center></h2><br>');
         a.document.write(divContents); 
         a.document.write('</body></html>'); 
         a.document.close(); 

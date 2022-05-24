@@ -380,11 +380,5 @@ def updaterooms():
 
 			# token = (rent/3)
 			mysql_query("UPDATE room_mst set total_beds='{}',avail_beds='{}',AC={},TV={},rent='{}' where RID={}".format(totalbed,availbed,ac,tv,rent,rid))
-
-
-
-			#ghode tuje bas idhar wo update wala form h na usse values lani h variable me jese agar rent lana
-			#h toh rent = request.form['rent'] ye jo square brackets ke andar rent h woo imput field ka naam h 
-			#or phir ye update ki query pel diyo "UPDATE room_mst set values({})"
 			return redirect(url_for('pgo.rooms',PGID=pgid))
 	return "completed"	
